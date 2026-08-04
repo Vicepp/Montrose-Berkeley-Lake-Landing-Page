@@ -331,6 +331,35 @@
   .yt__play svg{width:26px; height:26px; margin-left:4px; fill:#fff;}
   .yt iframe{position:absolute; inset:0; width:100%; height:100%; border:0;}
 
+  /* TRUST BAND */
+  .trust-band{background:var(--paper-2); border-bottom:1px solid #ddd0b3; padding:30px 0;}
+  .trust-inner{display:flex; align-items:center; justify-content:space-between; gap:40px; flex-wrap:wrap;}
+  .trust-lede p{font-family:'Fraunces',serif; font-size:19px; font-weight:500; line-height:1.3; margin-top:8px; max-width:330px;}
+  .trust-lede strong{font-weight:600; color:var(--rust);}
+  .trust-stats{display:flex; gap:44px; flex-wrap:wrap;}
+  .trust-stats .num{font-family:'Fraunces',serif; font-size:30px; font-weight:600; color:var(--ink); line-height:1.05;}
+  .trust-stats .lbl{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.06em;
+                    text-transform:uppercase; color:var(--stone); margin-top:6px;}
+
+  /* TESTIMONIALS */
+  .quote-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:46px;}
+  .quote-card{
+    background:var(--ink-2); border:1px solid rgba(255,255,255,.12); border-radius:var(--radius);
+    padding:30px 28px; display:flex; flex-direction:column;
+  }
+  .quote-card .mark{font-family:'Fraunces',serif; font-size:44px; line-height:.8; color:var(--rust); margin-bottom:14px;}
+  .quote-card blockquote{font-size:15px; line-height:1.62; color:#d3d7e4; flex:1;}
+  .quote-who{display:flex; align-items:center; gap:13px; margin-top:24px; padding-top:20px; border-top:1px solid rgba(255,255,255,.12);}
+  .quote-avatar{
+    flex:0 0 auto; width:44px; height:44px; border-radius:50%;
+    background:linear-gradient(140deg, var(--rust), var(--rust-deep));
+    display:flex; align-items:center; justify-content:center;
+    font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600; color:#fff; letter-spacing:.03em;
+  }
+  .quote-who .n{display:block; font-size:14.5px; font-weight:600; color:#fff; line-height:1.3;}
+  .quote-who .r{display:block; font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.05em;
+                text-transform:uppercase; color:#9aa1b8; margin-top:3px; line-height:1.35;}
+
   /* MEET THE CEO */
   .ceo-grid{display:grid; grid-template-columns:.8fr 1.2fr; gap:56px; align-items:start; margin-top:44px;}
   .ceo-photo{border-radius:var(--radius); overflow:hidden; box-shadow:0 24px 60px rgba(18,32,64,.22); background:var(--paper-2);}
@@ -452,6 +481,12 @@
     .ceo-grid{grid-template-columns:1fr; gap:30px;}
     .ceo-photo{max-width:320px;}
     .benefit-grid{grid-template-columns:repeat(2,1fr);}
+    .quote-grid{grid-template-columns:repeat(2,1fr);}
+    .trust-inner{flex-direction:column; align-items:flex-start; gap:24px;}
+    .trust-lede p{max-width:none; font-size:18px;}
+    .trust-stats{gap:0; width:100%; display:grid; grid-template-columns:repeat(3,1fr);}
+    .trust-stats .num{font-size:23px;}
+    .trust-stats .lbl{font-size:9.5px; letter-spacing:.04em;}
 
     /* Three short stats read better as a row than a tall stack. */
     .stat-row{display:grid; grid-template-columns:repeat(3,1fr); gap:0;}
@@ -489,8 +524,12 @@
     .hero-actions, .final-actions, .benefit-actions{flex-direction:column; align-items:stretch;}
     .hero-actions .btn, .final-actions .btn, .benefit-actions .btn{justify-content:center;}
     .benefit-grid{grid-template-columns:1fr;}
+    .quote-grid{grid-template-columns:1fr;}
+    .quote-card{padding:26px 22px;}
     .ceo-stats{grid-template-columns:1fr; gap:16px;}
     .ceo-photo{max-width:none;}
+    /* three stats stay in a row but need to stack on the narrowest phones */
+    .trust-stats{grid-template-columns:1fr 1fr; row-gap:18px;}
     .hero-scroll{text-align:center;}
   }
   @media (prefers-reduced-motion:reduce){
@@ -546,6 +585,31 @@
     </div>
   </div>
 </header>
+
+<section class="trust-band" aria-label="Pheenyx Capital track record">
+  <div class="wrap">
+    <div class="trust-inner">
+      <div class="trust-lede">
+        <span class="eyebrow eyebrow-rust">Track Record</span>
+        <p>Trusted by <strong>120+ investors</strong> who believe in what we do</p>
+      </div>
+      <div class="trust-stats">
+        <div>
+          <div class="num">$153.5MM</div>
+          <div class="lbl">Portfolio Size (AUM)</div>
+        </div>
+        <div>
+          <div class="num">150</div>
+          <div class="lbl">Active Investors</div>
+        </div>
+        <div>
+          <div class="num">885</div>
+          <div class="lbl">Portfolio Units</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="section" id="opportunity">
   <div class="wrap">
@@ -835,6 +899,89 @@
           </a>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-navy" id="testimonials">
+  <div class="wrap">
+    <span class="eyebrow">What Investors Say</span>
+    <h2>Trusted by 120+ investors who believe in what we do</h2>
+    <p class="lede stone-text">Professionals across healthcare, business, and leadership trust Pheenyx Capital to guide their real estate investments with clarity, discipline, and care.</p>
+    <div class="quote-grid">
+
+      <figure class="quote-card">
+        <div class="mark" aria-hidden="true">&ldquo;</div>
+        <blockquote>I had never invested in real estate before. Hearing Dr. Nkem speak gave me clarity and confidence. Her honesty and deep knowledge made the decision feel grounded, not rushed and I&rsquo;ve been glad I took that step.</blockquote>
+        <figcaption class="quote-who">
+          <span class="quote-avatar" aria-hidden="true">RB</span>
+          <span>
+            <span class="n">Dr. Ritha Belizaire, MD</span>
+            <span class="r">Colorectal Surgeon</span>
+          </span>
+        </figcaption>
+      </figure>
+
+      <figure class="quote-card">
+        <div class="mark" aria-hidden="true">&ldquo;</div>
+        <blockquote>As a surgeon, my time is limited. Pheenyx Capital helped me build wealth beyond my medical career, with a strategy rooted in trust, clarity, and long-term vision.</blockquote>
+        <figcaption class="quote-who">
+          <span class="quote-avatar" aria-hidden="true">BV</span>
+          <span>
+            <span class="n">Dr. Benjamin Vabi</span>
+            <span class="r">Colorectal &amp; General Surgeon</span>
+          </span>
+        </figcaption>
+      </figure>
+
+      <figure class="quote-card">
+        <div class="mark" aria-hidden="true">&ldquo;</div>
+        <blockquote>Pheenyx Capital understands the demands of my profession. They guided me through real estate investing with patience and clarity, making the process straightforward and aligned with my long-term goals.</blockquote>
+        <figcaption class="quote-who">
+          <span class="quote-avatar" aria-hidden="true">PJ</span>
+          <span>
+            <span class="n">Dr. Paul Johnson</span>
+            <span class="r">Colon &amp; Rectal Surgeon</span>
+          </span>
+        </figcaption>
+      </figure>
+
+      <figure class="quote-card">
+        <div class="mark" aria-hidden="true">&ldquo;</div>
+        <blockquote>The team at Pheenyx Capital understands healthcare professionals. Their approach to multifamily investing is thoughtful, well-explained, and built for people who want growth without added stress.</blockquote>
+        <figcaption class="quote-who">
+          <span class="quote-avatar" aria-hidden="true">AH</span>
+          <span>
+            <span class="n">Dr. Andrew Harrison</span>
+            <span class="r">Emergency Medicine</span>
+          </span>
+        </figcaption>
+      </figure>
+
+      <figure class="quote-card">
+        <div class="mark" aria-hidden="true">&ldquo;</div>
+        <blockquote>Pheenyx Capital simplified real estate investing for me. They removed the complexity, explained the strategy clearly, and helped me invest with confidence in a tangible, long-term asset.</blockquote>
+        <figcaption class="quote-who">
+          <span class="quote-avatar" aria-hidden="true">AO</span>
+          <span>
+            <span class="n">Abigail Okeh</span>
+            <span class="r">CEO</span>
+          </span>
+        </figcaption>
+      </figure>
+
+      <figure class="quote-card">
+        <div class="mark" aria-hidden="true">&ldquo;</div>
+        <blockquote>As an investor with Pheenyx Capital Investment, I value its disciplined, physician-led approach to multifamily investing, offering busy professionals transparent opportunities, strong education, and a community focused on long-term, sustainable wealth creation.</blockquote>
+        <figcaption class="quote-who">
+          <span class="quote-avatar" aria-hidden="true">PI</span>
+          <span>
+            <span class="n">U. Phillip Igbinadolor, DMD</span>
+            <span class="r">Dentist</span>
+          </span>
+        </figcaption>
+      </figure>
+
     </div>
   </div>
 </section>

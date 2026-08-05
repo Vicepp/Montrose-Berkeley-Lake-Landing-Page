@@ -218,6 +218,71 @@ const STYLES = `@import url('https://fonts.googleapis.com/css2?family=Fraunces:i
   .mbl-root .cta-count.is-live .cta-count__k{color:rgba(255,255,255,.9);}
   .mbl-root .cta-count.is-live .cta-count__v{color:#fff;}
 
+  .mbl-root /* FLOATING PLAYBOOK BANNER — sits above the sticky CTA bar, .mbl-root never over it */
+  .pb-fab{
+    position:fixed; left:24px; bottom:104px; z-index:180;
+    display:flex; align-items:center; gap:12px; text-align:left;
+    max-width:330px; padding:12px 20px 12px 14px;
+    background:var(--paper); color:var(--ink);
+    border:1px solid #ddd0b3; border-radius:999px; cursor:pointer;
+    box-shadow:0 16px 40px rgba(10,17,36,.34);
+    transition:transform .25s ease, box-shadow .25s ease, background .25s ease;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .mbl-root .pb-fab:hover{transform:translateY(-2px); box-shadow:0 22px 52px rgba(10,17,36,.42);}
+  .mbl-root .pb-fab:focus-visible{outline:3px solid var(--rust); outline-offset:3px;}
+  .mbl-root .pb-fab__icon{
+    flex:0 0 auto; width:38px; height:38px; border-radius:50%;
+    background:var(--rust); color:#fff;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .mbl-root .pb-fab__icon svg{width:19px; height:19px;}
+  .mbl-root .pb-fab__text{display:flex; flex-direction:column; gap:2px; min-width:0;}
+  .mbl-root .pb-fab__k{font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:.14em;
+             text-transform:uppercase; color:var(--rust);}
+  .mbl-root .pb-fab__v{font-family:'Fraunces',serif; font-size:14px; font-weight:600; line-height:1.22;}
+  .mbl-root .pb-fab.is-hidden{opacity:0; visibility:hidden; transform:translateY(12px);}
+
+  .mbl-root /* PLAYBOOK POPUP */
+  .pbmodal{position:fixed; inset:0; z-index:420; display:none; align-items:center; justify-content:center; padding:20px;}
+  .mbl-root .pbmodal.open{display:flex;}
+  .mbl-root .pbmodal__scrim{position:absolute; inset:0; background:rgba(8,13,28,.82); backdrop-filter:blur(4px);}
+  .mbl-root .pbmodal__panel{
+    position:relative; z-index:1; width:min(680px,100%); max-height:90vh; overflow-y:auto;
+    background:var(--paper); border-radius:var(--radius); box-shadow:0 40px 90px rgba(0,0,0,.55);
+  }
+  .mbl-root .pbmodal__close{
+    position:absolute; top:12px; right:12px; z-index:3;
+    width:36px; height:36px; border-radius:50%; border:0; cursor:pointer;
+    background:rgba(10,17,36,.6); color:#fff; font-size:19px; line-height:1;
+    display:flex; align-items:center; justify-content:center; transition:background .2s ease;
+  }
+  .mbl-root .pbmodal__close:hover{background:var(--rust);}
+
+  .mbl-root /* webinar strip pinned above the form */
+  .pb-webinar{
+    position:sticky; top:0; z-index:2;
+    display:flex; align-items:center; justify-content:space-between; gap:18px; flex-wrap:wrap;
+    background:var(--ink); color:#fff; padding:16px 54px 16px 24px;
+    border-radius:var(--radius) var(--radius) 0 0;
+  }
+  .mbl-root .pb-webinar__meta{display:flex; flex-direction:column; gap:3px; min-width:0;}
+  .mbl-root .pb-webinar__name{font-family:'Fraunces',serif; font-size:15px; font-weight:600; line-height:1.2;}
+  .mbl-root .pb-webinar__date{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.05em; color:#9aa1b8;}
+  .mbl-root .pb-webinar__right{display:flex; align-items:center; gap:12px; flex-wrap:wrap;}
+  .mbl-root .pb-webinar__count{display:flex; flex-direction:column; align-items:flex-start; gap:1px;}
+  .mbl-root .pb-webinar__k{font-family:'IBM Plex Mono',monospace; font-size:8.5px; letter-spacing:.12em;
+                 text-transform:uppercase; color:#b7bdd0;}
+  .mbl-root .pb-webinar__v{font-family:'IBM Plex Mono',monospace; font-size:14px; font-weight:700;
+                 letter-spacing:.04em; color:#f0a87f; font-variant-numeric:tabular-nums;}
+  .mbl-root .pb-webinar__cta{padding:10px 18px; font-size:10.5px;}
+
+  .mbl-root .pbmodal__body{padding:26px 30px 30px;}
+  .mbl-root .pbmodal h3{font-family:'Fraunces',serif; font-size:clamp(22px,3vw,28px); font-weight:600;
+              line-height:1.18; margin-bottom:8px;}
+  .mbl-root .pbmodal__lede{font-size:15px; color:var(--stone); margin-bottom:18px;}
+  .mbl-root .pbmodal__form iframe{width:100%; min-height:540px; border:0; display:block; border-radius:8px;}
+
   .mbl-root /* WEBINAR POPUP */
   .wmodal{position:fixed; inset:0; z-index:400; display:none; align-items:center; justify-content:center; padding:20px;}
   .mbl-root .wmodal.open{display:flex;}
@@ -259,6 +324,19 @@ const STYLES = `@import url('https://fonts.googleapis.com/css2?family=Fraunces:i
     .cta-reserve{padding:9px 12px; font-size:10px; letter-spacing:.04em;}
     .mbl-root .wmodal{padding:10px;}
     .mbl-root .wmodal__panel{aspect-ratio:auto; height:82vh;}
+    .mbl-root /* banner clears the taller two-row CTA bar on phones */
+    .pb-fab{left:12px; right:12px; bottom:122px; max-width:none; padding:10px 16px 10px 10px;}
+    .mbl-root .pb-fab__icon{width:32px; height:32px;}
+    .mbl-root .pb-fab__icon svg{width:16px; height:16px;}
+    .mbl-root .pb-fab__v{font-size:12.5px;}
+    .mbl-root .pbmodal{padding:10px;}
+    .mbl-root .pbmodal__panel{max-height:92vh;}
+    .mbl-root .pbmodal__body{padding:20px 18px 24px;}
+    .mbl-root .pb-webinar{padding:14px 48px 14px 16px; gap:12px;}
+    .mbl-root .pb-webinar__name{font-size:13px;}
+    .mbl-root .pb-webinar__right{width:100%; justify-content:space-between;}
+    .mbl-root .pb-webinar__cta{padding:9px 14px; font-size:9.5px;}
+    .mbl-root .pbmodal__form iframe{min-height:560px;}
   }
 
   .mbl-root /* SLIDER SECTION */
@@ -707,8 +785,16 @@ const STYLES = `@import url('https://fonts.googleapis.com/css2?family=Fraunces:i
     .mbl-root .nav-links a{padding-left:20px; padding-right:20px;}
     .mbl-root .nav-stats{padding-left:20px; padding-right:20px;}
     .mbl-root .nav-links a.nav-cta{margin-left:20px; margin-right:20px;}
-    .mbl-root .amenity-grid{grid-template-columns:1fr;}
-    .mbl-root .fact-grid{grid-template-columns:1fr;}
+    .mbl-root /* both stay two-up on phones — tighten the boxes so they fit at 375px */
+    .amenity-grid{grid-template-columns:repeat(2,1fr); gap:8px;}
+    .mbl-root .amenity-card{padding:12px 10px; gap:7px; align-items:flex-start;}
+    .mbl-root .amenity-card svg{width:16px; height:16px; margin-top:1px;}
+    .mbl-root .amenity-card span{font-size:12px; line-height:1.3;}
+    .mbl-root .fact-grid{grid-template-columns:repeat(2,1fr); gap:8px;}
+    .mbl-root .fact-card{padding:16px 14px;}
+    .mbl-root .fact-card svg{width:19px; height:19px; margin-bottom:10px;}
+    .mbl-root .fact-card .k{font-size:9.5px; letter-spacing:.04em;}
+    .mbl-root .fact-card .v{font-size:16px;}
     .mbl-root .gallery-marquee{--tile-w:196px; --tile-h:130px; --fade:28px;}
     .mbl-root .section{padding:60px 0;}
     .mbl-root .numbers-row .v{font-size:18px;}
@@ -821,13 +907,6 @@ const HTML = `<nav id="nav">
         <p>Montrose Berkeley Lake is a 492-unit garden-style community on 41 acres in Duluth, Georgia, at the center of one of metro Atlanta's fastest-growing counties.</p>
         <p>The property is 94% occupied at an average rent of $1,387. Eighty units have already been renovated, with 412 left to capture the same upside.</p>
         <p>This isn't a turnaround story. It's a working plan, partway done.</p>
-        <div class="social-row">
-          <a href="https://www.linkedin.com/company/phcinvest/" target="_blank" rel="noopener noreferrer" aria-label="Pheenyx Capital on LinkedIn"> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.6c0-1.34-.03-3.07-1.9-3.07-1.9 0-2.2 1.46-2.2 2.97V21H9z"/></svg> </a>
-          <a href="https://www.facebook.com/phcinvest" target="_blank" rel="noopener noreferrer" aria-label="Pheenyx Capital on Facebook"> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12z"/></svg> </a>
-          <a href="https://www.youtube.com/@Phcinvest" target="_blank" rel="noopener noreferrer" aria-label="Pheenyx Capital on YouTube"> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.9a3 3 0 0 0-2.12-2.12C19.5 4.27 12 4.27 12 4.27s-7.5 0-9.38.51A3 3 0 0 0 .5 6.9C0 8.78 0 12 0 12s0 3.22.5 5.1a3 3 0 0 0 2.12 2.12c1.88.51 9.38.51 9.38.51s7.5 0 9.38-.51a3 3 0 0 0 2.12-2.12C24 15.22 24 12 24 12s0-3.22-.5-5.1zM9.6 15.6V8.4l6.24 3.6z"/></svg> </a>
-          <a href="https://www.instagram.com/phcinvest/" target="_blank" rel="noopener noreferrer" aria-label="Pheenyx Capital on Instagram"> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zM12 0C8.74 0 8.33.01 7.05.07c-1.28.06-2.15.26-2.91.56a5.9 5.9 0 0 0-2.13 1.38A5.9 5.9 0 0 0 .63 4.14c-.3.76-.5 1.63-.56 2.91C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.28.26 2.15.56 2.91a5.9 5.9 0 0 0 1.38 2.13 5.9 5.9 0 0 0 2.13 1.38c.76.3 1.63.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.28-.06 2.15-.26 2.91-.56a5.9 5.9 0 0 0 2.13-1.38 5.9 5.9 0 0 0 1.38-2.13c.3-.76.5-1.63.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.28-.26-2.15-.56-2.91a5.9 5.9 0 0 0-1.38-2.13A5.9 5.9 0 0 0 19.86.63c-.76-.3-1.63-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4zm7.85-10.4a1.44 1.44 0 1 1-1.44-1.44 1.44 1.44 0 0 1 1.44 1.44z"/></svg> </a>
-          <a class="btn btn-rust social-call" href="https://calendly.com/pheenyxcapital/30min" target="_blank" rel="noopener noreferrer">Schedule a Call</a>
-        </div>
       </div>
       <div>
         <figure class="opp-figure">
@@ -1054,6 +1133,13 @@ const HTML = `<nav id="nav">
           <p>As a physician who built her investment career from scratch, she understands the demands of high-earning professionals who want to grow wealth without sacrificing their time, identity, or peace of mind.</p>
           <p>She built Pheenyx Capital for people like her &mdash; driven individuals who want access to institutional-quality investments without navigating the complexity alone.</p>
           <p>Grounded in integrity, shaped by resilience, and backed by real results.</p>
+        </div>
+        <div class="social-row">
+          <a href="https://www.linkedin.com/company/phcinvest/" target="_blank" rel="noopener noreferrer" aria-label="Pheenyx Capital on LinkedIn"> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.6c0-1.34-.03-3.07-1.9-3.07-1.9 0-2.2 1.46-2.2 2.97V21H9z"/></svg> </a>
+          <a href="https://www.facebook.com/phcinvest" target="_blank" rel="noopener noreferrer" aria-label="Pheenyx Capital on Facebook"> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12z"/></svg> </a>
+          <a href="https://www.youtube.com/@Phcinvest" target="_blank" rel="noopener noreferrer" aria-label="Pheenyx Capital on YouTube"> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.9a3 3 0 0 0-2.12-2.12C19.5 4.27 12 4.27 12 4.27s-7.5 0-9.38.51A3 3 0 0 0 .5 6.9C0 8.78 0 12 0 12s0 3.22.5 5.1a3 3 0 0 0 2.12 2.12c1.88.51 9.38.51 9.38.51s7.5 0 9.38-.51a3 3 0 0 0 2.12-2.12C24 15.22 24 12 24 12s0-3.22-.5-5.1zM9.6 15.6V8.4l6.24 3.6z"/></svg> </a>
+          <a href="https://www.instagram.com/phcinvest/" target="_blank" rel="noopener noreferrer" aria-label="Pheenyx Capital on Instagram"> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zM12 0C8.74 0 8.33.01 7.05.07c-1.28.06-2.15.26-2.91.56a5.9 5.9 0 0 0-2.13 1.38A5.9 5.9 0 0 0 .63 4.14c-.3.76-.5 1.63-.56 2.91C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.28.26 2.15.56 2.91a5.9 5.9 0 0 0 1.38 2.13 5.9 5.9 0 0 0 2.13 1.38c.76.3 1.63.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.28-.06 2.15-.26 2.91-.56a5.9 5.9 0 0 0 2.13-1.38 5.9 5.9 0 0 0 1.38-2.13c.3-.76.5-1.63.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.28-.26-2.15-.56-2.91a5.9 5.9 0 0 0-1.38-2.13A5.9 5.9 0 0 0 19.86.63c-.76-.3-1.63-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4zm7.85-10.4a1.44 1.44 0 1 1-1.44-1.44 1.44 1.44 0 0 1 1.44 1.44z"/></svg> </a>
+          <a class="btn btn-rust social-call" href="https://calendly.com/pheenyxcapital/30min" target="_blank" rel="noopener noreferrer">Schedule a Call</a>
         </div>
       </div>
     </div>
@@ -1388,7 +1474,7 @@ const HTML = `<nav id="nav">
     <div class="actions">
       <button class="btn btn-ghost cta-count" type="button" data-webinar>
         <span class="cta-count__k">Webinar in</span>
-        <span class="cta-count__v" id="wb-countdown">&mdash;</span>
+        <span class="cta-count__v" id="wb-countdown" data-countdown>&mdash;</span>
       </button>
       <a href="#path" class="btn btn-rust cta-reserve" data-webinar>Reserve Your Spot</a>
     </div>
@@ -1400,6 +1486,52 @@ const HTML = `<nav id="nav">
   <div class="wmodal__panel">
     <button class="wmodal__close" type="button" data-wclose aria-label="Close webinar">&times;</button>
     <div class="wmodal__frame" id="webinar-frame"></div>
+  </div>
+</div>
+
+<button class="pb-fab" type="button" data-playbook aria-label="Download the Ultimate Passive Investor Playbook">
+  <span class="pb-fab__icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 21h16"/></svg>
+  </span>
+  <span class="pb-fab__text">
+    <span class="pb-fab__k">Free Download</span>
+    <span class="pb-fab__v">The Ultimate Passive Investor Playbook</span>
+  </span>
+</button>
+
+<div class="pbmodal" id="playbook-modal" role="dialog" aria-modal="true" aria-labelledby="pb-title" hidden>
+  <div class="pbmodal__scrim" data-pbclose></div>
+  <div class="pbmodal__panel">
+    <button class="pbmodal__close" type="button" data-pbclose aria-label="Close">&times;</button>
+
+    <div class="pb-webinar">
+      <div class="pb-webinar__meta">
+        <span class="pb-webinar__name">THE BIG REVEAL: Meet Our Biggest Deal Yet</span>
+        <span class="pb-webinar__date">Tuesday, August 18, 2026</span>
+      </div>
+      <div class="pb-webinar__right">
+        <span class="pb-webinar__count">
+          <span class="pb-webinar__k">Webinar in</span>
+          <span class="pb-webinar__v" data-countdown>&mdash;</span>
+        </span>
+        <button class="btn btn-rust pb-webinar__cta" type="button" data-webinar>Reserve Your Spot</button>
+      </div>
+    </div>
+
+    <div class="pbmodal__body">
+      <h3 id="pb-title">The Ultimate Passive Investor Playbook</h3>
+      <p class="pbmodal__lede">Tell us where to send it and the playbook lands in your inbox.</p>
+      <div class="pbmodal__form">
+        <!-- Plain iframe on purpose. LeadConnector's form_embed.js treats any
+             tagged iframe as one of its own popups and parks it offscreen with
+             opacity:0 / left:-9999px, which collapsed this panel to nothing.
+             The form URL renders and submits perfectly well on its own. -->
+        <iframe
+          src="https://api.leadconnectorhq.com/widget/form/nLsJMkpmL2vr0RB6h9UX"
+          title="Ultimate Playbook form"
+          loading="lazy"></iframe>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -1424,13 +1556,6 @@ const HTML = `<nav id="nav">
         </div>
       </div>
     </div>
-      <div class="social-row social-row--footer">
-        <a href="https://www.linkedin.com/company/phcinvest/" target="_blank" rel="noopener noreferrer" aria-label="Pheenyx Capital on LinkedIn"> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.6c0-1.34-.03-3.07-1.9-3.07-1.9 0-2.2 1.46-2.2 2.97V21H9z"/></svg> </a>
-        <a href="https://www.facebook.com/phcinvest" target="_blank" rel="noopener noreferrer" aria-label="Pheenyx Capital on Facebook"> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12z"/></svg> </a>
-        <a href="https://www.youtube.com/@Phcinvest" target="_blank" rel="noopener noreferrer" aria-label="Pheenyx Capital on YouTube"> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.9a3 3 0 0 0-2.12-2.12C19.5 4.27 12 4.27 12 4.27s-7.5 0-9.38.51A3 3 0 0 0 .5 6.9C0 8.78 0 12 0 12s0 3.22.5 5.1a3 3 0 0 0 2.12 2.12c1.88.51 9.38.51 9.38.51s7.5 0 9.38-.51a3 3 0 0 0 2.12-2.12C24 15.22 24 12 24 12s0-3.22-.5-5.1zM9.6 15.6V8.4l6.24 3.6z"/></svg> </a>
-        <a href="https://www.instagram.com/phcinvest/" target="_blank" rel="noopener noreferrer" aria-label="Pheenyx Capital on Instagram"> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zM12 0C8.74 0 8.33.01 7.05.07c-1.28.06-2.15.26-2.91.56a5.9 5.9 0 0 0-2.13 1.38A5.9 5.9 0 0 0 .63 4.14c-.3.76-.5 1.63-.56 2.91C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.28.26 2.15.56 2.91a5.9 5.9 0 0 0 1.38 2.13 5.9 5.9 0 0 0 2.13 1.38c.76.3 1.63.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.28-.06 2.15-.26 2.91-.56a5.9 5.9 0 0 0 2.13-1.38 5.9 5.9 0 0 0 1.38-2.13c.3-.76.5-1.63.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.28-.26-2.15-.56-2.91a5.9 5.9 0 0 0-1.38-2.13A5.9 5.9 0 0 0 19.86.63c-.76-.3-1.63-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4zm7.85-10.4a1.44 1.44 0 1 1-1.44-1.44 1.44 1.44 0 0 1 1.44 1.44z"/></svg> </a>
-        <a class="btn btn-rust social-call" href="https://calendly.com/pheenyxcapital/30min" target="_blank" rel="noopener noreferrer">Schedule a Call</a>
-      </div>
     </div>
 </footer>`
 

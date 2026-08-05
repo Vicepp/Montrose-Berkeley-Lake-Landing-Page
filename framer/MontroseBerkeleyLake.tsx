@@ -109,7 +109,8 @@ const STYLES = `@import url('https://fonts.googleapis.com/css2?family=Fraunces:i
   .mbl-root .btn-rust:hover{background:var(--rust-deep); transform:translateY(-1px); box-shadow:0 10px 24px rgba(181,86,44,.35);}
   .mbl-root .btn-ghost{border-color:rgba(255,255,255,.4); color:var(--white);}
   .mbl-root .btn-ghost:hover{border-color:#fff; background:rgba(255,255,255,.08);}
-  .mbl-root .nav-cta{padding:10px 20px; font-size:11.5px;}
+  .mbl-root /* shorter label, .mbl-root tighter box, .mbl-root so it fits alongside the nav links */
+  .nav-cta{padding:9px 15px; font-size:10.5px; letter-spacing:.04em; white-space:nowrap;}
 
   .mbl-root /* HERO */
   #hero{
@@ -128,7 +129,7 @@ const STYLES = `@import url('https://fonts.googleapis.com/css2?family=Fraunces:i
   .mbl-root .hero-actions{display:flex; gap:16px; align-items:center; flex-wrap:wrap; margin-bottom:56px;}
   .mbl-root .hero-scroll{color:#cbd0dd; font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:.05em; display:inline-flex; align-items:center; min-height:44px;}
   .mbl-root .stat-row{display:flex; flex-wrap:wrap; gap:0; border-top:1px solid rgba(255,255,255,.16);}
-  .mbl-root .stat-chip{flex:1; min-width:150px; padding:22px 0 4px; border-right:1px solid rgba(255,255,255,.16);}
+  .mbl-root .stat-chip{flex:1; min-width:150px; padding:22px 0 4px; border-right:1px solid rgba(255,255,255,.16); text-align:center;}
   .mbl-root .stat-chip:last-child{border-right:none;}
   .mbl-root .stat-chip .num{font-family:'Fraunces',serif; font-weight:600; font-size:30px; color:var(--white);}
   .mbl-root .stat-chip .lbl{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:#a7adbd; margin-top:4px;}
@@ -553,12 +554,7 @@ const STYLES = `@import url('https://fonts.googleapis.com/css2?family=Fraunces:i
   .mbl-root .ceo-name{font-family:'Fraunces',serif; font-size:clamp(28px,3.4vw,40px); font-weight:600;
             line-height:1.1; letter-spacing:-0.01em; margin-bottom:22px;}
   .mbl-root .ceo-bio p{font-size:16.5px; color:#3b382f; margin-bottom:16px;}
-  .mbl-root .ceo-stats{display:grid; grid-template-columns:repeat(2,1fr); gap:20px; margin:28px 0 26px;
-             border-top:1px solid #ddd0b3; border-bottom:1px solid #ddd0b3; padding:22px 0;}
-  .mbl-root .ceo-stats .num{font-family:'Fraunces',serif; font-size:27px; font-weight:600; color:var(--ink);}
-  .mbl-root .ceo-stats .lbl{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.04em;
-                  text-transform:uppercase; color:var(--stone); margin-top:5px; line-height:1.4;}
-  .mbl-root .ceo-social{display:flex; gap:10px; flex-wrap:wrap;}
+  .mbl-root .ceo-social{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:26px;}
   .mbl-root .ceo-social a{
     display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px;
     border-radius:50%; border:1px solid #ddd0b3; background:var(--white); color:var(--ink);
@@ -566,6 +562,12 @@ const STYLES = `@import url('https://fonts.googleapis.com/css2?family=Fraunces:i
   }
   .mbl-root .ceo-social a:hover{background:var(--rust); border-color:var(--rust); color:#fff; transform:translateY(-2px);}
   .mbl-root .ceo-social svg{width:19px; height:19px; fill:currentColor;}
+  .mbl-root /* Booking CTA sits inline with the social icons, .mbl-root matching their height */
+  .ceo-social .ceo-call{
+    width:auto; height:44px; border-radius:999px; margin-left:6px;
+    padding:0 22px; color:#fff; border-color:var(--rust); background:var(--rust);
+  }
+  .mbl-root .ceo-social .ceo-call:hover{background:var(--rust-deep); border-color:var(--rust-deep); transform:translateY(-2px);}
 
   .mbl-root /* FINANCIAL BENEFITS */
   .benefit-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(196px,1fr)); gap:14px; margin-top:44px;}
@@ -723,7 +725,6 @@ const STYLES = `@import url('https://fonts.googleapis.com/css2?family=Fraunces:i
     .mbl-root .benefit-grid{grid-template-columns:1fr;}
     .mbl-root .quote-grid{grid-template-columns:1fr;}
     .mbl-root .quote-card{padding:26px 22px;}
-    .mbl-root .ceo-stats{grid-template-columns:1fr; gap:16px;}
     .mbl-root .ceo-photo{max-width:none;}
     .mbl-root .hero-scroll{text-align:center;}
   }
@@ -757,7 +758,8 @@ const HTML = `<nav id="nav">
       <a href="#opportunity">Opportunity</a>
       <a href="#sponsor">About Us</a>
       <a href="#value-add">Benefits</a>
-      <a href="#path" class="btn btn-rust nav-cta">Reserve Your Spot</a>
+      <a href="https://calendly.com/pheenyxcapital/30min" class="btn btn-rust nav-cta"
+         target="_blank" rel="noopener noreferrer">Schedule a Call</a>
     </div>
   </div>
 </nav>
@@ -768,7 +770,7 @@ const HTML = `<nav id="nav">
     <h1>Montrose <span class="italic">Berkeley Lake</span></h1>
     <p class="hero-sub">An Elevated Investment Opportunity by Pheenyx Capital</p>
     <div class="hero-actions">
-      <a href="#path" class="btn btn-rust">Reserve Your Spot</a>
+      <a href="#path" class="btn btn-rust" data-webinar>Reserve Your Spot</a>
       <a href="#value-add" class="hero-scroll">See the details ↓</a>
     </div>
     <div class="stat-row">
@@ -1076,17 +1078,6 @@ const HTML = `<nav id="nav">
           <p>She built Pheenyx Capital for people like her &mdash; driven individuals who want access to institutional-quality investments without navigating the complexity alone.</p>
           <p>Grounded in integrity, shaped by resilience, and backed by real results.</p>
         </div>
-        <div class="ceo-stats">
-          <div>
-            <div class="num">6+</div>
-            <div class="lbl">Multifamily property deals</div>
-          </div>
-          <div>
-            <div class="num">~$120M</div>
-            <div class="lbl">In assets overseen</div>
-          </div>
-        </div>
-        <p class="opp-caption" style="margin:0 0 18px;">Focused on stabilized, well-located communities in growing U.S. markets.</p>
         <div class="ceo-social">
           <a href="https://www.linkedin.com/company/phcinvest/" target="_blank" rel="noopener noreferrer" aria-label="Pheenyx Capital on LinkedIn">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.6c0-1.34-.03-3.07-1.9-3.07-1.9 0-2.2 1.46-2.2 2.97V21H9z"/></svg>
@@ -1100,6 +1091,8 @@ const HTML = `<nav id="nav">
           <a href="https://www.instagram.com/phcinvest/" target="_blank" rel="noopener noreferrer" aria-label="Pheenyx Capital on Instagram">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zM12 0C8.74 0 8.33.01 7.05.07c-1.28.06-2.15.26-2.91.56a5.9 5.9 0 0 0-2.13 1.38A5.9 5.9 0 0 0 .63 4.14c-.3.76-.5 1.63-.56 2.91C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.28.26 2.15.56 2.91a5.9 5.9 0 0 0 1.38 2.13 5.9 5.9 0 0 0 2.13 1.38c.76.3 1.63.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.28-.06 2.15-.26 2.91-.56a5.9 5.9 0 0 0 2.13-1.38 5.9 5.9 0 0 0 1.38-2.13c.3-.76.5-1.63.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.28-.26-2.15-.56-2.91a5.9 5.9 0 0 0-1.38-2.13A5.9 5.9 0 0 0 19.86.63c-.76-.3-1.63-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4zm7.85-10.4a1.44 1.44 0 1 1-1.44-1.44 1.44 1.44 0 0 1 1.44 1.44z"/></svg>
           </a>
+          <a class="btn btn-rust ceo-call" href="https://calendly.com/pheenyxcapital/30min"
+             target="_blank" rel="noopener noreferrer">Schedule a Call</a>
         </div>
       </div>
     </div>
@@ -1411,7 +1404,7 @@ const HTML = `<nav id="nav">
       <span class="eyebrow">Path to Invest</span>
       <h2>Get to know the deal before you commit.</h2>
       <p>Every two weeks, we walk through a different part of the deal, at your own pace.</p>
-      <a href="#" class="btn btn-ghost">See the full webinar schedule</a>
+      <a href="#path" class="btn btn-ghost" data-webinar>See the full webinar schedule</a>
     </div>
     <div class="webinar-card">
       <span class="eyebrow mono">Webinar 1 · The Reveal</span>
@@ -1419,7 +1412,7 @@ const HTML = `<nav id="nav">
       <p>A closer look at the property, location, numbers, and business plan behind Montrose Berkeley Lake.</p>
       <div class="webinar-date mono">Tuesday, August 18, 2026</div>
       <br>
-      <a href="#" class="btn btn-rust">Reserve Your Spot</a>
+      <a href="#path" class="btn btn-rust" data-webinar>Reserve Your Spot</a>
     </div>
   </div>
 </section>
@@ -1429,8 +1422,9 @@ const HTML = `<nav id="nav">
     <span class="eyebrow">Limited Allocation</span>
     <h2>The Deal You've Been <span class="italic">Waiting For.</span></h2>
     <div class="final-actions">
-      <a href="#" class="btn btn-rust">Reserve Your Spot</a>
-      <a href="mailto:info@phcinvest.com" class="btn btn-ghost">Email the Team</a>
+      <a href="#path" class="btn btn-rust" data-webinar>Reserve Your Spot</a>
+      <a href="https://calendly.com/pheenyxcapital/30min" class="btn btn-ghost"
+         target="_blank" rel="noopener noreferrer">Schedule a Call</a>
     </div>
   </div>
 </section>
@@ -1446,7 +1440,7 @@ const HTML = `<nav id="nav">
         <span class="cta-count__k">Webinar in</span>
         <span class="cta-count__v" id="wb-countdown">&mdash;</span>
       </button>
-      <a href="#path" class="btn btn-rust cta-reserve">Reserve Your Spot</a>
+      <a href="#path" class="btn btn-rust cta-reserve" data-webinar>Reserve Your Spot</a>
     </div>
   </div>
 </div>
@@ -1477,7 +1471,7 @@ const HTML = `<nav id="nav">
           <div class="h">Contact</div>
           <a href="mailto:info@phcinvest.com">info@phcinvest.com</a>
           <a href="tel:+16158238262">(615) 823-8262</a>
-          <a href="#">www.phcinvest.com</a>
+          <a href="https://phcinvest.com" target="_blank" rel="noopener noreferrer">www.phcinvest.com</a>
         </div>
       </div>
     </div>

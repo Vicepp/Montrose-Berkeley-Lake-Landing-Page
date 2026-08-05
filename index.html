@@ -196,14 +196,66 @@
   #sticky-cta .info .name{font-family:'Fraunces',serif; font-weight:600; color:#fff; font-size:16px;}
   #sticky-cta .info .stat{font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:#9aa1b8;}
   #sticky-cta .info .stat b{color:#fff; font-weight:600;}
-  #sticky-cta .actions{display:flex; gap:12px;}
+  #sticky-cta .actions{display:flex; gap:12px; align-items:center;}
+
+  /* Live countdown chip — sits where "Schedule a Call" used to. */
+  .cta-count{
+    flex-direction:column; align-items:center; gap:2px; padding:8px 20px; line-height:1.15;
+    background:rgba(255,255,255,.09); border-color:rgba(255,255,255,.3);
+  }
+  .cta-count:hover{background:rgba(255,255,255,.16); border-color:rgba(255,255,255,.5);}
+  .cta-count__k{font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:#b7bdd0;}
+  .cta-count__v{
+    font-size:16px; font-weight:700; letter-spacing:.06em; color:#f0a87f;
+    font-variant-numeric:tabular-nums; font-feature-settings:"tnum";
+    min-width:14ch; text-align:center;   /* stop the bar twitching each second */
+  }
+  .cta-count.is-live{background:var(--rust); border-color:var(--rust);}
+  .cta-count.is-live .cta-count__k{color:rgba(255,255,255,.9);}
+  .cta-count.is-live .cta-count__v{color:#fff;}
+
+  /* WEBINAR POPUP */
+  .wmodal{position:fixed; inset:0; z-index:400; display:none; align-items:center; justify-content:center; padding:20px;}
+  .wmodal.open{display:flex;}
+  .wmodal__scrim{position:absolute; inset:0; background:rgba(8,13,28,.85); backdrop-filter:blur(4px);}
+  .wmodal__panel{
+    position:relative; z-index:1;
+    width:min(1024px, 100%); max-height:90vh; aspect-ratio:1024/768;
+    background:#0d1830; border-radius:var(--radius); overflow:hidden;
+    box-shadow:0 40px 100px rgba(0,0,0,.6);
+  }
+  .wmodal__frame{width:100%; height:100%;}
+  .wmodal__frame iframe{width:100%; height:100%; border:0; display:block;}
+  .wmodal__close{
+    position:absolute; top:12px; right:12px; z-index:2;
+    width:38px; height:38px; border-radius:50%; border:0; cursor:pointer;
+    background:rgba(10,17,36,.75); color:#fff; font-size:19px; line-height:1;
+    display:flex; align-items:center; justify-content:center; transition:background .2s ease;
+  }
+  .wmodal__close:hover{background:var(--rust);}
+
   @media (max-width:760px){
-    #sticky-cta .info{display:none;}
-    /* Respect the iPhone home-indicator area so the bar isn't half-swallowed. */
-    #sticky-cta{padding:12px 0 calc(12px + env(safe-area-inset-bottom));}
-    #sticky-cta .wrap{gap:10px;}
-    #sticky-cta .actions{flex:1; gap:10px;}
-    #sticky-cta .actions .btn{flex:1; justify-content:center; padding:14px 16px;}
+    /* Everything stays visible on mobile: headline + date on one row,
+       countdown and CTA on the next. */
+    #sticky-cta{padding:10px 0 calc(10px + env(safe-area-inset-bottom));}
+    #sticky-cta .wrap{flex-direction:column; align-items:stretch; gap:8px;}
+    #sticky-cta .info{
+      display:flex; flex-direction:column; gap:1px; min-width:0;
+    }
+    #sticky-cta .info .name{
+      font-size:12.5px; line-height:1.25;
+      overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+    }
+    #sticky-cta .info .stat{font-size:10px; letter-spacing:.03em;}
+    #sticky-cta .actions{gap:8px;}
+    #sticky-cta .actions .btn{flex:1; justify-content:center;}
+    .cta-count{padding:7px 8px; flex:1.35;}
+    .cta-count__k{font-size:8px; letter-spacing:.07em;}
+    .cta-count__v{font-size:13.5px; letter-spacing:.02em; min-width:0;}
+    /* "Reserve Your Spot" kept small so the countdown has room */
+    .cta-reserve{padding:9px 12px; font-size:10px; letter-spacing:.04em;}
+    .wmodal{padding:10px;}
+    .wmodal__panel{aspect-ratio:auto; height:82vh;}
   }
 
   /* SLIDER SECTION */
@@ -331,15 +383,42 @@
   .yt__play svg{width:26px; height:26px; margin-left:4px; fill:#fff;}
   .yt iframe{position:absolute; inset:0; width:100%; height:100%; border:0;}
 
-  /* TRUST BAND */
-  .trust-band{background:var(--paper-2); border-bottom:1px solid #ddd0b3; padding:30px 0;}
-  .trust-inner{display:flex; align-items:center; justify-content:space-between; gap:40px; flex-wrap:wrap;}
-  .trust-lede p{font-family:'Fraunces',serif; font-size:19px; font-weight:500; line-height:1.3; margin-top:8px; max-width:330px;}
-  .trust-lede strong{font-weight:600; color:var(--rust);}
-  .trust-stats{display:flex; gap:44px; flex-wrap:wrap;}
-  .trust-stats .num{font-family:'Fraunces',serif; font-size:30px; font-weight:600; color:var(--ink); line-height:1.05;}
-  .trust-stats .lbl{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.06em;
-                    text-transform:uppercase; color:var(--stone); margin-top:6px;}
+  /* PRESS STRIP — logos sit straight on the paper, no plates or containers.
+     Muted grey at rest so they read as texture; true colour on hover. */
+  .trust-band{background:var(--paper-2); border-bottom:1px solid #ddd0b3; padding:14px 0;}
+  .press-strip{
+    overflow:hidden;
+    -webkit-mask-image:linear-gradient(90deg, transparent 0, #000 110px, #000 calc(100% - 110px), transparent 100%);
+            mask-image:linear-gradient(90deg, transparent 0, #000 110px, #000 calc(100% - 110px), transparent 100%);
+  }
+  .press-track{display:flex; width:max-content; animation:marquee-left 46s linear infinite; will-change:transform;}
+  .press-set{display:flex;}
+  @media (hover:hover){
+    .press-strip:hover .press-track{animation-play-state:paused;}
+  }
+  .press-strip:focus-within .press-track,
+  .press-strip.is-paused .press-track{animation-play-state:paused;}
+
+  .press-item{
+    flex:0 0 auto; width:168px; height:38px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .press-item img{
+    max-width:118px; object-fit:contain;
+    filter:grayscale(1) opacity(.42);
+    transition:filter .4s ease, transform .4s ease;
+  }
+  /* Per-logo caps — the three marks have very different aspect ratios, so a
+     single max-height would leave CEOTimes looking half the size of the rest. */
+  .press-item--usa img{max-height:24px;}
+  .press-item--somedocs img{max-height:29px;}
+  .press-item--ceo img{max-height:32px;}
+
+  @media (hover:hover){
+    .press-item:hover img{filter:none; transform:scale(1.04);}
+  }
+  /* touch devices have no hover — JS toggles this on tap */
+  .press-item.is-active img{filter:none; transform:scale(1.04);}
 
   /* TESTIMONIALS */
   .quote-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:46px;}
@@ -359,6 +438,107 @@
   .quote-who .n{display:block; font-size:14.5px; font-weight:600; color:#fff; line-height:1.3;}
   .quote-who .r{display:block; font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.05em;
                 text-transform:uppercase; color:#9aa1b8; margin-top:3px; line-height:1.35;}
+
+  /* PRESS RAIL — sliding cards of coverage and speaking engagements */
+  .rail{
+    overflow:hidden; margin-top:44px; padding:6px 0;
+    -webkit-mask-image:linear-gradient(90deg, transparent 0, #000 90px, #000 calc(100% - 90px), transparent 100%);
+            mask-image:linear-gradient(90deg, transparent 0, #000 90px, #000 calc(100% - 90px), transparent 100%);
+  }
+  .rail__track{display:flex; width:max-content; animation:marquee-left 58s linear infinite; will-change:transform;}
+  .rail__set{display:flex;}
+  @media (hover:hover){ .rail:hover .rail__track{animation-play-state:paused;} }
+  .rail:focus-within .rail__track,
+  .rail.is-paused .rail__track{animation-play-state:paused;}
+
+  .pcard{
+    flex:0 0 auto; width:384px; margin-right:18px;
+    display:flex; flex-direction:column;
+    background:var(--ink-2); border:1px solid rgba(255,255,255,.13);
+    border-radius:var(--radius); overflow:hidden;
+    transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+  }
+  @media (hover:hover){
+    .pcard:hover{transform:translateY(-3px); box-shadow:0 18px 40px rgba(0,0,0,.34); border-color:rgba(231,155,116,.5);}
+  }
+  .pcard__top{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    padding:18px 22px 0;
+  }
+  .pcard__logo{height:22px; width:auto; max-width:112px; object-fit:contain;
+               filter:brightness(0) invert(1) opacity(.86);}
+  .pcard__kind{
+    font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:.12em;
+    text-transform:uppercase; padding:5px 10px; border-radius:999px; white-space:nowrap;
+    background:rgba(231,155,116,.16); color:#e79b74; border:1px solid rgba(231,155,116,.34);
+  }
+  .pcard__kind.is-talk{background:rgba(143,212,168,.14); color:#8fd4a8; border-color:rgba(143,212,168,.32);}
+  .pcard__body{padding:16px 22px 0; flex:1;}
+  .pcard__title{
+    font-family:'Fraunces',serif; font-size:20px; font-weight:600; line-height:1.24;
+    color:#fff; letter-spacing:-0.01em; margin-bottom:10px;
+    display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;
+  }
+  .pcard__excerpt{
+    font-size:14px; line-height:1.58; color:#b7bdd0;
+    display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;
+  }
+  .pcard__foot{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    padding:16px 22px 18px; margin-top:14px;
+  }
+  .pcard__date{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.05em;
+               text-transform:uppercase; color:#8b93a8;}
+  .pcard__btn{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.07em; text-transform:uppercase;
+    font-weight:600; color:#fff; background:rgba(255,255,255,.09);
+    border:1px solid rgba(255,255,255,.22); border-radius:999px;
+    padding:9px 16px; cursor:pointer; white-space:nowrap;
+    transition:background .22s ease, border-color .22s ease;
+  }
+  .pcard__btn:hover{background:var(--rust); border-color:var(--rust);}
+  .pcard__btn:focus-visible{outline:2px solid var(--rust); outline-offset:2px;}
+
+  /* PRESS MODAL */
+  .pmodal{
+    position:fixed; inset:0; z-index:300; display:none;
+    align-items:center; justify-content:center; padding:24px;
+  }
+  .pmodal.open{display:flex;}
+  .pmodal__scrim{position:absolute; inset:0; background:rgba(8,13,28,.78); backdrop-filter:blur(4px);}
+  .pmodal__panel{
+    position:relative; z-index:1; width:min(760px, 100%); max-height:88vh; overflow-y:auto;
+    background:var(--paper); border-radius:var(--radius);
+    box-shadow:0 40px 90px rgba(0,0,0,.5);
+  }
+  .pmodal__hero{width:100%; height:210px; object-fit:cover; display:block;}
+  .pmodal__inner{padding:30px 36px 34px;}
+  .pmodal__top{display:flex; align-items:center; gap:14px; margin-bottom:16px; flex-wrap:wrap;}
+  .pmodal__logo{height:26px; width:auto; max-width:132px; object-fit:contain;}
+  .pmodal__kind{
+    font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:.12em; text-transform:uppercase;
+    padding:5px 10px; border-radius:999px;
+    background:rgba(181,86,44,.13); color:var(--rust-deep); border:1px solid rgba(181,86,44,.3);
+  }
+  .pmodal__date{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.05em;
+                text-transform:uppercase; color:var(--stone); margin-left:auto;}
+  .pmodal h3{font-family:'Fraunces',serif; font-size:clamp(24px,3vw,32px); font-weight:600;
+             line-height:1.16; letter-spacing:-0.01em; margin-bottom:18px;}
+  .pmodal__body p{font-size:16px; line-height:1.68; color:#3b382f; margin-bottom:15px;}
+  .pmodal__body p:last-child{margin-bottom:0;}
+  .pmodal__note{
+    margin-top:22px; padding-top:18px; border-top:1px solid #ddd0b3;
+    font-size:12.5px; line-height:1.6; color:var(--stone);
+  }
+  .pmodal__actions{display:flex; gap:12px; flex-wrap:wrap; margin-top:20px;}
+  .pmodal__close{
+    position:absolute; top:14px; right:14px; z-index:2;
+    width:38px; height:38px; border-radius:50%; border:0; cursor:pointer;
+    background:rgba(10,17,36,.55); color:#fff; font-size:19px; line-height:1;
+    display:flex; align-items:center; justify-content:center;
+    transition:background .2s ease;
+  }
+  .pmodal__close:hover{background:var(--rust);}
 
   /* MEET THE CEO */
   .ceo-grid{display:grid; grid-template-columns:.8fr 1.2fr; gap:56px; align-items:start; margin-top:44px;}
@@ -482,11 +662,24 @@
     .ceo-photo{max-width:320px;}
     .benefit-grid{grid-template-columns:repeat(2,1fr);}
     .quote-grid{grid-template-columns:repeat(2,1fr);}
-    .trust-inner{flex-direction:column; align-items:flex-start; gap:24px;}
-    .trust-lede p{max-width:none; font-size:18px;}
-    .trust-stats{gap:0; width:100%; display:grid; grid-template-columns:repeat(3,1fr);}
-    .trust-stats .num{font-size:23px;}
-    .trust-stats .lbl{font-size:9.5px; letter-spacing:.04em;}
+    .pcard{width:300px; margin-right:14px;}
+    .pcard__title{font-size:18px;}
+    .rail{margin-top:34px;
+      -webkit-mask-image:linear-gradient(90deg, transparent 0, #000 34px, #000 calc(100% - 34px), transparent 100%);
+              mask-image:linear-gradient(90deg, transparent 0, #000 34px, #000 calc(100% - 34px), transparent 100%);}
+    .pmodal{padding:14px;}
+    .pmodal__inner{padding:24px 22px 26px;}
+    .pmodal__hero{height:150px;}
+    .pmodal__date{margin-left:0; width:100%;}
+    .trust-band{padding:11px 0;}
+    .press-strip{
+      -webkit-mask-image:linear-gradient(90deg, transparent 0, #000 40px, #000 calc(100% - 40px), transparent 100%);
+              mask-image:linear-gradient(90deg, transparent 0, #000 40px, #000 calc(100% - 40px), transparent 100%);}
+    .press-item{width:124px; height:32px;}
+    .press-item img{max-width:92px;}
+    .press-item--usa img{max-height:19px;}
+    .press-item--somedocs img{max-height:23px;}
+    .press-item--ceo img{max-height:26px;}
 
     /* Three short stats read better as a row than a tall stack. */
     .stat-row{display:grid; grid-template-columns:repeat(3,1fr); gap:0;}
@@ -528,8 +721,6 @@
     .quote-card{padding:26px 22px;}
     .ceo-stats{grid-template-columns:1fr; gap:16px;}
     .ceo-photo{max-width:none;}
-    /* three stats stay in a row but need to stack on the narrowest phones */
-    .trust-stats{grid-template-columns:1fr 1fr; row-gap:18px;}
     .hero-scroll{text-align:center;}
   }
   @media (prefers-reduced-motion:reduce){
@@ -571,9 +762,9 @@
 
 <header id="hero">
   <div class="wrap hero-inner">
-    <span class="eyebrow hero-tag">New Acquisition · Duluth, Georgia</span>
+    <span class="eyebrow hero-tag">The Big Reveal</span>
     <h1>Montrose <span class="italic">Berkeley Lake</span></h1>
-    <p class="hero-sub">Renovation upside that's already proven, not projected.</p>
+    <p class="hero-sub">An Elevated Investment Opportunity by Pheenyx Capital</p>
     <div class="hero-actions">
       <a href="#path" class="btn btn-rust">Reserve Your Spot</a>
       <a href="#value-add" class="hero-scroll">See the details ↓</a>
@@ -586,26 +777,36 @@
   </div>
 </header>
 
-<section class="trust-band" aria-label="Pheenyx Capital track record">
-  <div class="wrap">
-    <div class="trust-inner">
-      <div class="trust-lede">
-        <span class="eyebrow eyebrow-rust">Track Record</span>
-        <p>Trusted by <strong>120+ investors</strong> who believe in what we do</p>
+<section class="trust-band" aria-label="Pheenyx Capital in the press">
+  <div class="press-strip">
+    <div class="press-track">
+      <div class="press-set">
+          <div class="press-item press-item--usa"><img src="images/press/usa-news.png" alt="USA News" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--somedocs"><img src="images/press/somedocs.png" alt="SoMeDocs - Doctors on Social Media" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--ceo"><img src="images/press/ceotimes.png" alt="CEO Times" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--usa"><img src="images/press/usa-news.png" alt="USA News" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--somedocs"><img src="images/press/somedocs.png" alt="SoMeDocs - Doctors on Social Media" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--ceo"><img src="images/press/ceotimes.png" alt="CEO Times" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--usa"><img src="images/press/usa-news.png" alt="USA News" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--somedocs"><img src="images/press/somedocs.png" alt="SoMeDocs - Doctors on Social Media" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--ceo"><img src="images/press/ceotimes.png" alt="CEO Times" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--usa"><img src="images/press/usa-news.png" alt="USA News" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--somedocs"><img src="images/press/somedocs.png" alt="SoMeDocs - Doctors on Social Media" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--ceo"><img src="images/press/ceotimes.png" alt="CEO Times" loading="lazy" decoding="async"></div>
       </div>
-      <div class="trust-stats">
-        <div>
-          <div class="num">$153.5MM</div>
-          <div class="lbl">Portfolio Size (AUM)</div>
-        </div>
-        <div>
-          <div class="num">150</div>
-          <div class="lbl">Active Investors</div>
-        </div>
-        <div>
-          <div class="num">885</div>
-          <div class="lbl">Portfolio Units</div>
-        </div>
+      <div class="press-set" aria-hidden="true">
+          <div class="press-item press-item--usa"><img src="images/press/usa-news.png" alt="USA News" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--somedocs"><img src="images/press/somedocs.png" alt="SoMeDocs - Doctors on Social Media" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--ceo"><img src="images/press/ceotimes.png" alt="CEO Times" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--usa"><img src="images/press/usa-news.png" alt="USA News" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--somedocs"><img src="images/press/somedocs.png" alt="SoMeDocs - Doctors on Social Media" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--ceo"><img src="images/press/ceotimes.png" alt="CEO Times" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--usa"><img src="images/press/usa-news.png" alt="USA News" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--somedocs"><img src="images/press/somedocs.png" alt="SoMeDocs - Doctors on Social Media" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--ceo"><img src="images/press/ceotimes.png" alt="CEO Times" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--usa"><img src="images/press/usa-news.png" alt="USA News" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--somedocs"><img src="images/press/somedocs.png" alt="SoMeDocs - Doctors on Social Media" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--ceo"><img src="images/press/ceotimes.png" alt="CEO Times" loading="lazy" decoding="async"></div>
       </div>
     </div>
   </div>
@@ -723,7 +924,7 @@
     </div>
     <div class="benefit-actions">
       <a href="#path" class="btn btn-rust">Invest Now</a>
-      <a href="#path" class="btn btn-ghost">Register for Webinar</a>
+      <a href="#path" class="btn btn-ghost" data-webinar>Register for Webinar</a>
     </div>
   </div>
 </section>
@@ -782,7 +983,7 @@
   <div class="wrap">
     <span class="eyebrow eyebrow-rust">See It In Photos</span>
     <h2>Life at Montrose Berkeley Lake</h2>
-    <p class="lede">The amenities, the grounds, and the units &mdash; as they stand today. Tap or hover any photo to pause the row.</p>
+    <p class="lede">The amenities, the grounds, and the units &mdash; as they stand today.</p>
   </div>
   <div class="gallery-marquee">
       <div class="marquee marquee--left">
@@ -986,6 +1187,211 @@
   </div>
 </section>
 
+<section class="section section-cream2" id="press">
+  <div class="wrap">
+    <span class="eyebrow eyebrow-rust">In The Press</span>
+    <h2>Covered by the outlets our investors read.</h2>
+    <p class="lede">Independent coverage of Pheenyx Capital and Dr. Nkem Ezeamama, plus the stages she speaks from.</p>
+  </div>
+  <div class="rail">
+    <div class="rail__track">
+      <div class="rail__set">
+          <article class="pcard">
+            <div class="pcard__top">
+              <img class="pcard__logo" src="images/press/usa-news.png" alt="USA News" loading="lazy" decoding="async">
+              <span class="pcard__kind">Feature</span>
+            </div>
+            <div class="pcard__body">
+              <h3 class="pcard__title">How Pheenyx Capital Redefines Wealth for High Achievers</h3>
+              <p class="pcard__excerpt">There's a quiet irony in success that few people talk about. The more accomplished you become, the less time you often have to enjoy it.</p>
+            </div>
+            <div class="pcard__foot">
+              <span class="pcard__date">November 2025</span>
+              <button class="pcard__btn" type="button" data-press="usanews">Preview</button>
+            </div>
+          </article>
+          <article class="pcard">
+            <div class="pcard__top">
+              <img class="pcard__logo" src="images/press/ceotimes.png" alt="CEO Times" loading="lazy" decoding="async">
+              <span class="pcard__kind">Feature</span>
+            </div>
+            <div class="pcard__body">
+              <h3 class="pcard__title">How Pheenyx Capital Helps High Achievers Build Wealth That Works for Them</h3>
+              <p class="pcard__excerpt">In a world where professional success often comes at the cost of personal freedom, Dr. Nkem Ezeamama's story stands out as both a reflection and a rebellion.</p>
+            </div>
+            <div class="pcard__foot">
+              <span class="pcard__date">18 November 2025</span>
+              <button class="pcard__btn" type="button" data-press="ceotimes">Preview</button>
+            </div>
+          </article>
+          <article class="pcard">
+            <div class="pcard__top">
+              <img class="pcard__logo" src="images/press/somedocs-knockout.png" alt="SoMeDocs" loading="lazy" decoding="async">
+              <span class="pcard__kind is-talk">Speaking</span>
+            </div>
+            <div class="pcard__body">
+              <h3 class="pcard__title">Freedom Through Ownership</h3>
+              <p class="pcard__excerpt">Dr. Nkem Ezeamama presents at the SoMeDocs conference on Finances, Investing &amp; Real Estate for Healthcare Professionals.</p>
+            </div>
+            <div class="pcard__foot">
+              <span class="pcard__date">#SoMeDocsInvesting</span>
+              <button class="pcard__btn" type="button" data-press="somedocs">Preview</button>
+            </div>
+          </article>
+          <article class="pcard">
+            <div class="pcard__top">
+              <img class="pcard__logo" src="images/press/usa-news.png" alt="USA News" loading="lazy" decoding="async">
+              <span class="pcard__kind">Feature</span>
+            </div>
+            <div class="pcard__body">
+              <h3 class="pcard__title">How Pheenyx Capital Redefines Wealth for High Achievers</h3>
+              <p class="pcard__excerpt">There's a quiet irony in success that few people talk about. The more accomplished you become, the less time you often have to enjoy it.</p>
+            </div>
+            <div class="pcard__foot">
+              <span class="pcard__date">November 2025</span>
+              <button class="pcard__btn" type="button" data-press="usanews">Preview</button>
+            </div>
+          </article>
+          <article class="pcard">
+            <div class="pcard__top">
+              <img class="pcard__logo" src="images/press/ceotimes.png" alt="CEO Times" loading="lazy" decoding="async">
+              <span class="pcard__kind">Feature</span>
+            </div>
+            <div class="pcard__body">
+              <h3 class="pcard__title">How Pheenyx Capital Helps High Achievers Build Wealth That Works for Them</h3>
+              <p class="pcard__excerpt">In a world where professional success often comes at the cost of personal freedom, Dr. Nkem Ezeamama's story stands out as both a reflection and a rebellion.</p>
+            </div>
+            <div class="pcard__foot">
+              <span class="pcard__date">18 November 2025</span>
+              <button class="pcard__btn" type="button" data-press="ceotimes">Preview</button>
+            </div>
+          </article>
+          <article class="pcard">
+            <div class="pcard__top">
+              <img class="pcard__logo" src="images/press/somedocs-knockout.png" alt="SoMeDocs" loading="lazy" decoding="async">
+              <span class="pcard__kind is-talk">Speaking</span>
+            </div>
+            <div class="pcard__body">
+              <h3 class="pcard__title">Freedom Through Ownership</h3>
+              <p class="pcard__excerpt">Dr. Nkem Ezeamama presents at the SoMeDocs conference on Finances, Investing &amp; Real Estate for Healthcare Professionals.</p>
+            </div>
+            <div class="pcard__foot">
+              <span class="pcard__date">#SoMeDocsInvesting</span>
+              <button class="pcard__btn" type="button" data-press="somedocs">Preview</button>
+            </div>
+          </article>
+      </div>
+      <div class="rail__set" aria-hidden="true">
+          <article class="pcard">
+            <div class="pcard__top">
+              <img class="pcard__logo" src="images/press/usa-news.png" alt="USA News" loading="lazy" decoding="async">
+              <span class="pcard__kind">Feature</span>
+            </div>
+            <div class="pcard__body">
+              <h3 class="pcard__title">How Pheenyx Capital Redefines Wealth for High Achievers</h3>
+              <p class="pcard__excerpt">There's a quiet irony in success that few people talk about. The more accomplished you become, the less time you often have to enjoy it.</p>
+            </div>
+            <div class="pcard__foot">
+              <span class="pcard__date">November 2025</span>
+              <button class="pcard__btn" type="button" data-press="usanews">Preview</button>
+            </div>
+          </article>
+          <article class="pcard">
+            <div class="pcard__top">
+              <img class="pcard__logo" src="images/press/ceotimes.png" alt="CEO Times" loading="lazy" decoding="async">
+              <span class="pcard__kind">Feature</span>
+            </div>
+            <div class="pcard__body">
+              <h3 class="pcard__title">How Pheenyx Capital Helps High Achievers Build Wealth That Works for Them</h3>
+              <p class="pcard__excerpt">In a world where professional success often comes at the cost of personal freedom, Dr. Nkem Ezeamama's story stands out as both a reflection and a rebellion.</p>
+            </div>
+            <div class="pcard__foot">
+              <span class="pcard__date">18 November 2025</span>
+              <button class="pcard__btn" type="button" data-press="ceotimes">Preview</button>
+            </div>
+          </article>
+          <article class="pcard">
+            <div class="pcard__top">
+              <img class="pcard__logo" src="images/press/somedocs-knockout.png" alt="SoMeDocs" loading="lazy" decoding="async">
+              <span class="pcard__kind is-talk">Speaking</span>
+            </div>
+            <div class="pcard__body">
+              <h3 class="pcard__title">Freedom Through Ownership</h3>
+              <p class="pcard__excerpt">Dr. Nkem Ezeamama presents at the SoMeDocs conference on Finances, Investing &amp; Real Estate for Healthcare Professionals.</p>
+            </div>
+            <div class="pcard__foot">
+              <span class="pcard__date">#SoMeDocsInvesting</span>
+              <button class="pcard__btn" type="button" data-press="somedocs">Preview</button>
+            </div>
+          </article>
+          <article class="pcard">
+            <div class="pcard__top">
+              <img class="pcard__logo" src="images/press/usa-news.png" alt="USA News" loading="lazy" decoding="async">
+              <span class="pcard__kind">Feature</span>
+            </div>
+            <div class="pcard__body">
+              <h3 class="pcard__title">How Pheenyx Capital Redefines Wealth for High Achievers</h3>
+              <p class="pcard__excerpt">There's a quiet irony in success that few people talk about. The more accomplished you become, the less time you often have to enjoy it.</p>
+            </div>
+            <div class="pcard__foot">
+              <span class="pcard__date">November 2025</span>
+              <button class="pcard__btn" type="button" data-press="usanews">Preview</button>
+            </div>
+          </article>
+          <article class="pcard">
+            <div class="pcard__top">
+              <img class="pcard__logo" src="images/press/ceotimes.png" alt="CEO Times" loading="lazy" decoding="async">
+              <span class="pcard__kind">Feature</span>
+            </div>
+            <div class="pcard__body">
+              <h3 class="pcard__title">How Pheenyx Capital Helps High Achievers Build Wealth That Works for Them</h3>
+              <p class="pcard__excerpt">In a world where professional success often comes at the cost of personal freedom, Dr. Nkem Ezeamama's story stands out as both a reflection and a rebellion.</p>
+            </div>
+            <div class="pcard__foot">
+              <span class="pcard__date">18 November 2025</span>
+              <button class="pcard__btn" type="button" data-press="ceotimes">Preview</button>
+            </div>
+          </article>
+          <article class="pcard">
+            <div class="pcard__top">
+              <img class="pcard__logo" src="images/press/somedocs-knockout.png" alt="SoMeDocs" loading="lazy" decoding="async">
+              <span class="pcard__kind is-talk">Speaking</span>
+            </div>
+            <div class="pcard__body">
+              <h3 class="pcard__title">Freedom Through Ownership</h3>
+              <p class="pcard__excerpt">Dr. Nkem Ezeamama presents at the SoMeDocs conference on Finances, Investing &amp; Real Estate for Healthcare Professionals.</p>
+            </div>
+            <div class="pcard__foot">
+              <span class="pcard__date">#SoMeDocsInvesting</span>
+              <button class="pcard__btn" type="button" data-press="somedocs">Preview</button>
+            </div>
+          </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="pmodal" id="press-modal" role="dialog" aria-modal="true" aria-labelledby="press-modal-title" hidden>
+  <div class="pmodal__scrim" data-close></div>
+  <div class="pmodal__panel">
+    <button class="pmodal__close" type="button" data-close aria-label="Close">&times;</button>
+    <img class="pmodal__hero" id="press-modal-hero" src="" alt="" hidden>
+    <div class="pmodal__inner">
+      <div class="pmodal__top">
+        <img class="pmodal__logo" id="press-modal-logo" src="" alt="">
+        <span class="pmodal__kind" id="press-modal-kind"></span>
+        <span class="pmodal__date" id="press-modal-date"></span>
+      </div>
+      <h3 id="press-modal-title"></h3>
+      <div class="pmodal__body" id="press-modal-body"></div>
+      <p class="pmodal__note" id="press-modal-note"></p>
+      <div class="pmodal__actions">
+        <a class="btn btn-rust" id="press-modal-link" href="#" target="_blank" rel="noopener noreferrer">Read the full article</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <section class="section" id="location">
   <div class="wrap">
     <span class="eyebrow eyebrow-green">The Location</span>
@@ -1030,15 +1436,24 @@
 <div id="sticky-cta">
   <div class="wrap">
     <div class="info">
-      <span class="name">Montrose Berkeley Lake</span>
-      <span class="stat"><b>492</b> Units</span>
-      <span class="stat"><b>94%</b> Occupied</span>
-      <span class="stat">Duluth, GA</span>
+      <span class="name">THE BIG REVEAL: Meet Our Biggest Deal Yet</span>
+      <span class="stat">Tuesday, August 18, 2026</span>
     </div>
     <div class="actions">
-      <a href="#" class="btn btn-ghost">Schedule a Call</a>
-      <a href="#path" class="btn btn-rust">Reserve Your Spot</a>
+      <button class="btn btn-ghost cta-count" type="button" data-webinar>
+        <span class="cta-count__k">Webinar in</span>
+        <span class="cta-count__v" id="wb-countdown">&mdash;</span>
+      </button>
+      <a href="#path" class="btn btn-rust cta-reserve">Reserve Your Spot</a>
     </div>
+  </div>
+</div>
+
+<div class="wmodal" id="webinar-modal" role="dialog" aria-modal="true" aria-label="Join the webinar" hidden>
+  <div class="wmodal__scrim" data-wclose></div>
+  <div class="wmodal__panel">
+    <button class="wmodal__close" type="button" data-wclose aria-label="Close webinar">&times;</button>
+    <div class="wmodal__frame" id="webinar-frame"></div>
   </div>
 </div>
 
@@ -1071,6 +1486,55 @@
 </footer>
 
 <script>
+  // Press coverage shown in the preview modal. Excerpts only, with attribution
+  // and a link back to the publisher — the full articles are not reproduced.
+  const PRESS = {
+    "usanews": {
+      "pub": "USA News",
+      "logo": "images/press/usa-news.png",
+      "hero": "images/press/article-usanews.jpg",
+      "kind": "Feature",
+      "date": "November 2025",
+      "url": "https://usanews.com/newsroom/how-pheenyx-capital-redefines-wealth-for-high-achievers",
+      "title": "How Pheenyx Capital Redefines Wealth for High Achievers",
+      "paras": [
+        "There's a quiet irony in success that few people talk about. The more accomplished you become, the less time you often have to enjoy it. You build a respected career, earn well, and accumulate titles that prove your worth, yet somehow, freedom feels farther away. That was the reality Dr. Nkem Ezeamama faced after years of practicing medicine.",
+        "Determined to change the financial story for herself and others like her, Dr. Nkem founded Pheenyx Capital, a real estate investment firm built to help professionals escape the cycle of working harder and start building wealth that works for them.",
+        "Today, Pheenyx Capital manages over $120.5 million in assets and $5 million in investor equity, guiding busy professionals toward the financial freedom they've worked hard to deserve, and doing it with a model built on intention, not intensity.",
+        "“We're helping professionals rewrite the old script of work harder, save more. At Pheenyx Capital, we show that smart investing can build both wealth and well-being, you can grow in peace, not pressure.”"
+      ]
+    },
+    "ceotimes": {
+      "pub": "CEO Times",
+      "logo": "images/press/ceotimes.png",
+      "hero": "images/press/article-ceotimes.jpg",
+      "kind": "Feature",
+      "date": "18 November 2025",
+      "url": "https://ceotimes.com/how-pheenyx-capital-helps-high-achievers-build-wealth-that-works-for-them/",
+      "title": "How Pheenyx Capital Helps High Achievers Build Wealth That Works for Them",
+      "paras": [
+        "In a world where professional success often comes at the cost of personal freedom, Dr. Nkem Ezeamama's story stands out as both a reflection and a rebellion. After years of excelling in medicine, she realized that earning more didn't mean living freely, it meant working more, spending less time with family, and watching opportunity costs rise with every promotion.",
+        "Determined to change that narrative, she built Pheenyx Capital, a real estate investment firm designed to help high-achieving professionals like herself reclaim their time and create lasting wealth without stepping away from their careers.",
+        "At the core of Pheenyx Capital's philosophy is a commitment to what Dr. Nkem calls “strategy before scale.” In an industry where speed and expansion are often mistaken for success, Pheenyx operates with deliberate intentionality.",
+        "Every investment opportunity is evaluated through rigorous market research, conservative underwriting, and a disciplined focus on sustainability. This meticulous approach has allowed Pheenyx Capital to manage more than $120.5 million in assets and over $5 million in investor equity while maintaining one of the strongest investor retention rates in its category."
+      ]
+    },
+    "somedocs": {
+      "pub": "SoMeDocs",
+      "logo": "images/press/somedocs.png",
+      "hero": null,
+      "kind": "Speaking",
+      "date": "#SoMeDocsInvesting",
+      "url": "https://doctorsonsocialmedia.com/finances-investing-real-estate/",
+      "title": "Freedom Through Ownership",
+      "paras": [
+        "Dr. Nkem Ezeamama, MD is a featured speaker at <em>Finances, Investing &amp; Real Estate for Healthcare Professionals</em>, the SoMeDocs conference for physicians and healthcare professionals learning to build wealth outside clinical income.",
+        "Her session, <strong>“Freedom Through Ownership”</strong>, sets out the case for asset ownership as the route to financial independence for high-earning professionals whose time is their scarcest resource.",
+        "The programme brings together nine expert presentations covering angel investing and venture capital, financial literacy, portfolio building for high-income professionals, passive income, and asset protection for investment property owners."
+      ]
+    }
+  };
+
   // sticky nav shadow
   const nav = document.getElementById('nav');
   const stickyCta = document.getElementById('sticky-cta');
@@ -1123,6 +1587,150 @@
       box.replaceChildren(frame);
     });
   });
+
+  // --- Webinar: countdown + ClickMeeting popup ---
+  // Tuesday 18 August 2026. NOTE: only the date was supplied — the 7:00pm
+  // Eastern start time below is an assumption. Change this one line to fix it.
+  const WEBINAR_AT = new Date('2026-08-18T19:00:00-04:00');
+  // ClickMeeting's <script> embed only document.write()s this iframe, which
+  // would blank the page after load, so the room URL is used directly.
+  const WEBINAR_URL = 'https://pheenyxcapital.clickmeeting.com/399262945?popup=off&lang=en&xlang=en';
+
+  const countdownEl = document.getElementById('wb-countdown');
+  const countBtn = document.querySelector('.cta-count');
+
+  function tickCountdown(){
+    if (!countdownEl) return;
+    const ms = WEBINAR_AT - new Date();
+    if (ms <= 0) {
+      countdownEl.textContent = 'Live now';
+      countBtn && countBtn.classList.add('is-live');
+      const k = countBtn && countBtn.querySelector('.cta-count__k');
+      if (k) k.textContent = 'Join the';
+      return;
+    }
+    const d = Math.floor(ms / 86400000);
+    const h = Math.floor(ms % 86400000 / 3600000);
+    const m = Math.floor(ms % 3600000 / 60000);
+    const s = Math.floor(ms % 60000 / 1000);
+    const p = n => String(n).padStart(2, '0');
+    // always show seconds so the clock visibly ticks
+    countdownEl.textContent = `${p(d)}d ${p(h)}h ${p(m)}m ${p(s)}s`;
+  }
+  tickCountdown();
+  setInterval(tickCountdown, 1000);
+
+  const wmodal = document.getElementById('webinar-modal');
+  const wframe = document.getElementById('webinar-frame');
+  let wOpener = null;
+
+  function openWebinar(){
+    if (!wframe.querySelector('iframe')) {          // load only on demand
+      const f = document.createElement('iframe');
+      f.src = WEBINAR_URL;
+      f.title = 'Pheenyx Capital webinar';
+      f.allow = 'microphone; camera; fullscreen; autoplay; display-capture';
+      f.allowFullscreen = true;
+      wframe.appendChild(f);
+    }
+    wmodal.hidden = false;
+    wmodal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    wmodal.querySelector('.wmodal__close').focus();
+  }
+  function closeWebinar(){
+    wmodal.classList.remove('open');
+    wmodal.hidden = true;
+    document.body.style.overflow = '';
+    if (wOpener) { wOpener.focus(); wOpener = null; }
+  }
+
+  document.querySelectorAll('[data-webinar]').forEach(el => {
+    el.addEventListener('click', e => {
+      e.preventDefault();
+      wOpener = el;
+      openWebinar();
+    });
+  });
+  wmodal.querySelectorAll('[data-wclose]').forEach(el => el.addEventListener('click', closeWebinar));
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && wmodal.classList.contains('open')) closeWebinar();
+  });
+
+  // --- Press coverage preview modal ---
+  const pmodal = document.getElementById('press-modal');
+  let pmodalOpener = null;
+
+  function openPress(id){
+    const d = PRESS[id];
+    if (!d) return;
+    const hero = document.getElementById('press-modal-hero');
+    if (d.hero) { hero.src = d.hero; hero.alt = d.title; hero.hidden = false; }
+    else { hero.removeAttribute('src'); hero.hidden = true; }
+
+    document.getElementById('press-modal-logo').src = d.logo;
+    document.getElementById('press-modal-logo').alt = d.pub;
+    document.getElementById('press-modal-kind').textContent = d.kind;
+    document.getElementById('press-modal-date').textContent = d.date;
+    document.getElementById('press-modal-title').textContent = d.title;
+    document.getElementById('press-modal-body').innerHTML = d.paras.map(p => '<p>' + p + '</p>').join('');
+    document.getElementById('press-modal-note').textContent =
+      'Excerpt from ' + d.pub + '. Reproduced in part for reference — read the full piece at ' + d.pub + '.';
+    const link = document.getElementById('press-modal-link');
+    link.href = d.url;
+    link.textContent = (d.kind === 'Speaking' ? 'View the session on ' : 'Read the full article on ') + d.pub;
+
+    pmodal.hidden = false;
+    pmodal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    pmodal.querySelector('.pmodal__close').focus();
+  }
+
+  function closePress(){
+    pmodal.classList.remove('open');
+    pmodal.hidden = true;
+    document.body.style.overflow = '';
+    if (pmodalOpener) { pmodalOpener.focus(); pmodalOpener = null; }
+  }
+
+  document.querySelectorAll('[data-press]').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      pmodalOpener = btn;
+      openPress(btn.getAttribute('data-press'));
+    });
+  });
+  pmodal.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', closePress));
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && pmodal.classList.contains('open')) closePress();
+  });
+
+  // --- Press rail on touch devices: tap a card to hold the row still ---
+  if (window.matchMedia('(hover:none)').matches) {
+    const rail = document.querySelector('.rail');
+    document.querySelectorAll('.pcard').forEach(card => {
+      card.addEventListener('click', () => rail && rail.classList.add('is-paused'));
+    });
+  }
+
+  // --- Press logos on touch devices ---
+  // No hover, so a tap reveals the colour and pauses the strip.
+  if (window.matchMedia('(hover:none)').matches) {
+    const strip = document.querySelector('.press-strip');
+    document.querySelectorAll('.press-item').forEach(pill => {
+      pill.addEventListener('click', e => {
+        e.stopPropagation();
+        const on = !pill.classList.contains('is-active');
+        document.querySelectorAll('.press-item.is-active').forEach(p => p.classList.remove('is-active'));
+        pill.classList.toggle('is-active', on);
+        strip.classList.toggle('is-paused', on);
+      });
+    });
+    document.addEventListener('click', () => {
+      document.querySelectorAll('.press-item.is-active').forEach(p => p.classList.remove('is-active'));
+      strip && strip.classList.remove('is-paused');
+    });
+  }
 
   // --- Gallery on touch devices ---
   // There is no hover, so a tap stands in for it: pause the row and pulse the tile.

@@ -149,14 +149,19 @@ const devices = [
       };
     });
 
-    await page.evaluate(() => window.scrollTo(0, 0));
-    await page.screenshot({ path: path.join(OUT, `${d.name}-top.png`) });
-    await page.evaluate(() => document.getElementById('sponsor').scrollIntoView());
-    await page.waitForTimeout(300);
-    await page.screenshot({ path: path.join(OUT, `${d.name}-sponsor.png`) });
-    await page.evaluate(() => document.getElementById('gallery').scrollIntoView());
-    await page.waitForTimeout(300);
-    await page.screenshot({ path: path.join(OUT, `${d.name}-gallery.png`) });
+    // Diagnostics only — a flaky capture must not fail the assertions above.
+    const shot = async (name, beforeFn) => {
+      try {
+        if (beforeFn) await page.evaluate(beforeFn);
+        await page.waitForTimeout(300);
+        await page.screenshot({ path: path.join(OUT, `${d.name}-${name}.png`), timeout: 15000 });
+      } catch (e) {
+        console.log(`  (screenshot "${name}" skipped: ${e.message.split('\n')[0]})`);
+      }
+    };
+    await shot('top', () => window.scrollTo(0, 0));
+    await shot('sponsor', () => document.getElementById('sponsor').scrollIntoView());
+    await shot('gallery', () => document.getElementById('gallery').scrollIntoView());
 
     const ok = !scrolls && errors.length === 0 && smallTargets.length === 0 &&
                (!nav.toggleVisible || (menu && menu.visibility === 'visible'));

@@ -159,11 +159,6 @@ const STYLES = `@import url('https://fonts.googleapis.com/css2?family=Fraunces:i
   .mbl-root /* ICON FACT GRID */
   .fact-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:52px;}
   .mbl-root .fact-card{background:var(--paper-2); border:1px solid #e2d5b8; border-radius:12px; padding:22px;}
-  .mbl-root .video-frame{margin-top:32px; border-radius:16px; overflow:hidden; aspect-ratio:16/9; background:linear-gradient(135deg, var(--ink), var(--rust-deep)); position:relative; max-width:900px;}
-  .mbl-root .video-frame-inner{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px;}
-  .mbl-root .play-button{width:76px; height:76px; border-radius:50%; background:rgba(255,255,255,.14); border:2px solid rgba(255,255,255,.5); display:flex; align-items:center; justify-content:center; backdrop-filter:blur(2px);}
-  .mbl-root .play-button svg{width:28px; height:28px; margin-left:4px;}
-  .mbl-root .video-frame-label{color:rgba(255,255,255,.75); font-size:14px; letter-spacing:.04em; text-transform:uppercase;}
   .mbl-root .fact-card svg{width:22px; height:22px; stroke:var(--rust); margin-bottom:14px;}
   .mbl-root .fact-card .k{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--stone);}
   .mbl-root .fact-card .v{font-family:'Fraunces',serif; font-size:19px; font-weight:600; margin-top:5px; color:var(--ink);}
@@ -358,13 +353,8 @@ const STYLES = `@import url('https://fonts.googleapis.com/css2?family=Fraunces:i
   .mbl-root .numbers-note{margin-top:26px; font-size:13px; color:#8b93a8; max-width:640px;}
 
   .mbl-root /* LOCATION */
-  .loc-figure{border-radius:var(--radius); overflow:hidden; margin-top:48px; box-shadow:0 24px 60px rgba(18,32,64,.18);}
-  .mbl-root .loc-figure img{width:100%; height:460px; object-fit:cover;}
-  .mbl-root .loc-stats{display:grid; grid-template-columns:repeat(4,1fr); gap:24px; margin-top:40px;}
-  .mbl-root .loc-stats div .num{font-family:'Fraunces',serif; font-size:27px; font-weight:600; color:var(--ink);}
-  .mbl-root .loc-stats div .lbl{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.04em; text-transform:uppercase; color:var(--stone); margin-top:6px; line-height:1.4;}
 
-  .mbl-root /* WHO YOU'RE INVESTING WITH */
+  /* WHO YOU'RE INVESTING WITH */
   .firm-grid{display:grid; grid-template-columns:.95fr 1.05fr; gap:56px; align-items:center; margin-top:44px;}
   .mbl-root .firm-copy p{font-size:16.5px; color:#3b382f; margin-bottom:16px;}
   .mbl-root .firm-copy p:last-child{margin-bottom:0;}
@@ -554,20 +544,27 @@ const STYLES = `@import url('https://fonts.googleapis.com/css2?family=Fraunces:i
   .mbl-root .ceo-name{font-family:'Fraunces',serif; font-size:clamp(28px,3.4vw,40px); font-weight:600;
             line-height:1.1; letter-spacing:-0.01em; margin-bottom:22px;}
   .mbl-root .ceo-bio p{font-size:16.5px; color:#3b382f; margin-bottom:16px;}
-  .mbl-root .ceo-social{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:26px;}
-  .mbl-root .ceo-social a{
+  .mbl-root .social-row{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:26px;}
+  .mbl-root .social-row a{
     display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px;
     border-radius:50%; border:1px solid #ddd0b3; background:var(--white); color:var(--ink);
     transition:background .22s ease, color .22s ease, border-color .22s ease, transform .22s ease;
   }
-  .mbl-root .ceo-social a:hover{background:var(--rust); border-color:var(--rust); color:#fff; transform:translateY(-2px);}
-  .mbl-root .ceo-social svg{width:19px; height:19px; fill:currentColor;}
+  .mbl-root .social-row a:hover{background:var(--rust); border-color:var(--rust); color:#fff; transform:translateY(-2px);}
+  .mbl-root .social-row svg{width:19px; height:19px; fill:currentColor;}
   .mbl-root /* Booking CTA sits inline with the social icons, .mbl-root matching their height */
-  .ceo-social .ceo-call{
+  .social-row .social-call{
     width:auto; height:44px; border-radius:999px; margin-left:6px;
     padding:0 22px; color:#fff; border-color:var(--rust); background:var(--rust);
   }
-  .mbl-root .ceo-social .ceo-call:hover{background:var(--rust-deep); border-color:var(--rust-deep); transform:translateY(-2px);}
+  .mbl-root .social-row .social-call:hover{background:var(--rust-deep); border-color:var(--rust-deep); transform:translateY(-2px);}
+
+  .mbl-root /* Footer copy sits on near-black — invert the chips. These must come after
+     the base .social-row rules above: same specificity, .mbl-root so source order wins. */
+  .social-row--footer{margin-top:30px; padding-top:26px; border-top:1px solid rgba(255,255,255,.1);}
+  .mbl-root .social-row--footer a{background:rgba(255,255,255,.07); border-color:rgba(255,255,255,.18); color:#dfe2ec;}
+  .mbl-root .social-row--footer a:hover{background:var(--rust); border-color:var(--rust); color:#fff;}
+  .mbl-root .social-row--footer .social-call{background:var(--rust); border-color:var(--rust); color:#fff;}
 
   .mbl-root /* FINANCIAL BENEFITS */
   .benefit-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(196px,1fr)); gap:14px; margin-top:44px;}
@@ -603,13 +600,14 @@ const STYLES = `@import url('https://fonts.googleapis.com/css2?family=Fraunces:i
   .mbl-root .final-actions{display:flex; gap:16px; justify-content:center; flex-wrap:wrap;}
 
   .mbl-root /* FOOTER */
-  footer{background:#0d1830; color:#8b93a8; padding:56px 0 34px;}
+  /* bottom padding clears the fixed CTA bar, .mbl-root which would otherwise sit on top
+     of the last row of footer content once it slides in */
+  footer{background:#0d1830; color:#8b93a8; padding:56px 0 118px;}
   .mbl-root .footer-top{display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:32px; padding-bottom:36px; border-bottom:1px solid rgba(255,255,255,.1);}
   .mbl-root .footer-brand img{height:32px; margin-bottom:10px;}
   .mbl-root .footer-links{display:flex; gap:40px; flex-wrap:wrap;}
   .mbl-root .footer-links div .h{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:#5c6480; margin-bottom:12px;}
   .mbl-root .footer-links a{display:flex; align-items:center; min-height:36px; font-size:13.5px; color:#b7bdd0;}
-  .mbl-root .footer-bottom{padding-top:26px; font-size:12px; line-height:1.7; color:#5c6480; max-width:900px;}
 
   @media (max-width:860px){
     .mbl-root /* --- Mobile navigation: hamburger + slide-down panel --- */
@@ -652,14 +650,12 @@ const STYLES = `@import url('https://fonts.googleapis.com/css2?family=Fraunces:i
 
     .mbl-root .opp-grid{grid-template-columns:1fr; gap:36px;}
     .mbl-root .opp-figure img{height:280px;}
-    .mbl-root .loc-figure img{height:260px;}
     .mbl-root .factbar{grid-template-columns:repeat(2,1fr); row-gap:24px;}
     .mbl-root .usp-grid{grid-template-columns:1fr;}
     .mbl-root .upside-row{grid-template-columns:1fr;}
     .mbl-root .gallery-marquee{--tile-w:232px; --tile-h:152px; --tile-gap:10px; --fade:40px;}
     .mbl-root .numbers-grid{grid-template-columns:1fr;}
     .mbl-root .numbers-row:nth-child(odd), .mbl-root .numbers-row:nth-child(even){padding-left:4px; padding-right:4px;}
-    .mbl-root .loc-stats{grid-template-columns:repeat(2,1fr);}
     .mbl-root .path-inner{grid-template-columns:1fr; gap:36px;}
     .mbl-root .firm-grid{grid-template-columns:1fr; gap:32px;}
     .mbl-root .yt__play{width:62px; height:62px;}
@@ -701,7 +697,7 @@ const STYLES = `@import url('https://fonts.googleapis.com/css2?family=Fraunces:i
     .mbl-root .hero-sub{font-size:17px; margin:18px 0 32px;}
 
     .mbl-root /* Fixed CTA bar must not sit on top of the disclaimer. */
-    footer{padding-bottom:104px;}
+    footer{padding-bottom:140px;}
     .mbl-root .footer-links{gap:28px;}
     .mbl-root .footer-links a{min-height:44px;} /* thumb-sized targets */
   }
@@ -825,6 +821,13 @@ const HTML = `<nav id="nav">
         <p>Montrose Berkeley Lake is a 492-unit garden-style community on 41 acres in Duluth, Georgia, at the center of one of metro Atlanta's fastest-growing counties.</p>
         <p>The property is 94% occupied at an average rent of $1,387. Eighty units have already been renovated, with 412 left to capture the same upside.</p>
         <p>This isn't a turnaround story. It's a working plan, partway done.</p>
+        <div class="social-row">
+          <a href="https://www.linkedin.com/company/phcinvest/" target="_blank" rel="noopener noreferrer" aria-label="Pheenyx Capital on LinkedIn"> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.6c0-1.34-.03-3.07-1.9-3.07-1.9 0-2.2 1.46-2.2 2.97V21H9z"/></svg> </a>
+          <a href="https://www.facebook.com/phcinvest" target="_blank" rel="noopener noreferrer" aria-label="Pheenyx Capital on Facebook"> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12z"/></svg> </a>
+          <a href="https://www.youtube.com/@Phcinvest" target="_blank" rel="noopener noreferrer" aria-label="Pheenyx Capital on YouTube"> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.9a3 3 0 0 0-2.12-2.12C19.5 4.27 12 4.27 12 4.27s-7.5 0-9.38.51A3 3 0 0 0 .5 6.9C0 8.78 0 12 0 12s0 3.22.5 5.1a3 3 0 0 0 2.12 2.12c1.88.51 9.38.51 9.38.51s7.5 0 9.38-.51a3 3 0 0 0 2.12-2.12C24 15.22 24 12 24 12s0-3.22-.5-5.1zM9.6 15.6V8.4l6.24 3.6z"/></svg> </a>
+          <a href="https://www.instagram.com/phcinvest/" target="_blank" rel="noopener noreferrer" aria-label="Pheenyx Capital on Instagram"> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zM12 0C8.74 0 8.33.01 7.05.07c-1.28.06-2.15.26-2.91.56a5.9 5.9 0 0 0-2.13 1.38A5.9 5.9 0 0 0 .63 4.14c-.3.76-.5 1.63-.56 2.91C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.28.26 2.15.56 2.91a5.9 5.9 0 0 0 1.38 2.13 5.9 5.9 0 0 0 2.13 1.38c.76.3 1.63.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.28-.06 2.15-.26 2.91-.56a5.9 5.9 0 0 0 2.13-1.38 5.9 5.9 0 0 0 1.38-2.13c.3-.76.5-1.63.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.28-.26-2.15-.56-2.91a5.9 5.9 0 0 0-1.38-2.13A5.9 5.9 0 0 0 19.86.63c-.76-.3-1.63-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4zm7.85-10.4a1.44 1.44 0 1 1-1.44-1.44 1.44 1.44 0 0 1 1.44 1.44z"/></svg> </a>
+          <a class="btn btn-rust social-call" href="https://calendly.com/pheenyxcapital/30min" target="_blank" rel="noopener noreferrer">Schedule a Call</a>
+        </div>
       </div>
       <div>
         <figure class="opp-figure">
@@ -929,32 +932,6 @@ const HTML = `<nav id="nav">
     <div class="benefit-actions">
       <a href="#path" class="btn btn-rust">Invest Now</a>
       <a href="#path" class="btn btn-ghost" data-webinar>Register for Webinar</a>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="video">
-  <div class="wrap">
-    <span class="eyebrow eyebrow-rust">See It For Yourself</span>
-    <h2>A closer look, in their own words.</h2>
-    <p class="lede">Watch a short walkthrough of the property and the plan behind Montrose Berkeley Lake.</p>
-    <!--
-      VIDEO EMBED SLOT
-      Swap the placeholder .video-frame below for either:
-        1) A hosted MP4: replace the inner div with a <video controls poster="...jpg" src="....mp4"></video>
-        2) A YouTube/Vimeo embed: replace the inner div with an <iframe> embed, keep the aspect-ratio wrapper
-      This slot works for either a due-diligence walkthrough (Dr. Nkem or the team) or an investor
-      testimonial, whichever gets produced first. Swap the eyebrow/heading copy above to match:
-        - Due diligence framing: "What We Found" / "A walkthrough of the property, the numbers, and the plan."
-        - Testimonial framing: "Hear From Our Investors" / "Why physicians are choosing to invest with us."
-    -->
-    <div class="video-frame" role="img" aria-label="Video placeholder, to be replaced with the final walkthrough or testimonial video">
-      <div class="video-frame-inner">
-        <div class="play-button">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M8 5v14l11-7L8 5z" fill="#ffffff"/></svg>
-        </div>
-        <span class="video-frame-label">Video coming soon</span>
-      </div>
     </div>
   </div>
 </section>
@@ -1078,22 +1055,6 @@ const HTML = `<nav id="nav">
           <p>She built Pheenyx Capital for people like her &mdash; driven individuals who want access to institutional-quality investments without navigating the complexity alone.</p>
           <p>Grounded in integrity, shaped by resilience, and backed by real results.</p>
         </div>
-        <div class="ceo-social">
-          <a href="https://www.linkedin.com/company/phcinvest/" target="_blank" rel="noopener noreferrer" aria-label="Pheenyx Capital on LinkedIn">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.6c0-1.34-.03-3.07-1.9-3.07-1.9 0-2.2 1.46-2.2 2.97V21H9z"/></svg>
-          </a>
-          <a href="https://www.facebook.com/phcinvest" target="_blank" rel="noopener noreferrer" aria-label="Pheenyx Capital on Facebook">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12z"/></svg>
-          </a>
-          <a href="https://www.youtube.com/@Phcinvest" target="_blank" rel="noopener noreferrer" aria-label="Pheenyx Capital on YouTube">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.9a3 3 0 0 0-2.12-2.12C19.5 4.27 12 4.27 12 4.27s-7.5 0-9.38.51A3 3 0 0 0 .5 6.9C0 8.78 0 12 0 12s0 3.22.5 5.1a3 3 0 0 0 2.12 2.12c1.88.51 9.38.51 9.38.51s7.5 0 9.38-.51a3 3 0 0 0 2.12-2.12C24 15.22 24 12 24 12s0-3.22-.5-5.1zM9.6 15.6V8.4l6.24 3.6z"/></svg>
-          </a>
-          <a href="https://www.instagram.com/phcinvest/" target="_blank" rel="noopener noreferrer" aria-label="Pheenyx Capital on Instagram">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zM12 0C8.74 0 8.33.01 7.05.07c-1.28.06-2.15.26-2.91.56a5.9 5.9 0 0 0-2.13 1.38A5.9 5.9 0 0 0 .63 4.14c-.3.76-.5 1.63-.56 2.91C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.28.26 2.15.56 2.91a5.9 5.9 0 0 0 1.38 2.13 5.9 5.9 0 0 0 2.13 1.38c.76.3 1.63.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.28-.06 2.15-.26 2.91-.56a5.9 5.9 0 0 0 2.13-1.38 5.9 5.9 0 0 0 1.38-2.13c.3-.76.5-1.63.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.28-.26-2.15-.56-2.91a5.9 5.9 0 0 0-1.38-2.13A5.9 5.9 0 0 0 19.86.63c-.76-.3-1.63-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4zm7.85-10.4a1.44 1.44 0 1 1-1.44-1.44 1.44 1.44 0 0 1 1.44 1.44z"/></svg>
-          </a>
-          <a class="btn btn-rust ceo-call" href="https://calendly.com/pheenyxcapital/30min"
-             target="_blank" rel="noopener noreferrer">Schedule a Call</a>
-        </div>
       </div>
     </div>
   </div>
@@ -1102,7 +1063,7 @@ const HTML = `<nav id="nav">
 <section class="section section-navy" id="testimonials">
   <div class="wrap">
     <span class="eyebrow">What Investors Say</span>
-    <h2>Trusted by 120+ investors who believe in what we do</h2>
+    <h2>Trusted by 150+ investors who believe in what we do</h2>
     <p class="lede stone-text">Professionals across healthcare, business, and leadership trust Pheenyx Capital to guide their real estate investments with clarity, discipline, and care.</p>
     <div class="quote-grid">
 
@@ -1387,17 +1348,6 @@ const HTML = `<nav id="nav">
   </div>
 </div>
 
-<section class="section" id="location">
-  <div class="wrap">
-    <span class="eyebrow eyebrow-green">The Location</span>
-    <h2>Gwinnett County's Peachtree Industrial corridor</h2>
-    <p class="lede">Surrounded by affluent, established neighborhoods and minutes from the region's largest job centers.</p>
-    <figure class="loc-figure">
-      <img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/aerial.jpg" alt="Aerial view of Montrose Berkeley Lake">
-    </figure>
-  </div>
-</section>
-
 <section class="path-band" id="path">
   <div class="wrap path-inner">
     <div>
@@ -1465,7 +1415,6 @@ const HTML = `<nav id="nav">
           <div class="h">Page</div>
           <a href="#opportunity">Opportunity</a>
           <a href="#value-add">Value-Add</a>
-          <a href="#location">Location</a>
         </div>
         <div>
           <div class="h">Contact</div>
@@ -1475,10 +1424,14 @@ const HTML = `<nav id="nav">
         </div>
       </div>
     </div>
-    <div class="footer-bottom">
-      Securities, if offered, will be made available only pursuant to applicable exemptions under Regulation D of the Securities Act, and only to accredited investors through official offering documents, including a Private Placement Memorandum. This page is for informational purposes only and does not constitute an offer to sell or a solicitation of an offer to buy any security. Past performance is not indicative of future results, and all projections are estimates based on current assumptions that are subject to change. Property, market, and financial information is drawn from the CBRE offering memorandum and current property records; it is believed accurate but has not been independently verified. Consult your own financial, tax, and legal advisors before investing. © 2026 Pheenyx Capital Investment. All rights reserved.
+      <div class="social-row social-row--footer">
+        <a href="https://www.linkedin.com/company/phcinvest/" target="_blank" rel="noopener noreferrer" aria-label="Pheenyx Capital on LinkedIn"> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.6c0-1.34-.03-3.07-1.9-3.07-1.9 0-2.2 1.46-2.2 2.97V21H9z"/></svg> </a>
+        <a href="https://www.facebook.com/phcinvest" target="_blank" rel="noopener noreferrer" aria-label="Pheenyx Capital on Facebook"> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12z"/></svg> </a>
+        <a href="https://www.youtube.com/@Phcinvest" target="_blank" rel="noopener noreferrer" aria-label="Pheenyx Capital on YouTube"> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.9a3 3 0 0 0-2.12-2.12C19.5 4.27 12 4.27 12 4.27s-7.5 0-9.38.51A3 3 0 0 0 .5 6.9C0 8.78 0 12 0 12s0 3.22.5 5.1a3 3 0 0 0 2.12 2.12c1.88.51 9.38.51 9.38.51s7.5 0 9.38-.51a3 3 0 0 0 2.12-2.12C24 15.22 24 12 24 12s0-3.22-.5-5.1zM9.6 15.6V8.4l6.24 3.6z"/></svg> </a>
+        <a href="https://www.instagram.com/phcinvest/" target="_blank" rel="noopener noreferrer" aria-label="Pheenyx Capital on Instagram"> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zM12 0C8.74 0 8.33.01 7.05.07c-1.28.06-2.15.26-2.91.56a5.9 5.9 0 0 0-2.13 1.38A5.9 5.9 0 0 0 .63 4.14c-.3.76-.5 1.63-.56 2.91C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.28.26 2.15.56 2.91a5.9 5.9 0 0 0 1.38 2.13 5.9 5.9 0 0 0 2.13 1.38c.76.3 1.63.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.28-.06 2.15-.26 2.91-.56a5.9 5.9 0 0 0 2.13-1.38 5.9 5.9 0 0 0 1.38-2.13c.3-.76.5-1.63.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.28-.26-2.15-.56-2.91a5.9 5.9 0 0 0-1.38-2.13A5.9 5.9 0 0 0 19.86.63c-.76-.3-1.63-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4zm7.85-10.4a1.44 1.44 0 1 1-1.44-1.44 1.44 1.44 0 0 1 1.44 1.44z"/></svg> </a>
+        <a class="btn btn-rust social-call" href="https://calendly.com/pheenyxcapital/30min" target="_blank" rel="noopener noreferrer">Schedule a Call</a>
+      </div>
     </div>
-  </div>
 </footer>`
 
 /**

@@ -661,11 +661,62 @@
   .path-band .eyebrow{color:#b9d6c4;}
   .path-band h2{color:#fff;}
   .path-band p{color:#dfe8e1; font-size:16.5px; margin-bottom:26px; max-width:520px;}
-  .webinar-card{background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); border-radius:var(--radius); padding:30px;}
-  .webinar-card .eyebrow{color:#b9d6c4; margin-bottom:10px;}
-  .webinar-card h3{font-size:22px; color:#fff; margin-bottom:8px;}
-  .webinar-card p{color:#d7e4dc; font-size:14.5px; margin-bottom:18px;}
-  .webinar-date{font-family:'IBM Plex Mono',monospace; font-size:13px; color:#fff; background:rgba(255,255,255,.12); display:inline-block; padding:8px 14px; border-radius:8px; margin-bottom:20px;}
+  /* Promo poster replaces the old text card in the path band */
+  .webinar-poster{
+    position:relative; display:block; width:100%; padding:0; border:0; cursor:pointer;
+    background:none; border-radius:var(--radius); overflow:hidden;
+    box-shadow:0 24px 60px rgba(0,0,0,.4);
+    transition:transform .3s ease, box-shadow .3s ease;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .webinar-poster img{width:100%; height:auto; display:block;}
+  .webinar-poster__cta{
+    position:absolute; left:50%; bottom:18px; transform:translateX(-50%);
+    background:var(--rust); color:#fff; white-space:nowrap;
+    font-family:'IBM Plex Mono',monospace; font-size:11.5px; font-weight:600;
+    letter-spacing:.07em; text-transform:uppercase;
+    padding:11px 22px; border-radius:999px;
+    box-shadow:0 10px 24px rgba(0,0,0,.4);
+    transition:background .25s ease;
+  }
+  @media (hover:hover){
+    .webinar-poster:hover{transform:translateY(-3px); box-shadow:0 30px 70px rgba(0,0,0,.5);}
+    .webinar-poster:hover .webinar-poster__cta{background:var(--rust-deep);}
+  }
+  .webinar-poster:focus-visible{outline:3px solid var(--rust); outline-offset:3px;}
+
+  /* TIMED WEBINAR POP-IN — bottom right, one minute after landing */
+  .wpop{
+    position:fixed; right:24px; bottom:104px; z-index:190;
+    width:250px; padding:0; border:0; cursor:pointer; background:none;
+    border-radius:12px; overflow:visible;
+    opacity:0; visibility:hidden; transform:translateY(14px) scale(.97);
+    transition:opacity .45s ease, transform .45s ease, visibility .45s;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .wpop.show{opacity:1; visibility:visible; transform:none;}
+  .wpop__inner{
+    display:block; border-radius:12px; overflow:hidden;
+    box-shadow:0 20px 50px rgba(10,17,36,.45); border:1px solid rgba(255,255,255,.16);
+  }
+  .wpop__inner img{width:100%; height:auto; display:block;}
+  .wpop__cta{
+    display:block; background:var(--rust); color:#fff;
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; font-weight:600;
+    letter-spacing:.07em; text-transform:uppercase; text-align:center; padding:10px 8px;
+  }
+  .wpop__close{
+    position:absolute; top:-13px; right:-13px; z-index:2;
+    width:36px; height:36px; border-radius:50%; border:0; cursor:pointer;
+    background:var(--ink); color:#fff; font-size:19px; line-height:1;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 4px 14px rgba(0,0,0,.4);
+    transition:background .2s ease;
+  }
+  .wpop__close:hover{background:var(--rust);}
+  @media (hover:hover){
+    .wpop:hover .wpop__inner{box-shadow:0 26px 60px rgba(10,17,36,.55);}
+  }
 
   /* FINAL CTA */
   #final-cta{background:var(--ink); color:#fff; padding:130px 0; text-align:center; position:relative; overflow:hidden;}
@@ -801,7 +852,12 @@
     .numbers-row .v{font-size:18px;}
     .upside-cell{padding:26px 20px;}
     .upside-cell .num{font-size:32px;}
-    .webinar-card{padding:24px;}
+    .webinar-poster__cta{font-size:10.5px; padding:9px 18px; bottom:14px;}
+    /* Small on mobile, and stacked ABOVE the playbook bar so they never overlap. */
+    .wpop{right:12px; bottom:190px; width:132px;}
+    .wpop__cta{font-size:8.5px; letter-spacing:.05em; padding:7px 4px;}
+    /* stays thumb-sized on phones even though the card itself shrinks */
+    .wpop__close{width:34px; height:34px; font-size:18px; top:-12px; right:-12px;}
     /* Full-width buttons are far easier to hit than side-by-side pills. */
     .hero-actions, .final-actions, .benefit-actions{flex-direction:column; align-items:stretch;}
     .hero-actions .btn, .final-actions .btn, .benefit-actions .btn{justify-content:center;}
@@ -1563,14 +1619,12 @@
       <p>Every two weeks, we walk through a different part of the deal, at your own pace.</p>
       <a href="#path" class="btn btn-ghost" data-webinar>See the full webinar schedule</a>
     </div>
-    <div class="webinar-card">
-      <span class="eyebrow mono">Webinar 1 · The Reveal</span>
-      <h3>THE BIG REVEAL: Meet Our Biggest Deal Yet</h3>
-      <p>A closer look at the property, location, numbers, and business plan behind Montrose Berkeley Lake.</p>
-      <div class="webinar-date mono">Tuesday, August 18, 2026</div>
-      <br>
-      <a href="#path" class="btn btn-rust" data-webinar>Reserve Your Spot</a>
-    </div>
+    <button class="webinar-poster" type="button" data-webinar
+            aria-label="Reserve your spot for The Big Reveal webinar, Tuesday 18 August 2026">
+      <img src="images/webinar-banner.jpg" width="1080" height="1350" loading="lazy" decoding="async"
+           alt="The Big Reveal: Meet Our Biggest Deal Yet. Speaker Dr. Nkem Ezeamama. Tuesday, August 18, 2026, 6:00 PM CST.">
+      <span class="webinar-poster__cta">Reserve Your Spot</span>
+    </button>
   </div>
 </section>
 
@@ -1608,6 +1662,16 @@
     <button class="wmodal__close" type="button" data-wclose aria-label="Close webinar">&times;</button>
     <div class="wmodal__frame" id="webinar-frame"></div>
   </div>
+</div>
+
+<div class="wpop" id="webinar-pop" role="complementary" aria-label="Upcoming webinar">
+  <button class="wpop__close" type="button" id="wpop-close" aria-label="Dismiss webinar reminder">&times;</button>
+  <button class="wpop__inner" type="button" data-webinar
+          aria-label="Reserve your spot for The Big Reveal webinar, Tuesday 18 August 2026">
+    <img src="images/webinar-banner.jpg" width="1080" height="1350" loading="lazy" decoding="async"
+         alt="The Big Reveal: Meet Our Biggest Deal Yet. Tuesday, August 18, 2026, 6:00 PM CST.">
+    <span class="wpop__cta">Reserve Your Spot</span>
+  </button>
 </div>
 
 <button class="pb-fab" type="button" data-playbook aria-label="Download the Ultimate Passive Investor Playbook">
@@ -1812,6 +1876,30 @@
       box.replaceChildren(frame);
     });
   });
+
+  // --- Timed webinar pop-in (bottom right, 60s after landing) ---
+  // Dismissal is remembered for the session so it cannot nag on every scroll.
+  (function () {
+    const pop = document.getElementById('webinar-pop');
+    const close = document.getElementById('wpop-close');
+    if (!pop || !close) return;
+
+    let dismissed = false;
+    try { dismissed = sessionStorage.getItem('mbl-wpop-dismissed') === '1'; } catch (e) {}
+    if (dismissed) { pop.remove(); return; }
+
+    const timer = setTimeout(() => pop.classList.add('show'), 60000);
+
+    function hide() {
+      clearTimeout(timer);
+      pop.classList.remove('show');
+      try { sessionStorage.setItem('mbl-wpop-dismissed', '1'); } catch (e) {}
+      setTimeout(() => pop.remove(), 500);
+    }
+    close.addEventListener('click', e => { e.stopPropagation(); hide(); });
+    // opening the webinar means it has done its job
+    pop.querySelector('[data-webinar]').addEventListener('click', () => setTimeout(hide, 100));
+  })();
 
   // --- Webinar: countdown + ClickMeeting popup ---
   // Tuesday 18 August 2026, 6:00 PM America/Chicago — read off the ClickMeeting

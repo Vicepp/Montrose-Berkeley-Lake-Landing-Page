@@ -665,11 +665,62 @@ const STYLES = `@import url('https://fonts.googleapis.com/css2?family=Fraunces:i
   .mbl-root .path-band .eyebrow{color:#b9d6c4;}
   .mbl-root .path-band h2{color:#fff;}
   .mbl-root .path-band p{color:#dfe8e1; font-size:16.5px; margin-bottom:26px; max-width:520px;}
-  .mbl-root .webinar-card{background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); border-radius:var(--radius); padding:30px;}
-  .mbl-root .webinar-card .eyebrow{color:#b9d6c4; margin-bottom:10px;}
-  .mbl-root .webinar-card h3{font-size:22px; color:#fff; margin-bottom:8px;}
-  .mbl-root .webinar-card p{color:#d7e4dc; font-size:14.5px; margin-bottom:18px;}
-  .mbl-root .webinar-date{font-family:'IBM Plex Mono',monospace; font-size:13px; color:#fff; background:rgba(255,255,255,.12); display:inline-block; padding:8px 14px; border-radius:8px; margin-bottom:20px;}
+  .mbl-root /* Promo poster replaces the old text card in the path band */
+  .webinar-poster{
+    position:relative; display:block; width:100%; padding:0; border:0; cursor:pointer;
+    background:none; border-radius:var(--radius); overflow:hidden;
+    box-shadow:0 24px 60px rgba(0,0,0,.4);
+    transition:transform .3s ease, box-shadow .3s ease;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .mbl-root .webinar-poster img{width:100%; height:auto; display:block;}
+  .mbl-root .webinar-poster__cta{
+    position:absolute; left:50%; bottom:18px; transform:translateX(-50%);
+    background:var(--rust); color:#fff; white-space:nowrap;
+    font-family:'IBM Plex Mono',monospace; font-size:11.5px; font-weight:600;
+    letter-spacing:.07em; text-transform:uppercase;
+    padding:11px 22px; border-radius:999px;
+    box-shadow:0 10px 24px rgba(0,0,0,.4);
+    transition:background .25s ease;
+  }
+  @media (hover:hover){
+    .mbl-root .webinar-poster:hover{transform:translateY(-3px); box-shadow:0 30px 70px rgba(0,0,0,.5);}
+    .mbl-root .webinar-poster:hover .webinar-poster__cta{background:var(--rust-deep);}
+  }
+  .mbl-root .webinar-poster:focus-visible{outline:3px solid var(--rust); outline-offset:3px;}
+
+  .mbl-root /* TIMED WEBINAR POP-IN — bottom right, .mbl-root one minute after landing */
+  .wpop{
+    position:fixed; right:24px; bottom:104px; z-index:190;
+    width:250px; padding:0; border:0; cursor:pointer; background:none;
+    border-radius:12px; overflow:visible;
+    opacity:0; visibility:hidden; transform:translateY(14px) scale(.97);
+    transition:opacity .45s ease, transform .45s ease, visibility .45s;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .mbl-root .wpop.show{opacity:1; visibility:visible; transform:none;}
+  .mbl-root .wpop__inner{
+    display:block; border-radius:12px; overflow:hidden;
+    box-shadow:0 20px 50px rgba(10,17,36,.45); border:1px solid rgba(255,255,255,.16);
+  }
+  .mbl-root .wpop__inner img{width:100%; height:auto; display:block;}
+  .mbl-root .wpop__cta{
+    display:block; background:var(--rust); color:#fff;
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; font-weight:600;
+    letter-spacing:.07em; text-transform:uppercase; text-align:center; padding:10px 8px;
+  }
+  .mbl-root .wpop__close{
+    position:absolute; top:-13px; right:-13px; z-index:2;
+    width:36px; height:36px; border-radius:50%; border:0; cursor:pointer;
+    background:var(--ink); color:#fff; font-size:19px; line-height:1;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 4px 14px rgba(0,0,0,.4);
+    transition:background .2s ease;
+  }
+  .mbl-root .wpop__close:hover{background:var(--rust);}
+  @media (hover:hover){
+    .mbl-root .wpop:hover .wpop__inner{box-shadow:0 26px 60px rgba(10,17,36,.55);}
+  }
 
   .mbl-root /* FINAL CTA */
   #final-cta{background:var(--ink); color:#fff; padding:130px 0; text-align:center; position:relative; overflow:hidden;}
@@ -805,7 +856,12 @@ const STYLES = `@import url('https://fonts.googleapis.com/css2?family=Fraunces:i
     .mbl-root .numbers-row .v{font-size:18px;}
     .mbl-root .upside-cell{padding:26px 20px;}
     .mbl-root .upside-cell .num{font-size:32px;}
-    .mbl-root .webinar-card{padding:24px;}
+    .mbl-root .webinar-poster__cta{font-size:10.5px; padding:9px 18px; bottom:14px;}
+    .mbl-root /* Small on mobile, .mbl-root and stacked ABOVE the playbook bar so they never overlap. */
+    .wpop{right:12px; bottom:190px; width:132px;}
+    .mbl-root .wpop__cta{font-size:8.5px; letter-spacing:.05em; padding:7px 4px;}
+    .mbl-root /* stays thumb-sized on phones even though the card itself shrinks */
+    .wpop__close{width:34px; height:34px; font-size:18px; top:-12px; right:-12px;}
     .mbl-root /* Full-width buttons are far easier to hit than side-by-side pills. */
     .hero-actions, .mbl-root .final-actions, .mbl-root .benefit-actions{flex-direction:column; align-items:stretch;}
     .mbl-root .hero-actions .btn, .mbl-root .final-actions .btn, .mbl-root .benefit-actions .btn{justify-content:center;}
@@ -1565,14 +1621,12 @@ const HTML = `<nav id="nav">
       <p>Every two weeks, we walk through a different part of the deal, at your own pace.</p>
       <a href="#path" class="btn btn-ghost" data-webinar>See the full webinar schedule</a>
     </div>
-    <div class="webinar-card">
-      <span class="eyebrow mono">Webinar 1 · The Reveal</span>
-      <h3>THE BIG REVEAL: Meet Our Biggest Deal Yet</h3>
-      <p>A closer look at the property, location, numbers, and business plan behind Montrose Berkeley Lake.</p>
-      <div class="webinar-date mono">Tuesday, August 18, 2026</div>
-      <br>
-      <a href="#path" class="btn btn-rust" data-webinar>Reserve Your Spot</a>
-    </div>
+    <button class="webinar-poster" type="button" data-webinar
+            aria-label="Reserve your spot for The Big Reveal webinar, Tuesday 18 August 2026">
+      <img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/webinar-banner.jpg" width="1080" height="1350" loading="lazy" decoding="async"
+           alt="The Big Reveal: Meet Our Biggest Deal Yet. Speaker Dr. Nkem Ezeamama. Tuesday, August 18, 2026, 6:00 PM CST.">
+      <span class="webinar-poster__cta">Reserve Your Spot</span>
+    </button>
   </div>
 </section>
 
@@ -1610,6 +1664,16 @@ const HTML = `<nav id="nav">
     <button class="wmodal__close" type="button" data-wclose aria-label="Close webinar">&times;</button>
     <div class="wmodal__frame" id="webinar-frame"></div>
   </div>
+</div>
+
+<div class="wpop" id="webinar-pop" role="complementary" aria-label="Upcoming webinar">
+  <button class="wpop__close" type="button" id="wpop-close" aria-label="Dismiss webinar reminder">&times;</button>
+  <button class="wpop__inner" type="button" data-webinar
+          aria-label="Reserve your spot for The Big Reveal webinar, Tuesday 18 August 2026">
+    <img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/webinar-banner.jpg" width="1080" height="1350" loading="lazy" decoding="async"
+         alt="The Big Reveal: Meet Our Biggest Deal Yet. Tuesday, August 18, 2026, 6:00 PM CST.">
+    <span class="wpop__cta">Reserve Your Spot</span>
+  </button>
 </div>
 
 <button class="pb-fab" type="button" data-playbook aria-label="Download the Ultimate Passive Investor Playbook">

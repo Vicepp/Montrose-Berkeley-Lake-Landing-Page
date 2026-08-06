@@ -487,6 +487,8 @@ const STYLES = `@import url('https://fonts.googleapis.com/css2?family=Fraunces:i
   .press-item--usa img{max-height:24px;}
   .mbl-root .press-item--somedocs img{max-height:29px;}
   .mbl-root .press-item--ceo img{max-height:32px;}
+  .mbl-root .press-item--tl img{max-height:30px;}
+  .mbl-root .press-item--bw img{max-height:20px;}
 
   @media (hover:hover){
     .mbl-root .press-item:hover img{filter:none; transform:scale(1.04);}
@@ -616,7 +618,8 @@ const STYLES = `@import url('https://fonts.googleapis.com/css2?family=Fraunces:i
   .mbl-root /* MEET THE CEO */
   .ceo-grid{display:grid; grid-template-columns:.8fr 1.2fr; gap:56px; align-items:start; margin-top:44px;}
   .mbl-root .ceo-photo{border-radius:var(--radius); overflow:hidden; box-shadow:0 24px 60px rgba(18,32,64,.22); background:var(--paper-2);}
-  .mbl-root .ceo-photo img{width:100%; height:auto; aspect-ratio:1/1; object-fit:cover; object-position:center 18%;}
+  .mbl-root /* source is pre-cropped square, .mbl-root so no object-position nudge is needed */
+  .ceo-photo img{width:100%; height:auto; aspect-ratio:1/1; object-fit:cover; object-position:center;}
   .mbl-root .ceo-role{font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:.14em;
             text-transform:uppercase; color:var(--rust); margin-bottom:8px;}
   .mbl-root .ceo-name{font-family:'Fraunces',serif; font-size:clamp(28px,3.4vw,40px); font-weight:600;
@@ -760,6 +763,8 @@ const STYLES = `@import url('https://fonts.googleapis.com/css2?family=Fraunces:i
     .mbl-root .press-item--usa img{max-height:19px;}
     .mbl-root .press-item--somedocs img{max-height:23px;}
     .mbl-root .press-item--ceo img{max-height:26px;}
+    .mbl-root .press-item--tl img{max-height:24px;}
+    .mbl-root .press-item--bw img{max-height:16px;}
 
     .mbl-root /* Three short stats read better as a row than a tall stack. */
     .stat-row{display:grid; grid-template-columns:repeat(3,1fr); gap:0;}
@@ -868,31 +873,37 @@ const HTML = `<nav id="nav">
     <div class="press-track">
       <div class="press-set">
           <div class="press-item press-item--usa"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/usa-news.png" alt="USA News" loading="lazy" decoding="async"></div>
-          <div class="press-item press-item--somedocs"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/somedocs.png" alt="SoMeDocs - Doctors on Social Media" loading="lazy" decoding="async"></div>
           <div class="press-item press-item--ceo"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/ceotimes.png" alt="CEO Times" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--tl"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/toplistings.png" alt="TopListings" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--bw"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/bizweekly.png" alt="BizWeekly" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--somedocs"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/somedocs.png" alt="SoMeDocs - Doctors on Social Media" loading="lazy" decoding="async"></div>
           <div class="press-item press-item--usa"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/usa-news.png" alt="USA News" loading="lazy" decoding="async"></div>
-          <div class="press-item press-item--somedocs"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/somedocs.png" alt="SoMeDocs - Doctors on Social Media" loading="lazy" decoding="async"></div>
           <div class="press-item press-item--ceo"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/ceotimes.png" alt="CEO Times" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--tl"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/toplistings.png" alt="TopListings" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--bw"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/bizweekly.png" alt="BizWeekly" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--somedocs"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/somedocs.png" alt="SoMeDocs - Doctors on Social Media" loading="lazy" decoding="async"></div>
           <div class="press-item press-item--usa"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/usa-news.png" alt="USA News" loading="lazy" decoding="async"></div>
-          <div class="press-item press-item--somedocs"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/somedocs.png" alt="SoMeDocs - Doctors on Social Media" loading="lazy" decoding="async"></div>
           <div class="press-item press-item--ceo"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/ceotimes.png" alt="CEO Times" loading="lazy" decoding="async"></div>
-          <div class="press-item press-item--usa"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/usa-news.png" alt="USA News" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--tl"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/toplistings.png" alt="TopListings" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--bw"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/bizweekly.png" alt="BizWeekly" loading="lazy" decoding="async"></div>
           <div class="press-item press-item--somedocs"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/somedocs.png" alt="SoMeDocs - Doctors on Social Media" loading="lazy" decoding="async"></div>
-          <div class="press-item press-item--ceo"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/ceotimes.png" alt="CEO Times" loading="lazy" decoding="async"></div>
       </div>
       <div class="press-set" aria-hidden="true">
           <div class="press-item press-item--usa"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/usa-news.png" alt="USA News" loading="lazy" decoding="async"></div>
-          <div class="press-item press-item--somedocs"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/somedocs.png" alt="SoMeDocs - Doctors on Social Media" loading="lazy" decoding="async"></div>
           <div class="press-item press-item--ceo"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/ceotimes.png" alt="CEO Times" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--tl"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/toplistings.png" alt="TopListings" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--bw"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/bizweekly.png" alt="BizWeekly" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--somedocs"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/somedocs.png" alt="SoMeDocs - Doctors on Social Media" loading="lazy" decoding="async"></div>
           <div class="press-item press-item--usa"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/usa-news.png" alt="USA News" loading="lazy" decoding="async"></div>
-          <div class="press-item press-item--somedocs"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/somedocs.png" alt="SoMeDocs - Doctors on Social Media" loading="lazy" decoding="async"></div>
           <div class="press-item press-item--ceo"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/ceotimes.png" alt="CEO Times" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--tl"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/toplistings.png" alt="TopListings" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--bw"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/bizweekly.png" alt="BizWeekly" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--somedocs"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/somedocs.png" alt="SoMeDocs - Doctors on Social Media" loading="lazy" decoding="async"></div>
           <div class="press-item press-item--usa"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/usa-news.png" alt="USA News" loading="lazy" decoding="async"></div>
-          <div class="press-item press-item--somedocs"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/somedocs.png" alt="SoMeDocs - Doctors on Social Media" loading="lazy" decoding="async"></div>
           <div class="press-item press-item--ceo"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/ceotimes.png" alt="CEO Times" loading="lazy" decoding="async"></div>
-          <div class="press-item press-item--usa"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/usa-news.png" alt="USA News" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--tl"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/toplistings.png" alt="TopListings" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--bw"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/bizweekly.png" alt="BizWeekly" loading="lazy" decoding="async"></div>
           <div class="press-item press-item--somedocs"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/somedocs.png" alt="SoMeDocs - Doctors on Social Media" loading="lazy" decoding="async"></div>
-          <div class="press-item press-item--ceo"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/ceotimes.png" alt="CEO Times" loading="lazy" decoding="async"></div>
       </div>
     </div>
   </div>
@@ -1123,7 +1134,7 @@ const HTML = `<nav id="nav">
     <div class="ceo-grid">
       <figure class="ceo-photo">
         <img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/dr-nkem-ezeamama.jpg" alt="Dr. Nkem Ezeamama, CEO and Founder of Pheenyx Capital"
-             width="1105" height="979" loading="lazy" decoding="async">
+             width="1100" height="1100" loading="lazy" decoding="async">
       </figure>
       <div>
         <div class="ceo-role">CEO &amp; Founder</div>
@@ -1268,6 +1279,34 @@ const HTML = `<nav id="nav">
           </article>
           <article class="pcard">
             <div class="pcard__top">
+              <img class="pcard__logo" src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/toplistings.png" alt="TopListings" loading="lazy" decoding="async">
+              <span class="pcard__kind">Feature</span>
+            </div>
+            <div class="pcard__body">
+              <h3 class="pcard__title">Pheenyx Capital Taps Into the Multifamily Real Estate Goldmine, Reaching $153M in AUM</h3>
+              <p class="pcard__excerpt">In multifamily real estate, growth is not measured by ambition alone. It is measured by the quality of the deals a firm pursues and the discipline behind its underwriting.</p>
+            </div>
+            <div class="pcard__foot">
+              <span class="pcard__date">29 May 2026</span>
+              <button class="pcard__btn" type="button" data-press="toplistings">Preview</button>
+            </div>
+          </article>
+          <article class="pcard">
+            <div class="pcard__top">
+              <img class="pcard__logo" src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/bizweekly.png" alt="BizWeekly" loading="lazy" decoding="async">
+              <span class="pcard__kind">Feature</span>
+            </div>
+            <div class="pcard__body">
+              <h3 class="pcard__title">The Physician CEO Behind a $153M Firm Helping Professionals Build Wealth Beyond Work</h3>
+              <p class="pcard__excerpt">Pheenyx Capital Investment has crossed a major milestone: more than $153 million in portfolio size, 150+ active investors, and 885 portfolio units.</p>
+            </div>
+            <div class="pcard__foot">
+              <span class="pcard__date">29 May 2026</span>
+              <button class="pcard__btn" type="button" data-press="bizweekly">Preview</button>
+            </div>
+          </article>
+          <article class="pcard">
+            <div class="pcard__top">
               <img class="pcard__logo" src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/somedocs-knockout.png" alt="SoMeDocs" loading="lazy" decoding="async">
               <span class="pcard__kind is-talk">Speaking</span>
             </div>
@@ -1306,6 +1345,34 @@ const HTML = `<nav id="nav">
             <div class="pcard__foot">
               <span class="pcard__date">18 November 2025</span>
               <button class="pcard__btn" type="button" data-press="ceotimes">Preview</button>
+            </div>
+          </article>
+          <article class="pcard">
+            <div class="pcard__top">
+              <img class="pcard__logo" src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/toplistings.png" alt="TopListings" loading="lazy" decoding="async">
+              <span class="pcard__kind">Feature</span>
+            </div>
+            <div class="pcard__body">
+              <h3 class="pcard__title">Pheenyx Capital Taps Into the Multifamily Real Estate Goldmine, Reaching $153M in AUM</h3>
+              <p class="pcard__excerpt">In multifamily real estate, growth is not measured by ambition alone. It is measured by the quality of the deals a firm pursues and the discipline behind its underwriting.</p>
+            </div>
+            <div class="pcard__foot">
+              <span class="pcard__date">29 May 2026</span>
+              <button class="pcard__btn" type="button" data-press="toplistings">Preview</button>
+            </div>
+          </article>
+          <article class="pcard">
+            <div class="pcard__top">
+              <img class="pcard__logo" src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/bizweekly.png" alt="BizWeekly" loading="lazy" decoding="async">
+              <span class="pcard__kind">Feature</span>
+            </div>
+            <div class="pcard__body">
+              <h3 class="pcard__title">The Physician CEO Behind a $153M Firm Helping Professionals Build Wealth Beyond Work</h3>
+              <p class="pcard__excerpt">Pheenyx Capital Investment has crossed a major milestone: more than $153 million in portfolio size, 150+ active investors, and 885 portfolio units.</p>
+            </div>
+            <div class="pcard__foot">
+              <span class="pcard__date">29 May 2026</span>
+              <button class="pcard__btn" type="button" data-press="bizweekly">Preview</button>
             </div>
           </article>
           <article class="pcard">
@@ -1354,6 +1421,34 @@ const HTML = `<nav id="nav">
           </article>
           <article class="pcard">
             <div class="pcard__top">
+              <img class="pcard__logo" src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/toplistings.png" alt="TopListings" loading="lazy" decoding="async">
+              <span class="pcard__kind">Feature</span>
+            </div>
+            <div class="pcard__body">
+              <h3 class="pcard__title">Pheenyx Capital Taps Into the Multifamily Real Estate Goldmine, Reaching $153M in AUM</h3>
+              <p class="pcard__excerpt">In multifamily real estate, growth is not measured by ambition alone. It is measured by the quality of the deals a firm pursues and the discipline behind its underwriting.</p>
+            </div>
+            <div class="pcard__foot">
+              <span class="pcard__date">29 May 2026</span>
+              <button class="pcard__btn" type="button" data-press="toplistings">Preview</button>
+            </div>
+          </article>
+          <article class="pcard">
+            <div class="pcard__top">
+              <img class="pcard__logo" src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/bizweekly.png" alt="BizWeekly" loading="lazy" decoding="async">
+              <span class="pcard__kind">Feature</span>
+            </div>
+            <div class="pcard__body">
+              <h3 class="pcard__title">The Physician CEO Behind a $153M Firm Helping Professionals Build Wealth Beyond Work</h3>
+              <p class="pcard__excerpt">Pheenyx Capital Investment has crossed a major milestone: more than $153 million in portfolio size, 150+ active investors, and 885 portfolio units.</p>
+            </div>
+            <div class="pcard__foot">
+              <span class="pcard__date">29 May 2026</span>
+              <button class="pcard__btn" type="button" data-press="bizweekly">Preview</button>
+            </div>
+          </article>
+          <article class="pcard">
+            <div class="pcard__top">
               <img class="pcard__logo" src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/somedocs-knockout.png" alt="SoMeDocs" loading="lazy" decoding="async">
               <span class="pcard__kind is-talk">Speaking</span>
             </div>
@@ -1392,6 +1487,34 @@ const HTML = `<nav id="nav">
             <div class="pcard__foot">
               <span class="pcard__date">18 November 2025</span>
               <button class="pcard__btn" type="button" data-press="ceotimes">Preview</button>
+            </div>
+          </article>
+          <article class="pcard">
+            <div class="pcard__top">
+              <img class="pcard__logo" src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/toplistings.png" alt="TopListings" loading="lazy" decoding="async">
+              <span class="pcard__kind">Feature</span>
+            </div>
+            <div class="pcard__body">
+              <h3 class="pcard__title">Pheenyx Capital Taps Into the Multifamily Real Estate Goldmine, Reaching $153M in AUM</h3>
+              <p class="pcard__excerpt">In multifamily real estate, growth is not measured by ambition alone. It is measured by the quality of the deals a firm pursues and the discipline behind its underwriting.</p>
+            </div>
+            <div class="pcard__foot">
+              <span class="pcard__date">29 May 2026</span>
+              <button class="pcard__btn" type="button" data-press="toplistings">Preview</button>
+            </div>
+          </article>
+          <article class="pcard">
+            <div class="pcard__top">
+              <img class="pcard__logo" src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/bizweekly.png" alt="BizWeekly" loading="lazy" decoding="async">
+              <span class="pcard__kind">Feature</span>
+            </div>
+            <div class="pcard__body">
+              <h3 class="pcard__title">The Physician CEO Behind a $153M Firm Helping Professionals Build Wealth Beyond Work</h3>
+              <p class="pcard__excerpt">Pheenyx Capital Investment has crossed a major milestone: more than $153 million in portfolio size, 150+ active investors, and 885 portfolio units.</p>
+            </div>
+            <div class="pcard__foot">
+              <span class="pcard__date">29 May 2026</span>
+              <button class="pcard__btn" type="button" data-press="bizweekly">Preview</button>
             </div>
           </article>
           <article class="pcard">

@@ -141,6 +141,19 @@
   /* OPPORTUNITY */
   .opp-grid{display:grid; grid-template-columns:1.15fr .85fr; gap:64px; align-items:center; margin-top:48px;}
   .opp-grid p{margin-bottom:16px; font-size:16.5px; color:#3b382f;}
+  /* The three "Knowing…" lines read as a stanza, not a paragraph */
+  .opp-knowing{margin:22px 0 24px; padding-left:18px; border-left:2px solid var(--rust);}
+  .opp-knowing span{display:block; font-size:16px; line-height:1.62; color:#3b382f;}
+  .opp-knowing span + span{margin-top:7px;}
+  .opp-figures{
+    font-family:'Fraunces',serif; font-size:20px; font-weight:600;
+    color:var(--ink); line-height:1.35; margin-bottom:18px;
+  }
+  .opp-punch{
+    font-family:'Fraunces',serif; font-size:21px; font-weight:600;
+    color:var(--ink); line-height:1.3; margin:22px 0 22px;
+  }
+  .opp-cta{margin-top:2px;}
   .opp-figure{border-radius:var(--radius); overflow:hidden; box-shadow:0 24px 60px rgba(18,32,64,.18);}
   .opp-figure img{width:100%; height:420px; object-fit:cover;}
   .opp-caption{font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--stone); margin-top:10px; letter-spacing:.03em;}
@@ -383,12 +396,6 @@
   .upside-cell .num{font-family:'Fraunces',serif; font-size:38px; font-weight:600; color:var(--rust-glow,#e08a5c);}
   .upside-cell .lbl{font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:.05em; text-transform:uppercase; color:#b7bdd0; margin-top:8px;}
 
-  /* USP CARDS */
-  .usp-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:2px; background:#ddd0b3; margin-top:52px; border-radius:var(--radius); overflow:hidden;}
-  .usp-card{background:var(--paper); padding:30px 30px; min-height:140px;}
-  .usp-card .tag{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--green);}
-  .usp-card h3{font-size:20px; margin:12px 0 10px; font-weight:600;}
-  .usp-card p{font-size:14.5px; color:var(--stone);}
 
   /* GALLERY — SCROLLING MARQUEE */
   .gallery-marquee{margin-top:52px; --tile-w:320px; --tile-h:210px; --tile-gap:14px; --fade:90px;}
@@ -815,7 +822,6 @@
     .opp-grid{grid-template-columns:1fr; gap:36px;}
     .opp-figure img{height:280px;}
     .factbar{grid-template-columns:repeat(2,1fr); row-gap:24px;}
-    .usp-grid{grid-template-columns:1fr;}
     .upside-row{grid-template-columns:1fr;}
     .gallery-marquee{--tile-w:232px; --tile-h:152px; --tile-gap:10px; --fade:40px;}
     .numbers-grid{grid-template-columns:1fr;}
@@ -1006,10 +1012,17 @@
     <span class="eyebrow eyebrow-rust">The Opportunity</span>
     <div class="opp-grid">
       <div>
-        <h2>A well-located property with room to grow.</h2>
-        <p>Montrose Berkeley Lake is a 492-unit garden-style community on 41 acres in Duluth, Georgia, at the center of one of metro Atlanta's fastest-growing counties.</p>
-        <p>The property is 94% occupied at an average rent of $1,387. Eighty units have already been renovated, with 412 left to capture the same upside.</p>
-        <p>This isn't a turnaround story. It's a working plan, partway done.</p>
+        <h2>Every investment Pheenyx Capital has made has sharpened our approach.</h2>
+        <div class="opp-knowing">
+          <span>Knowing which opportunities deserve attention.</span>
+          <span>Knowing where the numbers make sense.</span>
+          <span>And knowing how to pursue growth while keeping investor capital at the center of every decision.</span>
+        </div>
+        <p class="opp-figures">$153.5M+ in assets. 885 units. 150+ investors.</p>
+        <p>Those numbers represent more than growth. They represent years of discipline, relationships, and decisions made with the long term in mind.</p>
+        <p>And now, we&rsquo;re putting that experience behind something bigger.</p>
+        <p class="opp-punch">Our biggest opportunity yet is ready to be revealed.</p>
+        <button class="btn btn-rust opp-cta" type="button" data-webinar>Reserve a seat</button>
       </div>
       <div>
         <figure class="opp-figure">
@@ -1128,30 +1141,6 @@
     <div class="benefit-actions">
       <a href="#path" class="btn btn-rust">Invest Now</a>
       <a href="#path" class="btn btn-ghost" data-webinar>Register for Webinar</a>
-    </div>
-  </div>
-</section>
-
-<section class="section section-cream2">
-  <div class="wrap">
-    <span class="eyebrow eyebrow-green">Why This Deal</span>
-    <h2>What we looked at before saying yes.</h2>
-    <div class="usp-grid">
-      <div class="usp-card">
-        <div class="tag mono">Rent Growth</div>
-        <h3>Backed by comps, not hope</h3>
-        <p>Nearby comps show room to push rents even further.</p>
-      </div>
-      <div class="usp-card">
-        <div class="tag mono">Submarket</div>
-        <h3>Gwinnett keeps growing</h3>
-        <p>Rising population, and every zoned school rated 'A'.</p>
-      </div>
-      <div class="usp-card">
-        <div class="tag mono">Employment</div>
-        <h3>Jobs are minutes away</h3>
-        <p>Close to major employers across tech, industrial, and healthcare.</p>
-      </div>
     </div>
   </div>
 </section>

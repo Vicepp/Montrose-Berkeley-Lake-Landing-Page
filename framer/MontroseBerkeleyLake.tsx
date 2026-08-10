@@ -858,9 +858,12 @@ const STYLES = `@import url('https://fonts.googleapis.com/css2?family=Fraunces:i
 
     .mbl-root /* Three short stats read better as a row than a tall stack. */
     .stat-row{display:grid; grid-template-columns:repeat(3,1fr); gap:0;}
-    .mbl-root .stat-chip{min-width:0; padding:18px 8px 4px;}
-    .mbl-root .stat-chip .num{font-size:24px;}
-    .mbl-root .stat-chip .lbl{font-size:10px;}
+    .mbl-root .stat-chip{min-width:0; padding:18px 4px 4px;}
+    .mbl-root /* Fluid, .mbl-root because "$153.5MM+" is far wider than the old "492" and overruns
+       its column at a fixed 24px on anything under ~480px. The 4.6vw slope is
+       taken from the measured text width of the longest value. */
+    .stat-chip .num{font-size:clamp(15px, 4.6vw, 24px); letter-spacing:-0.01em;}
+    .mbl-root .stat-chip .lbl{font-size:10px; letter-spacing:.03em;}
 
     .mbl-root /* --- Vertical rhythm: desktop spacing is far too tall on a phone --- */
     .section{padding:72px 0;}
@@ -952,9 +955,9 @@ const HTML = `<nav id="nav">
       <a href="#value-add" class="hero-scroll">See the details ↓</a>
     </div>
     <div class="stat-row">
-      <div class="stat-chip"><div class="num">492</div><div class="lbl">Units</div></div>
-      <div class="stat-chip"><div class="num">94%</div><div class="lbl">Occupied</div></div>
-      <div class="stat-chip"><div class="num">41</div><div class="lbl">Acres</div></div>
+      <div class="stat-chip"><div class="num">$153.5MM+</div><div class="lbl">Portfolio Size (AUM)</div></div>
+      <div class="stat-chip"><div class="num">150+</div><div class="lbl">Active Investors</div></div>
+      <div class="stat-chip"><div class="num">885</div><div class="lbl">Portfolio Units</div></div>
     </div>
   </div>
 </header>

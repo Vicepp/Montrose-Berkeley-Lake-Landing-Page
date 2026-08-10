@@ -8,7 +8,7 @@ const { chromium } = require('playwright-core');
     const errs=[]; p.on('pageerror',e=>errs.push(e.message));
     // don't actually contact ClickMeeting
     await p.route(/clickmeeting\.com/, r => r.fulfill({status:200, contentType:'text/html', body:'<h1>webinar stub</h1>'}));
-    await p.goto('http://localhost:8765/index.html', { waitUntil:'domcontentloaded' });
+    await p.goto('http://127.0.0.1:8788/index.html', { waitUntil:'domcontentloaded' });
     await p.waitForTimeout(1800);
     // reveal the sticky bar
     await p.evaluate(() => window.scrollTo(0, window.innerHeight*1.3));

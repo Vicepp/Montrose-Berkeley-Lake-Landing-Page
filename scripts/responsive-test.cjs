@@ -2,7 +2,7 @@ const { chromium } = require('playwright-core');
 const path = require('path');
 
 const OUT = process.env.SHOTDIR;
-const URL = 'http://localhost:8765/index.html';
+const URL = 'http://127.0.0.1:8788/index.html';
 
 const devices = [
   { name: 'iphone-se',  width: 375,  height: 667,  mobile: true,  dsf: 2 },

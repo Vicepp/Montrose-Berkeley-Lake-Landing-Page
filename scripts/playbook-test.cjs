@@ -7,7 +7,7 @@ const { chromium } = require('playwright-core');
     const p = await ctx.newPage();
     const errs=[]; p.on('pageerror',e=>errs.push(e.message));
     await p.route(/fonts\.(googleapis|gstatic)\.com/, r => r.abort());
-    await p.goto('http://localhost:8765/index.html', { waitUntil:'domcontentloaded' });
+    await p.goto('http://127.0.0.1:8788/index.html', { waitUntil:'domcontentloaded' });
     await p.waitForTimeout(2000);
 
     // social row is back in the CEO section and nowhere else

@@ -88,17 +88,30 @@ is no data from before the feature went live. Days bucket by UTC.
 
 ## Tests
 
+Start the mock server first — the browser suites expect it on port 8788:
+
 ```bash
-npm test                              # analytics maths + compaction (84 assertions)
-node scripts/responsive-test.js       # layout across 5 viewports
-node scripts/press-outlets-test.js    # press strip + rail + modals
-node scripts/sticky-bar-test.js       # sticky bar, countdown, webinar popup
-node scripts/webinar-popin-test.js    # timed pop-in placement and dismissal
+ADMIN_PASSWORD=test SEED=1 node scripts/mock-server.mjs 8788
 ```
 
-The browser suites need Playwright's Chromium and a server on the expected port.
-Point them at `scripts/mock-server.mjs` rather than a plain static server, or the
-analytics beacon's POST to `/api/track` will log a harmless 501 on every load.
+```bash
+npm test                               # analytics maths + compaction (84 assertions)
+node scripts/responsive-test.cjs       # layout across 5 viewports
+node scripts/press-outlets-test.cjs    # press strip + rail + modals
+node scripts/sticky-bar-test.cjs       # sticky bar, countdown, webinar popup
+node scripts/webinar-popin-test.cjs    # timed pop-in placement and dismissal
+```
+
+The browser suites need Playwright's Chromium (`CHROME_PATH`) and write
+screenshots to `SHOTDIR`. Run them against the mock server rather than a plain
+static file server: `python -m http.server` has no POST handler, so the
+analytics beacon logs a harmless 501 on every page load and the suites report it
+as a console error.
+
+**Why `.cjs`.** `package.json` declares `"type": "module"` for the analytics
+code, which makes every bare `.js` file an ES module. The generators and browser
+suites are CommonJS, so they carry the `.cjs` extension to opt back out. A new
+CommonJS script must use `.cjs` or it will fail on `require`.
 
 ## Photo gallery
 

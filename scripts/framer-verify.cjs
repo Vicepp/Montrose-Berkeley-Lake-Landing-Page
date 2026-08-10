@@ -103,8 +103,8 @@ fs.writeFileSync(path.join(process.env.SITE_DIR, '_framer-preview.html'), host, 
       return { data, hostOk };
     };
 
-    const orig = await measure('http://localhost:8765/index.html', 'orig');
-    const fram = await measure('http://localhost:8765/_framer-preview.html', 'framer');
+    const orig = await measure('http://127.0.0.1:8788/index.html', 'orig');
+    const fram = await measure('http://127.0.0.1:8788/_framer-preview.html', 'framer');
 
     console.log(`\n===== ${d.name} (${d.w}px) =====`);
     let diffs = 0;

@@ -1,4 +1,4 @@
-﻿const { chromium } = require('playwright-core');
+const { chromium } = require('playwright-core');
 (async () => {
   const b = await chromium.launch({ executablePath: process.env.CHROME_PATH });
   const pass=[],fail=[]; const t=(n,c,d='')=> (c?pass:fail).push(n+(d?' — '+d:''));
@@ -8,7 +8,7 @@
     const p = await ctx.newPage();
     const errs=[]; p.on('pageerror',e=>errs.push(e.message));
     await p.route(/fonts\.(googleapis|gstatic)\.com/, r => r.abort());
-    await p.goto('http://localhost:8765/index.html', { waitUntil:'domcontentloaded' });
+    await p.goto('http://127.0.0.1:8788/index.html', { waitUntil:'domcontentloaded' });
     await p.waitForTimeout(1800);
     await p.addStyleTag({content:'.press-track,.rail__track,.marquee__track{animation:none !important} html{scroll-behavior:auto !important}'});
     // walk the page so lazy logos/cards load

@@ -24,7 +24,7 @@ const { chromium } = require('playwright-core');
       window.setTimeout = (fn, ms, ...a) => real(fn, ms === 60000 ? 900 : ms, ...a);
     });
 
-    await p.goto('http://127.0.0.1:8765/index.html', { waitUntil: 'domcontentloaded' });
+    await p.goto('http://127.0.0.1:8788/index.html', { waitUntil: 'domcontentloaded' });
     await p.waitForTimeout(600);
 
     // hidden before the timer fires

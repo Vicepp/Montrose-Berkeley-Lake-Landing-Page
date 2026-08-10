@@ -688,6 +688,11 @@ const STYLES = `@import url('https://fonts.googleapis.com/css2?family=Fraunces:i
   .mbl-root .benefit-card svg{width:24px; height:24px; stroke:#e79b74; fill:none; stroke-width:1.6;
                     stroke-linecap:round; stroke-linejoin:round; margin-bottom:16px;}
   .mbl-root .benefit-card h3{font-size:17.5px; font-weight:600; color:#fff; margin-bottom:8px; line-height:1.25;}
+  .mbl-root /* Cards whose headline is a figure rather than a phrase */
+  .benefit-card--stat h3{
+    font-family:'Fraunces',serif; font-size:30px; letter-spacing:-0.01em;
+    line-height:1.05; margin-bottom:10px; white-space:nowrap;
+  }
   .mbl-root .benefit-card p{font-size:14px; color:#b7bdd0; line-height:1.5;}
   .mbl-root .benefit-actions{display:flex; gap:16px; flex-wrap:wrap; margin-top:40px;}
 
@@ -1093,20 +1098,20 @@ const HTML = `<nav id="nav">
     <span class="eyebrow eyebrow-rust">Financial Benefits</span>
     <h2>When you invest in Montrose Berkeley Lake, you benefit from</h2>
     <div class="benefit-grid">
-      <div class="benefit-card">
+      <div class="benefit-card benefit-card--stat">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-        <h3>Consistent Cash Flow</h3>
-        <p>Quarterly distributions projected</p>
+        <h3>15&ndash;19%</h3>
+        <p>Projected Annualized Returns</p>
       </div>
       <div class="benefit-card">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 6l-9.5 9.5-5-5L1 18"/><path d="M17 6h6v6"/></svg>
         <h3>Appreciation Potential</h3>
         <p>Value-add strategies in motion</p>
       </div>
-      <div class="benefit-card">
+      <div class="benefit-card benefit-card--stat">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 5L5 19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
-        <h3>Tax Advantages</h3>
-        <p>Depreciation, cost segregation</p>
+        <h3>45&ndash;50%</h3>
+        <p>Tax Savings on a $100,000 Investment</p>
       </div>
       <div class="benefit-card">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18M5 21V7l7-4 7 4v14"/><path d="M9 21v-5h6v5"/></svg>
@@ -1720,6 +1725,14 @@ const HTML = `<nav id="nav">
   </button>
 </div>
 
+<!-- PLAYBOOK LEAD MAGNET — ARCHIVED, not deleted.
+     Held in a <template>, whose contents are inert: not rendered, not
+     matched by querySelectorAll, no network requests for the form iframe.
+     A comment would not work here — the block already contains one, and
+     the inner "-->" would close the outer comment early and leak markup.
+     To restore: delete the <template ...> line and its </template>. The
+     CSS is untouched and the JS re-attaches itself once these exist. -->
+<template id="archived-playbook">
 <button class="pb-fab" type="button" data-playbook aria-label="Download the Ultimate Passive Investor Playbook">
   <span class="pb-fab__icon" aria-hidden="true">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 21h16"/></svg>
@@ -1765,6 +1778,8 @@ const HTML = `<nav id="nav">
     </div>
   </div>
 </div>
+</template>
+<!-- END ARCHIVED PLAYBOOK -->
 
 <footer>
   <div class="wrap">

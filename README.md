@@ -94,10 +94,11 @@ node scripts/responsive-test.js       # layout across 5 viewports
 node scripts/press-outlets-test.js    # press strip + rail + modals
 node scripts/sticky-bar-test.js       # sticky bar, countdown, webinar popup
 node scripts/webinar-popin-test.js    # timed pop-in placement and dismissal
-node scripts/admin-test.js            # admin panel end to end (needs mock-server)
 ```
 
 The browser suites need Playwright's Chromium and a server on the expected port.
+Point them at `scripts/mock-server.mjs` rather than a plain static server, or the
+analytics beacon's POST to `/api/track` will log a harmless 501 on every load.
 
 ## Photo gallery
 

@@ -159,11 +159,43 @@
   .section-navy .fact-card .v{color:#fff;}
   .section-navy .fact-card svg{stroke:#e79b74;}
 
-  /* AMENITY GRID */
-  .amenity-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin-top:44px;}
-  .amenity-card{display:flex; align-items:center; gap:10px; background:var(--white); border:1px solid #e2d5b8; border-radius:10px; padding:16px 14px;}
-  .amenity-card svg{width:18px; height:18px; stroke:var(--green); flex-shrink:0;}
-  .amenity-card span{font-size:13.5px; font-weight:500; color:var(--ink);}
+  /* THE REVEAL — what is deliberately held back for the webinar */
+  .reveal-grid{display:grid; grid-template-columns:1.05fr .95fr; gap:56px; align-items:center; margin-top:44px;}
+  .reveal-copy p{font-size:16.5px; color:#3b382f; margin-bottom:16px;}
+  .reveal-copy p:last-child{margin-bottom:0;}
+  .reveal-copy .lead-in{
+    font-family:'Fraunces',serif; font-size:21px; font-weight:600;
+    color:var(--ink); line-height:1.3; margin:26px 0 18px;
+  }
+  .reveal-panel{
+    background:var(--ink); color:#fff; border-radius:var(--radius);
+    padding:32px; box-shadow:0 26px 60px rgba(18,32,64,.26);
+  }
+  .reveal-panel .k{
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.14em;
+    text-transform:uppercase; color:#e79b74; margin-bottom:18px; display:block;
+  }
+  .reveal-list{list-style:none; margin:0 0 26px;}
+  .reveal-list li{
+    display:flex; align-items:flex-start; gap:12px;
+    font-size:14.5px; line-height:1.5; color:#d3d7e4;
+    padding:11px 0; border-bottom:1px solid rgba(255,255,255,.1);
+  }
+  .reveal-list li:last-child{border-bottom:none;}
+  .reveal-list svg{
+    flex:0 0 auto; width:17px; height:17px; margin-top:2px;
+    stroke:#e79b74; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round;
+  }
+  .reveal-when{
+    display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;
+    font-family:'IBM Plex Mono',monospace; font-size:13px; color:#fff;
+    background:rgba(255,255,255,.09); border:1px solid rgba(255,255,255,.16);
+    padding:12px 16px; border-radius:10px; margin-bottom:18px;
+  }
+  .reveal-when b{font-weight:600;}
+  .reveal-when span{color:#9aa1b8; font-size:11.5px;}
+  .reveal-panel .btn{width:100%; justify-content:center;}
+
 
   /* RENOVATION SCOPE */
   .reno-panels{display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:56px;}
@@ -772,7 +804,6 @@
 
     /* --- Grids that previously never collapsed --- */
     .fact-grid{grid-template-columns:repeat(2,1fr);}
-    .amenity-grid{grid-template-columns:repeat(2,1fr);}
     .reno-panels{grid-template-columns:1fr; gap:16px;}
     .reno-panel{padding:24px;}
 
@@ -786,6 +817,9 @@
     .numbers-row:nth-child(odd), .numbers-row:nth-child(even){padding-left:4px; padding-right:4px;}
     .path-inner{grid-template-columns:1fr; gap:36px;}
     .firm-grid{grid-template-columns:1fr; gap:32px;}
+    .reveal-grid{grid-template-columns:1fr; gap:30px;}
+    .reveal-panel{padding:26px 22px;}
+    .reveal-copy .lead-in{font-size:19px;}
     .yt__play{width:62px; height:62px;}
     .yt__play svg{width:22px; height:22px;}
     .ceo-grid{grid-template-columns:1fr; gap:30px;}
@@ -838,10 +872,6 @@
     .nav-stats{padding-left:20px; padding-right:20px;}
     .nav-links a.nav-cta{margin-left:20px; margin-right:20px;}
     /* both stay two-up on phones — tighten the boxes so they fit at 375px */
-    .amenity-grid{grid-template-columns:repeat(2,1fr); gap:8px;}
-    .amenity-card{padding:12px 10px; gap:7px; align-items:flex-start;}
-    .amenity-card svg{width:16px; height:16px; margin-top:1px;}
-    .amenity-card span{font-size:12px; line-height:1.3;}
     .fact-grid{grid-template-columns:repeat(2,1fr); gap:8px;}
     .fact-card{padding:16px 14px;}
     .fact-card svg{width:19px; height:19px; margin-bottom:10px;}
@@ -1001,21 +1031,35 @@
   </div>
 </section>
 
-<section class="section section-cream2">
+<section class="section section-cream2" id="reveal">
   <div class="wrap">
-    <span class="eyebrow eyebrow-green">The Community</span>
-    <h2>Amenities, at a glance</h2>
-    <div class="amenity-grid">
-      <div class="amenity-card"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M2 12h20M4 12v6a1 1 0 001 1h14a1 1 0 001-1v-6M6 12V8a2 2 0 012-2h8a2 2 0 012 2v4"/></svg><span>Resort-Style Pool</span></div>
-      <div class="amenity-card"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11M4 4l2.5 2.5M20 4l-2.5 2.5M4 20l2.5-2.5M20 20l-2.5-2.5"/></svg><span>Rogue Fitness Gym</span></div>
-      <div class="amenity-card"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M3 21c0-4 4-4 4-8a4 4 0 00-4-4M21 21c0-4-4-4-4-8a4 4 0 014-4M12 21v-7M12 14a4 4 0 100-8 4 4 0 000 8z"/></svg><span>Two Dog Parks</span></div>
-      <div class="amenity-card"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M12 2L2 8l10 6 10-6-10-6zM2 16l10 6 10-6M2 12l10 6 10-6"/></svg><span>1-Acre Lake &amp; Dock</span></div>
-      <div class="amenity-card"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg><span>Turf Soccer Field</span></div>
-      <div class="amenity-card"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M4 21V9l8-6 8 6v12M9 21v-6h6v6"/></svg><span>Clubhouse &amp; Business Ctr.</span></div>
-      <div class="amenity-card"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><rect x="3" y="11" width="18" height="10" rx="1"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><span>Package Service</span></div>
-      <div class="amenity-card"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M2 8.5a15 15 0 0120 0M5 12a10 10 0 0114 0M8.5 15.5a5 5 0 017 0M12 19h.01"/></svg><span>Google Fiber Internet</span></div>
-      <div class="amenity-card"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M12 2L4 6v6c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V6l-8-4z"/></svg><span>Outdoor Grilling Stations</span></div>
-      <div class="amenity-card"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M12 21s-7-4.5-7-10a7 7 0 0114 0c0 5.5-7 10-7 10z"/><circle cx="12" cy="11" r="2.5"/></svg><span>Walking Trails</span></div>
+    <span class="eyebrow eyebrow-rust">The Reveal</span>
+    <h2>We haven&rsquo;t shown you the numbers yet.</h2>
+    <div class="reveal-grid">
+      <div class="reveal-copy">
+        <p>You have seen the property. 492 units on 41 acres in Duluth, Georgia, at the center of one of metro Atlanta&rsquo;s fastest-growing counties. 94% occupied at an average rent of &#36;1,387. Eighty units already renovated, 412 still to go.</p>
+        <p>That is the easy part to show. Photographs are honest about a building and silent about a deal.</p>
+        <p class="lead-in">What we have not put on this page is the arithmetic.</p>
+        <p>We do not publish the terms, because terms without context invite the wrong questions. We would rather walk you through them line by line, say out loud where the assumptions could be wrong, and take your questions while we are still on the call.</p>
+        <p>That is the whole reason the webinar exists. Come with your skepticism.</p>
+      </div>
+
+      <div class="reveal-panel">
+        <span class="k">Covered live, in order</span>
+        <ul class="reveal-list">
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Purchase basis, and what the seller is walking away with</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Renovation budget per unit, and the rent premium the first 80 are already producing</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Debt structure, rate, and term</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Projected distributions, hold period, and target exit</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Minimum investment, allocation remaining, and how the split works</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Live Q&amp;A &mdash; including the questions we would ask</span></li>
+        </ul>
+        <div class="reveal-when">
+          <b>Tuesday, August 18, 2026</b>
+          <span>6:00 PM CST &middot; 7:00 PM EST &middot; 4:00 PM PST &middot; Free</span>
+        </div>
+        <button class="btn btn-rust" type="button" data-webinar>Reserve Your Spot</button>
+      </div>
     </div>
   </div>
 </section>

@@ -5,29 +5,99 @@ Static single-page site for the Montrose Berkeley Lake opportunity (Pheenyx Capi
 ## Structure
 
 ```
-index.html              The entire page: markup, inline CSS, inline JS
-images/                 Page imagery (hero, amenities, logo)
+index.html              The page: markup, inline CSS, inline JS
+admin.html              Private analytics dashboard (/admin)
+images/                 Page imagery
 images/gallery/         Photo-marquee images
-netlify.toml            Netlify publish + cache/security headers
+images/press/           Publication logos and article thumbnails
+netlify/functions/      /api/track collector, /api/stats admin API
+netlify/lib/            Pure logic, unit-tested without the Netlify runtime
+scripts/                Generators and test harnesses
+framer/                 The page packaged as a Framer code component
+netlify.toml            Publish config, headers, redirects
 ```
 
-No build step and no dependencies. The only external request is Google Fonts
-(Fraunces, Inter, IBM Plex Mono).
+The page itself has no build step. The only external requests are Google Fonts
+and the embedded ClickMeeting / LeadConnector / YouTube widgets.
 
 ## Local preview
 
-Open `index.html` directly, or serve it:
+```bash
+python -m http.server 8765
+# then visit http://localhost:8765
+```
+
+That serves the page but not the analytics endpoints. To exercise those too:
 
 ```bash
-python -m http.server 8000
-# then visit http://localhost:8000
+ADMIN_PASSWORD=test SEED=1 node scripts/mock-server.mjs 8788
+# http://127.0.0.1:8788        the page, with tracking live
+# http://127.0.0.1:8788/admin  the dashboard (password: test)
 ```
+
+`scripts/mock-server.mjs` implements `/api/track` and `/api/stats` against an
+in-memory store using the *same* modules the Functions use, so the dashboard can
+be developed and tested without deploying. `SEED=1` fills it with synthetic
+traffic so the charts have something to draw.
 
 ## Deploy to Netlify
 
-Connect the GitHub repo in Netlify and accept the defaults — `netlify.toml`
-already sets publish directory to the repo root with no build command.
-Every push to the default branch redeploys.
+Connect the GitHub repo and accept the defaults — `netlify.toml` sets the
+publish directory, the functions directory, headers and redirects.
+
+**One environment variable is required** for the dashboard:
+
+| Variable | Required | Purpose |
+|---|---|---|
+| `ADMIN_PASSWORD` | yes | Password for `/admin`. Without it `/api/stats` returns 503 and the dashboard cannot be opened. |
+| `ANALYTICS_SALT` | no | Salt for the visitor hash. Defaults to `ADMIN_PASSWORD`. Changing it resets visitor counting from that day on. |
+
+Set it in **Site settings → Environment variables**, then redeploy.
+
+## Analytics
+
+First-party, no third parties, no cookies, no consent banner needed.
+
+**How it works.** A small script at the bottom of `index.html` batches events and
+POSTs them to `/api/track`, a Netlify Function that appends each batch to a blob
+in Netlify Blobs. `/api/stats` reads them back, and the dashboard at `/admin`
+renders the result.
+
+**What it records:** page views, unique visitors, mobile/desktop split, every
+named CTA click (each webinar entry point separately, playbook, press previews,
+video), outbound clicks (Calendly, social, email, phone), how far down the page
+visitors get, and referring sites.
+
+**Privacy.** Visitors are counted with a SHA-256 hash of IP + user agent + a
+salt that rotates daily. Raw IPs are never written to storage, yesterday's ids
+cannot be linked to today's, and no identifier is ever sent to the browser.
+Known bots and preview crawlers are filtered out before anything is stored.
+
+**Storage.** One blob per batch, so concurrent visitors can never overwrite each
+other. Past days are compacted into a single summary and the raw batches
+deleted. Compaction records which batch ids it has already folded in, so a
+failed delete cannot double-count them on a later run — that case is covered in
+`scripts/collect-test.mjs`.
+
+**Auth.** The password is exchanged once for an 8-hour HMAC token; the password
+itself is never stored in the browser. Comparison is constant-time, and failed
+logins are delayed and return an identical response whatever the cause.
+
+**Limits worth knowing.** Ad-blockers will miss a small share of traffic. There
+is no data from before the feature went live. Days bucket by UTC.
+
+## Tests
+
+```bash
+npm test                              # analytics maths + compaction (84 assertions)
+node scripts/responsive-test.js       # layout across 5 viewports
+node scripts/press-outlets-test.js    # press strip + rail + modals
+node scripts/sticky-bar-test.js       # sticky bar, countdown, webinar popup
+node scripts/webinar-popin-test.js    # timed pop-in placement and dismissal
+node scripts/admin-test.js            # admin panel end to end (needs mock-server)
+```
+
+The browser suites need Playwright's Chromium and a server on the expected port.
 
 ## Photo gallery
 

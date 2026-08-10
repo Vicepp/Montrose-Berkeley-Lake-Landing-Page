@@ -1,7 +1,9 @@
 [build]
   # Static site — nothing to compile. Netlify publishes the repo root as-is.
+  # Functions provide the first-party analytics collector and admin API.
   publish = "."
   command = ""
+  functions = "netlify/functions"
 
 [[headers]]
   for = "/*"
@@ -22,3 +24,24 @@
   for = "/index.html"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
+
+# Admin dashboard: never cached, never indexed. Access is gated by the
+# ADMIN_PASSWORD environment variable, checked server-side in /api/stats —
+# the page itself holds no data until it authenticates.
+[[headers]]
+  for = "/admin.html"
+  [headers.values]
+    Cache-Control = "no-store"
+    X-Robots-Tag = "noindex, nofollow, noarchive"
+
+# Analytics endpoints must never be cached by the CDN.
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Cache-Control = "no-store"
+
+# Friendlier URL for the dashboard.
+[[redirects]]
+  from = "/admin"
+  to = "/admin.html"
+  status = 200

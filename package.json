@@ -1,0 +1,14 @@
+{
+  "name": "montrose-berkeley-lake-landing-page",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Investor landing page for Montrose Berkeley Lake, with first-party analytics on Netlify Functions.",
+  "type": "module",
+  "scripts": {
+    "test": "node scripts/analytics-test.mjs && node scripts/collect-test.mjs",
+    "mock": "node scripts/mock-server.mjs"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0"
+  }
+}

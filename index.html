@@ -2117,5 +2117,101 @@
   }
 </script>
 
+<script>
+/* First-party analytics. Batches events to /api/track, a Netlify Function on
+   this same domain — no third party, no cookies, nothing identifying stored in
+   the browser. Fails silently when the function is absent (e.g. opening the
+   file straight off disk), so it can never break the page. */
+(function () {
+  var queue = [];
+  var device = window.matchMedia('(max-width:760px)').matches ? 'mobile' : 'desktop';
+  var ref = document.referrer && document.referrer.indexOf(location.host) === -1 ? document.referrer : '';
+
+  var soon = null;
+  function push(type, name) {
+    queue.push({ type: type, name: name, device: device, ref: ref });
+    /* Clicks are the events most likely to be followed by leaving the page —
+       a new tab to Calendly, a form, a close. Don't wait for the 20s tick. */
+    if (type === 'cta' || type === 'outbound') {
+      clearTimeout(soon);
+      soon = setTimeout(function () { flush(false); }, 800);
+    }
+  }
+
+  function flush(useBeacon) {
+    if (!queue.length) return;
+    var payload = JSON.stringify({ events: queue.splice(0, queue.length) });
+    try {
+      if (useBeacon && navigator.sendBeacon) {
+        navigator.sendBeacon('/api/track', new Blob([payload], { type: 'application/json' }));
+      } else {
+        fetch('/api/track', {
+          method: 'POST', body: payload, keepalive: true,
+          headers: { 'content-type': 'application/json' }
+        }).catch(function () {});
+      }
+    } catch (e) {}
+  }
+
+  push('view', location.pathname || '/');
+
+  /* --- named CTAs --- */
+  function label(el) {
+    if (el.hasAttribute('data-press')) return 'Press preview: ' + el.getAttribute('data-press');
+    if (el.hasAttribute('data-playbook')) return 'Playbook download';
+    if (el.closest('#webinar-pop')) return 'Webinar pop-in';
+    if (el.hasAttribute('data-webinar')) {
+      if (el.closest('#sticky-cta')) return 'Webinar: sticky bar';
+      if (el.closest('#path')) return 'Webinar: poster';
+      if (el.closest('#value-add')) return 'Webinar: benefits';
+      if (el.closest('#final-cta')) return 'Webinar: final CTA';
+      return 'Webinar: other';
+    }
+    if (el.classList.contains('yt__btn')) return 'Video play';
+    return null;
+  }
+
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest && e.target.closest('[data-webinar],[data-playbook],[data-press],.yt__btn,a[href]');
+    if (!el) return;
+
+    var name = label(el);
+    if (name) { push('cta', name); return; }
+
+    var href = el.getAttribute && el.getAttribute('href');
+    if (!href) return;
+    if (href.indexOf('mailto:') === 0) { push('outbound', 'Email'); return; }
+    if (href.indexOf('tel:') === 0) { push('outbound', 'Phone'); return; }
+    if (href.indexOf('http') === 0 && href.indexOf(location.host) === -1) {
+      if (href.indexOf('calendly.com') > -1) { push('outbound', 'Calendly: schedule a call'); return; }
+      try { push('outbound', new URL(href).hostname.replace(/^www\./, '')); } catch (err) {}
+    }
+  }, true);
+
+  /* --- how far down the page people actually get --- */
+  if ('IntersectionObserver' in window) {
+    var seen = {};
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var id = entry.target.id;
+        if (!id || seen[id]) return;
+        seen[id] = 1;
+        push('section', id);
+        io.unobserve(entry.target);
+      });
+    }, { threshold: 0.4 });
+    document.querySelectorAll('section[id]').forEach(function (s) { io.observe(s); });
+  }
+
+  setInterval(function () { flush(false); }, 20000);
+  addEventListener('pagehide', function () { flush(true); });
+  addEventListener('visibilitychange', function () {
+    if (document.visibilityState === 'hidden') flush(true);
+  });
+  setTimeout(function () { flush(false); }, 3000);   /* catch quick bounces */
+})();
+</script>
+
 </body>
 </html>

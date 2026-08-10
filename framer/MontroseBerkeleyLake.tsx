@@ -181,7 +181,7 @@ const STYLES = `@import url('https://fonts.googleapis.com/css2?family=Fraunces:i
   .mbl-root .section-navy .fact-card svg{stroke:#e79b74;}
 
   .mbl-root /* THE REVEAL — what is deliberately held back for the webinar */
-  .reveal-grid{display:grid; grid-template-columns:1.05fr .95fr; gap:56px; align-items:center; margin-top:44px;}
+  .reveal-grid{display:grid; grid-template-columns:1.05fr .95fr; gap:56px; align-items:start; margin-top:44px;}
   .mbl-root .reveal-copy p{font-size:16.5px; color:#3b382f; margin-bottom:16px;}
   .mbl-root .reveal-copy p:last-child{margin-bottom:0;}
   .mbl-root .reveal-copy .lead-in{
@@ -196,16 +196,30 @@ const STYLES = `@import url('https://fonts.googleapis.com/css2?family=Fraunces:i
     font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.14em;
     text-transform:uppercase; color:#e79b74; margin-bottom:18px; display:block;
   }
-  .mbl-root .reveal-list{list-style:none; margin:0 0 26px;}
-  .mbl-root .reveal-list li{
-    display:flex; align-items:flex-start; gap:12px;
-    font-size:14.5px; line-height:1.5; color:#d3d7e4;
-    padding:11px 0; border-bottom:1px solid rgba(255,255,255,.1);
+  .mbl-root .reveal-kicker{
+    display:block; font-family:'IBM Plex Mono',monospace; font-size:10.5px;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--rust); margin-bottom:6px;
   }
-  .mbl-root .reveal-list li:last-child{border-bottom:none;}
-  .mbl-root .reveal-list svg{
-    flex:0 0 auto; width:17px; height:17px; margin-top:2px;
-    stroke:#e79b74; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round;
+  .mbl-root /* Tick lists — on paper in the left column, .mbl-root on navy inside the panel */
+  .reveal-checks{list-style:none; margin:0;}
+  .mbl-root .reveal-checks li{
+    display:flex; align-items:flex-start; gap:13px;
+    font-size:16px; line-height:1.55; color:#3b382f;
+    padding:13px 0; border-bottom:1px solid #ddd0b3;
+  }
+  .mbl-root .reveal-checks li:last-child{border-bottom:none;}
+  .mbl-root .reveal-checks svg{
+    flex:0 0 auto; width:19px; height:19px; margin-top:3px;
+    stroke:var(--rust); fill:none; stroke-width:2.4; stroke-linecap:round; stroke-linejoin:round;
+  }
+  .mbl-root .reveal-panel .reveal-checks{margin-bottom:24px;}
+  .mbl-root .reveal-panel .reveal-checks li{
+    font-size:14.5px; color:#d3d7e4; padding:11px 0;
+    border-bottom-color:rgba(255,255,255,.1);
+  }
+  .mbl-root .reveal-panel .reveal-checks svg{width:17px; height:17px; stroke:#8fd4a8;}
+  .mbl-root .reveal-note{
+    margin:14px 0 0; font-size:12.5px; line-height:1.5; color:#9aa1b8; text-align:center;
   }
   .mbl-root .reveal-when{
     display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;
@@ -1057,57 +1071,38 @@ const HTML = `<nav id="nav">
 <section class="section section-cream2" id="reveal">
   <div class="wrap">
     <span class="eyebrow eyebrow-rust">The Reveal</span>
-    <h2>We haven&rsquo;t shown you the numbers yet.</h2>
+    <h2>One hour. Then you will know everything we know.</h2>
     <div class="reveal-grid">
       <div class="reveal-copy">
-        <p>You have seen the property. 492 units on 41 acres in Duluth, Georgia, at the center of one of metro Atlanta&rsquo;s fastest-growing counties. 94% occupied at an average rent of &#36;1,387. Eighty units already renovated, 412 still to go.</p>
-        <p>That is the easy part to show. Photographs are honest about a building and silent about a deal.</p>
-        <p class="lead-in">What we have not put on this page is the arithmetic.</p>
-        <p>We do not publish the terms, because terms without context invite the wrong questions. We would rather walk you through them line by line, say out loud where the assumptions could be wrong, and take your questions while we are still on the call.</p>
-        <p>That is the whole reason the webinar exists. Come with your skepticism.</p>
+        <span class="reveal-kicker">What you will walk away knowing</span>
+        <ul class="reveal-checks">
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg><span>The purchase basis: what we are paying per unit, and how we got the seller there</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg><span>Why Duluth, and why this quarter rather than eighteen months ago</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg><span>The renovation math: cost per unit against the premium the first 80 are already earning</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg><span>How the deal is structured, and what actually lands in your account</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg><span>The minimum, the allocation still open, and the date it closes</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg><span>Whatever you ask. Live, unscripted, and on the record</span></li>
+        </ul>
       </div>
 
       <div class="reveal-panel">
-        <span class="k">Covered live, in order</span>
-        <ul class="reveal-list">
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Purchase basis, and what the seller is walking away with</span></li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Renovation budget per unit, and the rent premium the first 80 are already producing</span></li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Debt structure, rate, and term</span></li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Projected distributions, hold period, and target exit</span></li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Minimum investment, allocation remaining, and how the split works</span></li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Live Q&amp;A &mdash; including the questions we would ask</span></li>
+        <span class="k">This webinar is for you if</span>
+        <ul class="reveal-checks">
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg><span>You are an accredited investor and you want a real asset behind your passive income</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg><span>You want depreciation working for you while the property compounds</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg><span>You have been reading these emails for a while and waiting for the right entry</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg><span>You would rather own a building than watch a ticker</span></li>
         </ul>
         <div class="reveal-when">
           <b>Tuesday, August 18, 2026</b>
           <span>6:00 PM CST &middot; 7:00 PM EST &middot; 4:00 PM PST &middot; Free</span>
         </div>
         <button class="btn btn-rust" type="button" data-webinar>Reserve Your Spot</button>
+        <p class="reveal-note">Bring the objection you have not been able to talk yourself out of.</p>
       </div>
     </div>
   </div>
 </section>
-
-<section class="section" id="sponsor">
-  <div class="wrap">
-    <span class="eyebrow eyebrow-rust">Who You're Investing With</span>
-    <h2>Disciplined analysis, hands-on oversight.</h2>
-    <div class="firm-grid">
-      <div class="firm-copy">
-        <p>Pheenyx Capital is a real estate firm focused on stable, well-positioned multifamily assets in growing U.S. markets.</p>
-        <p>We apply disciplined analysis and hands-on oversight to protect capital and support long-term value.</p>
-        <p>We serve busy professionals &mdash; especially physicians &mdash; who want access to institutional-quality real estate without the work of managing it.</p>
-      </div>
-      <div class="yt" data-yt="R0tQQBO8pgo">
-        <button class="yt__btn" type="button"
-                aria-label="Play video: Pheenyx Capital Investment — Rediscover the Joy of Limitless Wealth and Growth">
-          <img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/pheenyx-video-cover.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async">
-          <span class="yt__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
-        </button>
-      </div>
-    </div>
-  </div>
-</section>
-
 
 <section class="section section-navy" id="value-add">
   <div class="wrap">
@@ -1151,7 +1146,7 @@ const HTML = `<nav id="nav">
   <div class="wrap">
     <span class="eyebrow eyebrow-rust">See It In Photos</span>
     <h2>Life at Montrose Berkeley Lake</h2>
-    <p class="lede">The amenities, the grounds, and the units &mdash; as they stand today.</p>
+    <p class="lede">The amenities, the grounds, and the units as they stand today.</p>
   </div>
   <div class="gallery-marquee">
       <div class="marquee marquee--left">
@@ -1239,7 +1234,7 @@ const HTML = `<nav id="nav">
         <div class="ceo-bio">
           <p>Dr. Nkem Ezeamama's path into real estate is anything but traditional, yet it's exactly what makes her one of the most disciplined and trusted operators in her space.</p>
           <p>As a physician who built her investment career from scratch, she understands the demands of high-earning professionals who want to grow wealth without sacrificing their time, identity, or peace of mind.</p>
-          <p>She built Pheenyx Capital for people like her &mdash; driven individuals who want access to institutional-quality investments without navigating the complexity alone.</p>
+          <p>She built Pheenyx Capital for people like her, driven individuals who want access to institutional-quality investments without navigating the complexity alone.</p>
           <p>Grounded in integrity, shaped by resilience, and backed by real results.</p>
         </div>
         <div class="social-row">
@@ -1337,11 +1332,32 @@ const HTML = `<nav id="nav">
   </div>
 </section>
 
+<section class="section" id="sponsor">
+  <div class="wrap">
+    <span class="eyebrow eyebrow-rust">Who You're Investing With</span>
+    <h2>Disciplined analysis, hands-on oversight.</h2>
+    <div class="firm-grid">
+      <div class="firm-copy">
+        <p>Pheenyx Capital is a real estate firm focused on stable, well-positioned multifamily assets in growing U.S. markets.</p>
+        <p>We apply disciplined analysis and hands-on oversight to protect capital and support long-term value.</p>
+        <p>We serve busy professionals, especially physicians, who want access to institutional-quality real estate without the work of managing it.</p>
+      </div>
+      <div class="yt" data-yt="R0tQQBO8pgo">
+        <button class="yt__btn" type="button"
+                aria-label="Play video: Pheenyx Capital Investment, Rediscover the Joy of Limitless Wealth and Growth">
+          <img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/pheenyx-video-cover.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async">
+          <span class="yt__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="section section-cream2" id="press">
   <div class="wrap">
-    <span class="eyebrow eyebrow-rust">In The Press</span>
-    <h2>Covered by the outlets our investors read.</h2>
-    <p class="lede">Independent coverage of Pheenyx Capital and Dr. Nkem Ezeamama, plus the stages she speaks from.</p>
+    <span class="eyebrow eyebrow-rust">Trusted By Industry Leaders</span>
+    <h2>Recognized by the people and platforms shaping the conversation.</h2>
+    <p class="lede">Pheenyx Capital and Dr. Nkem Ezeamama are trusted voices in multifamily real estate, wealth building, and investing.</p>
   </div>
   <div class="rail">
     <div class="rail__track">
@@ -1717,13 +1733,14 @@ const HTML = `<nav id="nav">
   </button>
 </div>
 
-<!-- PLAYBOOK LEAD MAGNET — ARCHIVED, not deleted.
-     Held in a <template>, whose contents are inert: not rendered, not
-     matched by querySelectorAll, no network requests for the form iframe.
-     A comment would not work here — the block already contains one, and
-     the inner "-->" would close the outer comment early and leak markup.
-     To restore: delete the <template ...> line and its </template>. The
-     CSS is untouched and the JS re-attaches itself once these exist. -->
+<!-- PLAYBOOK LEAD MAGNET: ARCHIVED, not deleted.
+     The markup below is held in a template element, whose contents are inert:
+     not rendered, not matched by querySelectorAll, and the form iframe is
+     never requested. Commenting the block out instead does NOT work, because
+     it already contains a comment whose closing delimiter would end the outer
+     comment early and spill the rest onto the page.
+     To restore: delete the opening template tag and its closing tag below.
+     The CSS is untouched and the JS re-attaches itself once these exist. -->
 <template id="archived-playbook">
 <button class="pb-fab" type="button" data-playbook aria-label="Download the Ultimate Passive Investor Playbook">
   <span class="pb-fab__icon" aria-hidden="true">

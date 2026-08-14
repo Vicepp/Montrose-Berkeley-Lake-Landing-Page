@@ -13,7 +13,6 @@ images/press/           Publication logos and article thumbnails
 netlify/functions/      /api/track collector, /api/stats admin API
 netlify/lib/            Pure logic, unit-tested without the Netlify runtime
 scripts/                Generators and test harnesses
-framer/                 The page packaged as a Framer code component
 netlify.toml            Publish config, headers, redirects
 ```
 

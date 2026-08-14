@@ -169,16 +169,53 @@ const STYLES = `@import url('https://fonts.googleapis.com/css2?family=Fraunces:i
   .mbl-root .factbar div .k{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--stone);}
   .mbl-root .factbar div .v{font-family:'Fraunces',serif; font-size:22px; font-weight:600; margin-top:4px;}
 
-  .mbl-root /* ICON FACT GRID */
-  .fact-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:52px;}
-  .mbl-root .fact-card{background:var(--paper-2); border:1px solid #e2d5b8; border-radius:12px; padding:22px;}
-  .mbl-root .fact-card svg{width:22px; height:22px; stroke:var(--rust); margin-bottom:14px;}
-  .mbl-root .fact-card .k{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--stone);}
-  .mbl-root .fact-card .v{font-family:'Fraunces',serif; font-size:19px; font-weight:600; margin-top:5px; color:var(--ink);}
-  .mbl-root .section-navy .fact-card{background:var(--ink-2); border-color:rgba(255,255,255,.12);}
-  .mbl-root .section-navy .fact-card .k{color:#9aa1b8;}
-  .mbl-root .section-navy .fact-card .v{color:#fff;}
-  .mbl-root .section-navy .fact-card svg{stroke:#e79b74;}
+
+  .mbl-root /* THE PROPERTY — market, .mbl-root fundamentals, .mbl-root strategy */
+  .prop-block{padding:22px 0; border-bottom:1px solid #ddd0b3;}
+  .mbl-root .prop-block:first-child{padding-top:0;}
+  .mbl-root .prop-block:last-child{border-bottom:none; padding-bottom:0;}
+  .mbl-root .prop-block__k{
+    display:block; font-family:'IBM Plex Mono',monospace; font-size:10.5px;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--rust); margin-bottom:8px;
+  }
+  .mbl-root .prop-block h3{font-size:20px; font-weight:600; margin-bottom:8px; line-height:1.25;}
+  .mbl-root .prop-block p{font-size:16px; line-height:1.6; color:#3b382f;}
+
+  .mbl-root /* LIVE WEBINAR — the two lists are explicitly labelled so it is obvious
+     which one is about the deal and which is about qualifying. */
+  .web-grid{display:grid; grid-template-columns:1fr 1fr .8fr; gap:40px; align-items:start; margin-top:44px;}
+  .mbl-root .web-col__k{
+    display:block; font-family:'IBM Plex Mono',monospace; font-size:10.5px;
+    letter-spacing:.12em; text-transform:uppercase; color:#e79b74;
+    padding-bottom:12px; margin-bottom:4px; border-bottom:1px solid rgba(255,255,255,.16);
+  }
+  .mbl-root .web-col--fit .web-col__k{color:#8fd4a8;}
+  .mbl-root .web-grid .reveal-checks li{
+    font-size:14.5px; color:#d3d7e4; padding:11px 0;
+    border-bottom-color:rgba(255,255,255,.1);
+  }
+  .mbl-root .web-grid .reveal-checks svg{width:17px; height:17px; stroke:#e79b74;}
+  .mbl-root .web-col--fit .reveal-checks svg{stroke:#8fd4a8;}
+  .mbl-root .web-aside .webinar-poster{box-shadow:0 24px 60px rgba(0,0,0,.45);}
+
+  .mbl-root /* Explains "accredited investor" without sending anyone off the page */
+  .term{
+    border-bottom:1px dotted rgba(255,255,255,.55); cursor:help;
+    position:relative; white-space:nowrap;
+  }
+  .mbl-root .term__pop{
+    position:absolute; left:50%; bottom:calc(100% + 10px); transform:translateX(-50%);
+    width:min(280px, 70vw); padding:12px 14px; z-index:5;
+    background:var(--paper); color:var(--ink); border-radius:10px;
+    font-family:'Inter',sans-serif; font-size:12.5px; line-height:1.5; white-space:normal;
+    box-shadow:0 14px 34px rgba(0,0,0,.4);
+    opacity:0; visibility:hidden; transition:opacity .2s ease, visibility .2s;
+  }
+  .mbl-root .term__pop::after{
+    content:''; position:absolute; top:100%; left:50%; transform:translateX(-50%);
+    border:7px solid transparent; border-top-color:var(--paper);
+  }
+  .mbl-root .term:hover .term__pop, .mbl-root .term:focus-visible .term__pop, .mbl-root .term.is-open .term__pop{opacity:1; visibility:visible;}
 
   .mbl-root /* THE REVEAL — what is deliberately held back for the webinar */
   .reveal-grid{display:grid; grid-template-columns:1.05fr .95fr; gap:56px; align-items:start; margin-top:44px;}
@@ -379,7 +416,7 @@ const STYLES = `@import url('https://fonts.googleapis.com/css2?family=Fraunces:i
     .mbl-root .cta-count{padding:7px 8px; flex:1.35;}
     .mbl-root .cta-count__k{font-size:8px; letter-spacing:.07em;}
     .mbl-root .cta-count__v{font-size:13.5px; letter-spacing:.02em; min-width:0;}
-    .mbl-root /* "Reserve Your Spot" kept small so the countdown has room */
+    .mbl-root /* CTA kept small so the countdown has room beside it */
     .cta-reserve{padding:9px 12px; font-size:10px; letter-spacing:.04em;}
     .mbl-root .wmodal{padding:10px;}
     .mbl-root .wmodal__panel{aspect-ratio:auto; height:82vh;}
@@ -701,21 +738,21 @@ const STYLES = `@import url('https://fonts.googleapis.com/css2?family=Fraunces:i
   .mbl-root .social-row--footer .social-call{background:var(--rust); border-color:var(--rust); color:#fff;}
 
   .mbl-root /* FINANCIAL BENEFITS */
-  .benefit-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(196px,1fr)); gap:14px; margin-top:44px;}
+  /* Five cards, .mbl-root one clean row on desktop. auto-fit used to break 4 + 1, .mbl-root which the review flagged as looking unbalanced. */
+  .benefit-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-top:44px;}
+  @media (max-width:1080px){ .mbl-root .benefit-grid{grid-template-columns:repeat(3,1fr);} }
   .mbl-root .benefit-card{
     background:var(--ink-2); border:1px solid rgba(255,255,255,.12);
     border-radius:12px; padding:26px 22px;
   }
-  .mbl-root .benefit-card svg{width:24px; height:24px; stroke:#e79b74; fill:none; stroke-width:1.6;
-                    stroke-linecap:round; stroke-linejoin:round; margin-bottom:16px;}
-  .mbl-root .benefit-card h3{font-size:17.5px; font-weight:600; color:#fff; margin-bottom:8px; line-height:1.25;}
-  .mbl-root /* Cards whose headline is a figure rather than a phrase */
-  .benefit-card--stat h3{
-    font-family:'Fraunces',serif; font-size:30px; letter-spacing:-0.01em;
-    line-height:1.05; margin-bottom:10px; white-space:nowrap;
-  }
-  .mbl-root .benefit-card p{font-size:14px; color:#b7bdd0; line-height:1.5;}
-  .mbl-root .benefit-actions{display:flex; gap:16px; flex-wrap:wrap; margin-top:40px;}
+  .mbl-root /* Icon leads, .mbl-root then a mono label, .mbl-root then the value. Every card the same shape. */
+  .benefit-card svg{width:30px; height:30px; stroke:#e79b74; fill:none; stroke-width:1.5;
+                    stroke-linecap:round; stroke-linejoin:round; margin-bottom:20px;}
+  .mbl-root .benefit-card__k{font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.1em;
+                   text-transform:uppercase; color:#9aa1b8; margin-bottom:7px;}
+  .mbl-root .benefit-card__v{font-family:'Fraunces',serif; font-size:23px; font-weight:600; color:#fff;
+                   line-height:1.1; letter-spacing:-0.01em; margin-bottom:9px;}
+  .mbl-root .benefit-card p{font-size:13.5px; color:#b7bdd0; line-height:1.5;}
 
   .mbl-root /* WEBINAR / PATH */
   .path-band{background:var(--green); color:#fff; padding:88px 0;}
@@ -833,8 +870,7 @@ const STYLES = `@import url('https://fonts.googleapis.com/css2?family=Fraunces:i
     }
 
     .mbl-root /* --- Grids that previously never collapsed --- */
-    .fact-grid{grid-template-columns:repeat(2,1fr);}
-    .mbl-root .reno-panels{grid-template-columns:1fr; gap:16px;}
+    .reno-panels{grid-template-columns:1fr; gap:16px;}
     .mbl-root .reno-panel{padding:24px;}
 
     .mbl-root .opp-grid{grid-template-columns:1fr; gap:36px;}
@@ -846,6 +882,9 @@ const STYLES = `@import url('https://fonts.googleapis.com/css2?family=Fraunces:i
     .mbl-root .numbers-row:nth-child(odd), .mbl-root .numbers-row:nth-child(even){padding-left:4px; padding-right:4px;}
     .mbl-root .path-inner{grid-template-columns:1fr; gap:36px;}
     .mbl-root .firm-grid{grid-template-columns:1fr; gap:32px;}
+    .mbl-root .web-grid{grid-template-columns:1fr; gap:30px;}
+    .mbl-root .web-aside{max-width:320px;}
+    .mbl-root .prop-block h3{font-size:18px;}
     .mbl-root .reveal-grid{grid-template-columns:1fr; gap:30px;}
     .mbl-root .reveal-panel{padding:26px 22px;}
     .mbl-root .reveal-copy .lead-in{font-size:19px;}
@@ -904,12 +943,7 @@ const STYLES = `@import url('https://fonts.googleapis.com/css2?family=Fraunces:i
     .mbl-root .nav-stats{padding-left:20px; padding-right:20px;}
     .mbl-root .nav-links a.nav-cta{margin-left:20px; margin-right:20px;}
     .mbl-root /* both stay two-up on phones — tighten the boxes so they fit at 375px */
-    .fact-grid{grid-template-columns:repeat(2,1fr); gap:8px;}
-    .mbl-root .fact-card{padding:16px 14px;}
-    .mbl-root .fact-card svg{width:19px; height:19px; margin-bottom:10px;}
-    .mbl-root .fact-card .k{font-size:9.5px; letter-spacing:.04em;}
-    .mbl-root .fact-card .v{font-size:16px;}
-    .mbl-root .gallery-marquee{--tile-w:196px; --tile-h:130px; --fade:28px;}
+    .gallery-marquee{--tile-w:196px; --tile-h:130px; --fade:28px;}
     .mbl-root .section{padding:60px 0;}
     .mbl-root .numbers-row .v{font-size:18px;}
     .mbl-root .upside-cell{padding:26px 20px;}
@@ -921,8 +955,7 @@ const STYLES = `@import url('https://fonts.googleapis.com/css2?family=Fraunces:i
     .mbl-root /* stays thumb-sized on phones even though the card itself shrinks */
     .wpop__close{width:34px; height:34px; font-size:18px; top:-12px; right:-12px;}
     .mbl-root /* Full-width buttons are far easier to hit than side-by-side pills. */
-    .hero-actions, .mbl-root .final-actions, .mbl-root .benefit-actions{flex-direction:column; align-items:stretch;}
-    .mbl-root .hero-actions .btn, .mbl-root .final-actions .btn, .mbl-root .benefit-actions .btn{justify-content:center;}
+    .hero-actions .btn, .mbl-root .final-actions .btn, .mbl-root .benefit-actions .btn{justify-content:center;}
     .mbl-root .benefit-grid{grid-template-columns:1fr;}
     .mbl-root .quote-grid{grid-template-columns:1fr;}
     .mbl-root .quote-card{padding:26px 22px;}
@@ -956,11 +989,12 @@ const HTML = `<nav id="nav">
         <div><div class="v">94%</div><div class="k">Occupied</div></div>
         <div><div class="v">Duluth, GA</div><div class="k">Location</div></div>
       </div>
-      <a href="#opportunity">Opportunity</a>
+      <a href="#property">The Property</a>
+      <a href="#value-add">Financial Benefits</a>
+      <a href="#webinar">Webinar</a>
       <a href="#sponsor">About Us</a>
-      <a href="#value-add">Benefits</a>
       <a href="https://calendly.com/pheenyxcapital/30min" class="btn btn-rust nav-cta"
-         target="_blank" rel="noopener noreferrer">Schedule a Call</a>
+         target="_blank" rel="noopener noreferrer">Book a Call</a>
     </div>
   </div>
 </nav>
@@ -971,134 +1005,45 @@ const HTML = `<nav id="nav">
     <h1>Montrose <span class="italic">Berkeley Lake</span></h1>
     <p class="hero-sub">An Elevated Investment Opportunity by Pheenyx Capital</p>
     <div class="hero-actions">
-      <a href="#path" class="btn btn-rust" data-webinar>Reserve Your Spot</a>
-      <a href="#value-add" class="hero-scroll">See the details ↓</a>
+      <a href="#webinar" class="btn btn-rust" data-webinar>Register for Webinar</a>
+      <a href="https://calendly.com/pheenyxcapital/30min" class="btn btn-ghost"
+         target="_blank" rel="noopener noreferrer">Book a Call</a>
     </div>
     <div class="stat-row">
-      <div class="stat-chip"><div class="num">$153.5MM+</div><div class="lbl">Portfolio Size (AUM)</div></div>
-      <div class="stat-chip"><div class="num">150+</div><div class="lbl">Active Investors</div></div>
-      <div class="stat-chip"><div class="num">885</div><div class="lbl">Portfolio Units</div></div>
+      <div class="stat-chip"><div class="num">492</div><div class="lbl">Units</div></div>
+      <div class="stat-chip"><div class="num">Atlanta</div><div class="lbl">MSA</div></div>
+      <div class="stat-chip"><div class="num">1988</div><div class="lbl">Vintage</div></div>
     </div>
   </div>
 </header>
 
-<section class="trust-band" aria-label="Pheenyx Capital in the press">
-  <div class="press-strip">
-    <div class="press-track">
-      <div class="press-set">
-          <div class="press-item press-item--usa"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/usa-news.png" alt="USA News" loading="lazy" decoding="async"></div>
-          <div class="press-item press-item--ceo"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/ceotimes.png" alt="CEO Times" loading="lazy" decoding="async"></div>
-          <div class="press-item press-item--tl"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/toplistings.png" alt="TopListings" loading="lazy" decoding="async"></div>
-          <div class="press-item press-item--bw"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/bizweekly.png" alt="BizWeekly" loading="lazy" decoding="async"></div>
-          <div class="press-item press-item--somedocs"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/somedocs.png" alt="SoMeDocs - Doctors on Social Media" loading="lazy" decoding="async"></div>
-          <div class="press-item press-item--usa"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/usa-news.png" alt="USA News" loading="lazy" decoding="async"></div>
-          <div class="press-item press-item--ceo"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/ceotimes.png" alt="CEO Times" loading="lazy" decoding="async"></div>
-          <div class="press-item press-item--tl"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/toplistings.png" alt="TopListings" loading="lazy" decoding="async"></div>
-          <div class="press-item press-item--bw"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/bizweekly.png" alt="BizWeekly" loading="lazy" decoding="async"></div>
-          <div class="press-item press-item--somedocs"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/somedocs.png" alt="SoMeDocs - Doctors on Social Media" loading="lazy" decoding="async"></div>
-          <div class="press-item press-item--usa"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/usa-news.png" alt="USA News" loading="lazy" decoding="async"></div>
-          <div class="press-item press-item--ceo"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/ceotimes.png" alt="CEO Times" loading="lazy" decoding="async"></div>
-          <div class="press-item press-item--tl"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/toplistings.png" alt="TopListings" loading="lazy" decoding="async"></div>
-          <div class="press-item press-item--bw"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/bizweekly.png" alt="BizWeekly" loading="lazy" decoding="async"></div>
-          <div class="press-item press-item--somedocs"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/somedocs.png" alt="SoMeDocs - Doctors on Social Media" loading="lazy" decoding="async"></div>
-      </div>
-      <div class="press-set" aria-hidden="true">
-          <div class="press-item press-item--usa"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/usa-news.png" alt="USA News" loading="lazy" decoding="async"></div>
-          <div class="press-item press-item--ceo"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/ceotimes.png" alt="CEO Times" loading="lazy" decoding="async"></div>
-          <div class="press-item press-item--tl"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/toplistings.png" alt="TopListings" loading="lazy" decoding="async"></div>
-          <div class="press-item press-item--bw"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/bizweekly.png" alt="BizWeekly" loading="lazy" decoding="async"></div>
-          <div class="press-item press-item--somedocs"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/somedocs.png" alt="SoMeDocs - Doctors on Social Media" loading="lazy" decoding="async"></div>
-          <div class="press-item press-item--usa"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/usa-news.png" alt="USA News" loading="lazy" decoding="async"></div>
-          <div class="press-item press-item--ceo"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/ceotimes.png" alt="CEO Times" loading="lazy" decoding="async"></div>
-          <div class="press-item press-item--tl"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/toplistings.png" alt="TopListings" loading="lazy" decoding="async"></div>
-          <div class="press-item press-item--bw"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/bizweekly.png" alt="BizWeekly" loading="lazy" decoding="async"></div>
-          <div class="press-item press-item--somedocs"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/somedocs.png" alt="SoMeDocs - Doctors on Social Media" loading="lazy" decoding="async"></div>
-          <div class="press-item press-item--usa"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/usa-news.png" alt="USA News" loading="lazy" decoding="async"></div>
-          <div class="press-item press-item--ceo"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/ceotimes.png" alt="CEO Times" loading="lazy" decoding="async"></div>
-          <div class="press-item press-item--tl"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/toplistings.png" alt="TopListings" loading="lazy" decoding="async"></div>
-          <div class="press-item press-item--bw"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/bizweekly.png" alt="BizWeekly" loading="lazy" decoding="async"></div>
-          <div class="press-item press-item--somedocs"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/somedocs.png" alt="SoMeDocs - Doctors on Social Media" loading="lazy" decoding="async"></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="opportunity">
+<section class="section" id="property">
   <div class="wrap">
-    <span class="eyebrow eyebrow-rust">The Opportunity</span>
+    <span class="eyebrow eyebrow-rust">The Property</span>
+    <h2>492 units in one of metro Atlanta&rsquo;s fastest-growing counties.</h2>
     <div class="opp-grid">
       <div>
-        <h2>Every investment Pheenyx Capital has made has sharpened our approach.</h2>
-        <div class="opp-knowing">
-          <span>Knowing which opportunities deserve attention.</span>
-          <span>Knowing where the numbers make sense.</span>
-          <span>And knowing how to pursue growth while keeping investor capital at the center of every decision.</span>
+        <div class="prop-block">
+          <span class="prop-block__k">The Market</span>
+          <h3>Atlanta MSA &middot; Duluth, Georgia</h3>
+          <p>Montrose Berkeley Lake sits on 41 acres in Gwinnett County, on the Peachtree Industrial corridor, minutes from major employers across tech, industrial and healthcare.</p>
         </div>
-        <p class="opp-figures">$153.5M+ in assets. 885 units. 150+ investors.</p>
-        <p>Those numbers represent more than growth. They represent years of discipline, relationships, and decisions made with the long term in mind.</p>
-        <p>And now, we&rsquo;re putting that experience behind something bigger.</p>
-        <p class="opp-punch">Our biggest opportunity yet is ready to be revealed.</p>
-        <button class="btn btn-rust opp-cta" type="button" data-webinar>Reserve a seat</button>
+        <div class="prop-block">
+          <span class="prop-block__k">Market Fundamentals</span>
+          <h3>Demand that keeps showing up</h3>
+          <p>Gwinnett&rsquo;s population keeps rising and every zoned school is rated &lsquo;A&rsquo;. Nearby comparable properties are achieving higher rents than Montrose is charging today.</p>
+        </div>
+        <div class="prop-block">
+          <span class="prop-block__k">The Strategy</span>
+          <h3>Value-add, already proven here</h3>
+          <p>Eighty of the 492 units have been renovated and are holding a premium. The remaining 412 are the plan: the same scope, on a property already 94% occupied at an average rent of &#36;1,387.</p>
+        </div>
       </div>
       <div>
         <figure class="opp-figure">
-          <img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/entrance.jpg" alt="Montrose Berkeley Lake entrance">
+          <img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/entrance.jpg" alt="Montrose Berkeley Lake entrance" loading="lazy" decoding="async">
         </figure>
         <p class="opp-caption">Duluth, GA 30096</p>
-      </div>
-    </div>
-    <div class="fact-grid">
-      <div class="fact-card">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M8 7h2M14 7h2M8 11h2M14 11h2M8 15h2M14 15h2"/></svg>
-        <div class="k">Total Units</div><div class="v">492</div>
-      </div>
-      <div class="fact-card">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><rect x="3" y="4" width="18" height="17" rx="1"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>
-        <div class="k">Year Built</div><div class="v">1988</div>
-      </div>
-      <div class="fact-card">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M3 3v18h18M7 15l4-5 3 3 5-7"/></svg>
-        <div class="k">Occupancy</div><div class="v">94%</div>
-      </div>
-      <div class="fact-card">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        <div class="k">Submarket</div><div class="v">Duluth, GA</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section section-cream2" id="reveal">
-  <div class="wrap">
-    <span class="eyebrow eyebrow-rust">The Reveal</span>
-    <h2>One hour. Then you will know everything we know.</h2>
-    <div class="reveal-grid">
-      <div class="reveal-copy">
-        <span class="reveal-kicker">What you will walk away knowing</span>
-        <ul class="reveal-checks">
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg><span>The purchase basis: what we are paying per unit, and how we got the seller there</span></li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg><span>Why Duluth, and why this quarter rather than eighteen months ago</span></li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg><span>The renovation math: cost per unit against the premium the first 80 are already earning</span></li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg><span>How the deal is structured, and what actually lands in your account</span></li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg><span>The minimum, the allocation still open, and the date it closes</span></li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg><span>Whatever you ask. Live, unscripted, and on the record</span></li>
-        </ul>
-      </div>
-
-      <div class="reveal-panel">
-        <span class="k">This webinar is for you if</span>
-        <ul class="reveal-checks">
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg><span>You are an accredited investor and you want a real asset behind your passive income</span></li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg><span>You want depreciation working for you while the property compounds</span></li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg><span>You have been reading these emails for a while and waiting for the right entry</span></li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg><span>You would rather own a building than watch a ticker</span></li>
-        </ul>
-        <div class="reveal-when">
-          <b>Tuesday, August 18, 2026</b>
-          <span>6:00 PM CST &middot; 7:00 PM EST &middot; 4:00 PM PST &middot; Free</span>
-        </div>
-        <button class="btn btn-rust" type="button" data-webinar>Reserve Your Spot</button>
-        <p class="reveal-note">Bring the objection you have not been able to talk yourself out of.</p>
       </div>
     </div>
   </div>
@@ -1109,35 +1054,36 @@ const HTML = `<nav id="nav">
     <span class="eyebrow eyebrow-rust">Financial Benefits</span>
     <h2>When you invest in Montrose Berkeley Lake, you benefit from</h2>
     <div class="benefit-grid">
-      <div class="benefit-card benefit-card--stat">
+      <div class="benefit-card">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-        <h3>15&ndash;19%</h3>
-        <p>Projected Annualized Returns</p>
+        <div class="benefit-card__k">Projected Returns</div>
+        <div class="benefit-card__v">15&ndash;19%</div>
+        <p>Annualized, across the hold</p>
+      </div>
+      <div class="benefit-card">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 5L5 19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
+        <div class="benefit-card__k">Tax Savings</div>
+        <div class="benefit-card__v">45&ndash;50%</div>
+        <p>On a &#36;100,000 investment</p>
       </div>
       <div class="benefit-card">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 6l-9.5 9.5-5-5L1 18"/><path d="M17 6h6v6"/></svg>
-        <h3>Appreciation Potential</h3>
-        <p>Value-add strategies in motion</p>
-      </div>
-      <div class="benefit-card benefit-card--stat">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 5L5 19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
-        <h3>45&ndash;50%</h3>
-        <p>Tax Savings on a $100,000 Investment</p>
+        <div class="benefit-card__k">Appreciation</div>
+        <div class="benefit-card__v">412 units</div>
+        <p>Still to renovate at a premium</p>
       </div>
       <div class="benefit-card">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18M5 21V7l7-4 7 4v14"/><path d="M9 21v-5h6v5"/></svg>
-        <h3>Economies of Scale</h3>
-        <p>Lower operational costs and higher returns</p>
+        <div class="benefit-card__k">Scale</div>
+        <div class="benefit-card__v">492 units</div>
+        <p>Lower cost per door to operate</p>
       </div>
       <div class="benefit-card">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
-        <h3>Passive Ownership</h3>
-        <p>We handle the details, you earn the returns</p>
+        <div class="benefit-card__k">Ownership</div>
+        <div class="benefit-card__v">Fully passive</div>
+        <p>We operate, you collect</p>
       </div>
-    </div>
-    <div class="benefit-actions">
-      <a href="#path" class="btn btn-rust">Invest Now</a>
-      <a href="#path" class="btn btn-ghost" data-webinar>Register for Webinar</a>
     </div>
   </div>
 </section>
@@ -1220,6 +1166,108 @@ const HTML = `<nav id="nav">
   </div>
 </section>
 
+<section class="section section-navy" id="webinar">
+  <div class="wrap">
+    <span class="eyebrow">Live Webinar</span>
+    <h2>Get to know the deal before you commit.</h2>
+    <p class="lede stone-text">One hour, live, with time for questions. Tuesday, August 18, 2026.</p>
+    <div class="web-grid">
+      <div class="web-col">
+        <span class="web-col__k">What we cover about Montrose</span>
+<ul class="reveal-checks">
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg><span>Purchase price, and what we are paying per unit</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg><span>Why Duluth, and why now</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg><span>Renovation cost per unit, against the premium the first 80 already earn</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg><span>Deal structure, and what lands in your account</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg><span>Minimum, allocation left, and the closing date</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg><span>Live Q&amp;A</span></li>
+        </ul>
+      </div>
+      <div class="web-col web-col--fit">
+        <span class="web-col__k">What you need to invest with us</span>
+<ul class="reveal-checks">
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg><span>You are an <span class="term" tabindex="0">accredited investor<span class="term__pop" role="tooltip">In the US, someone with income over &#36;200,000 a year (&#36;300,000 with a spouse) for the last two years, or a net worth over &#36;1 million excluding your home. Certain licences also qualify.</span></span></span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg><span>You want passive income backed by a real asset</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg><span>You want depreciation working while the property compounds</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg><span>You would rather own a building than watch a ticker</span></li>
+        </ul>
+      </div>
+      <div class="web-aside">
+<button class="webinar-poster" type="button" data-webinar
+            aria-label="Register for The Big Reveal webinar, Tuesday 18 August 2026">
+      <img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/webinar-banner.jpg" width="1080" height="1350" loading="lazy" decoding="async"
+           alt="The Big Reveal: Meet Our Biggest Deal Yet. Speaker Dr. Nkem Ezeamama. Tuesday, August 18, 2026, 6:00 PM CST.">
+      <span class="webinar-poster__cta">Register for Webinar</span>
+    </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="sponsor">
+  <div class="wrap">
+    <span class="eyebrow eyebrow-rust">Who You're Investing With</span>
+    <h2>Every investment we have made has sharpened our approach.</h2>
+    <div class="firm-grid">
+      <div class="firm-copy">
+        <div class="opp-knowing">
+          <span>Knowing which opportunities deserve attention.</span>
+          <span>Knowing where the numbers make sense.</span>
+          <span>And knowing how to pursue growth while keeping investor capital at the center of every decision.</span>
+        </div>
+        <p class="opp-figures">&#36;153.5M+ in assets. 1,377 units. 150+ investors.</p>
+        <p>Those numbers represent years of discipline, relationships, and decisions made with the long term in mind.</p>
+        <p>We serve busy professionals, especially physicians, who want access to institutional-quality real estate without the work of managing it.</p>
+      </div>
+<div class="yt" data-yt="R0tQQBO8pgo">
+        <button class="yt__btn" type="button"
+                aria-label="Play video: Pheenyx Capital Investment, Rediscover the Joy of Limitless Wealth and Growth">
+          <img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/pheenyx-video-cover.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async">
+          <span class="yt__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+        </button>
+      </div>
+    </div>
+  </div>
+<div class="press-strip">
+    <div class="press-track">
+      <div class="press-set">
+          <div class="press-item press-item--usa"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/usa-news.png" alt="USA News" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--ceo"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/ceotimes.png" alt="CEO Times" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--tl"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/toplistings.png" alt="TopListings" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--bw"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/bizweekly.png" alt="BizWeekly" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--somedocs"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/somedocs.png" alt="SoMeDocs - Doctors on Social Media" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--usa"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/usa-news.png" alt="USA News" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--ceo"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/ceotimes.png" alt="CEO Times" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--tl"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/toplistings.png" alt="TopListings" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--bw"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/bizweekly.png" alt="BizWeekly" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--somedocs"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/somedocs.png" alt="SoMeDocs - Doctors on Social Media" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--usa"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/usa-news.png" alt="USA News" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--ceo"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/ceotimes.png" alt="CEO Times" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--tl"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/toplistings.png" alt="TopListings" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--bw"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/bizweekly.png" alt="BizWeekly" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--somedocs"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/somedocs.png" alt="SoMeDocs - Doctors on Social Media" loading="lazy" decoding="async"></div>
+      </div>
+      <div class="press-set" aria-hidden="true">
+          <div class="press-item press-item--usa"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/usa-news.png" alt="USA News" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--ceo"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/ceotimes.png" alt="CEO Times" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--tl"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/toplistings.png" alt="TopListings" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--bw"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/bizweekly.png" alt="BizWeekly" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--somedocs"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/somedocs.png" alt="SoMeDocs - Doctors on Social Media" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--usa"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/usa-news.png" alt="USA News" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--ceo"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/ceotimes.png" alt="CEO Times" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--tl"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/toplistings.png" alt="TopListings" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--bw"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/bizweekly.png" alt="BizWeekly" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--somedocs"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/somedocs.png" alt="SoMeDocs - Doctors on Social Media" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--usa"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/usa-news.png" alt="USA News" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--ceo"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/ceotimes.png" alt="CEO Times" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--tl"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/toplistings.png" alt="TopListings" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--bw"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/bizweekly.png" alt="BizWeekly" loading="lazy" decoding="async"></div>
+          <div class="press-item press-item--somedocs"><img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/press/somedocs.png" alt="SoMeDocs - Doctors on Social Media" loading="lazy" decoding="async"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="section section-cream2" id="ceo">
   <div class="wrap">
     <span class="eyebrow eyebrow-rust">Meet The CEO</span>
@@ -1242,7 +1290,7 @@ const HTML = `<nav id="nav">
           <a href="https://www.facebook.com/phcinvest" target="_blank" rel="noopener noreferrer" aria-label="Pheenyx Capital on Facebook"> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12z"/></svg> </a>
           <a href="https://www.youtube.com/@Phcinvest" target="_blank" rel="noopener noreferrer" aria-label="Pheenyx Capital on YouTube"> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.9a3 3 0 0 0-2.12-2.12C19.5 4.27 12 4.27 12 4.27s-7.5 0-9.38.51A3 3 0 0 0 .5 6.9C0 8.78 0 12 0 12s0 3.22.5 5.1a3 3 0 0 0 2.12 2.12c1.88.51 9.38.51 9.38.51s7.5 0 9.38-.51a3 3 0 0 0 2.12-2.12C24 15.22 24 12 24 12s0-3.22-.5-5.1zM9.6 15.6V8.4l6.24 3.6z"/></svg> </a>
           <a href="https://www.instagram.com/phcinvest/" target="_blank" rel="noopener noreferrer" aria-label="Pheenyx Capital on Instagram"> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zM12 0C8.74 0 8.33.01 7.05.07c-1.28.06-2.15.26-2.91.56a5.9 5.9 0 0 0-2.13 1.38A5.9 5.9 0 0 0 .63 4.14c-.3.76-.5 1.63-.56 2.91C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.28.26 2.15.56 2.91a5.9 5.9 0 0 0 1.38 2.13 5.9 5.9 0 0 0 2.13 1.38c.76.3 1.63.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.28-.06 2.15-.26 2.91-.56a5.9 5.9 0 0 0 2.13-1.38 5.9 5.9 0 0 0 1.38-2.13c.3-.76.5-1.63.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.28-.26-2.15-.56-2.91a5.9 5.9 0 0 0-1.38-2.13A5.9 5.9 0 0 0 19.86.63c-.76-.3-1.63-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4zm7.85-10.4a1.44 1.44 0 1 1-1.44-1.44 1.44 1.44 0 0 1 1.44 1.44z"/></svg> </a>
-          <a class="btn btn-rust social-call" href="https://calendly.com/pheenyxcapital/30min" target="_blank" rel="noopener noreferrer">Schedule a Call</a>
+          <a class="btn btn-rust social-call" href="https://calendly.com/pheenyxcapital/30min" target="_blank" rel="noopener noreferrer">Book a Call</a>
         </div>
       </div>
     </div>
@@ -1328,27 +1376,6 @@ const HTML = `<nav id="nav">
         </figcaption>
       </figure>
 
-    </div>
-  </div>
-</section>
-
-<section class="section" id="sponsor">
-  <div class="wrap">
-    <span class="eyebrow eyebrow-rust">Who You're Investing With</span>
-    <h2>Disciplined analysis, hands-on oversight.</h2>
-    <div class="firm-grid">
-      <div class="firm-copy">
-        <p>Pheenyx Capital is a real estate firm focused on stable, well-positioned multifamily assets in growing U.S. markets.</p>
-        <p>We apply disciplined analysis and hands-on oversight to protect capital and support long-term value.</p>
-        <p>We serve busy professionals, especially physicians, who want access to institutional-quality real estate without the work of managing it.</p>
-      </div>
-      <div class="yt" data-yt="R0tQQBO8pgo">
-        <button class="yt__btn" type="button"
-                aria-label="Play video: Pheenyx Capital Investment, Rediscover the Joy of Limitless Wealth and Growth">
-          <img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/pheenyx-video-cover.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async">
-          <span class="yt__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
-        </button>
-      </div>
     </div>
   </div>
 </section>
@@ -1670,31 +1697,14 @@ const HTML = `<nav id="nav">
   </div>
 </div>
 
-<section class="path-band" id="path">
-  <div class="wrap path-inner">
-    <div>
-      <span class="eyebrow">Path to Invest</span>
-      <h2>Get to know the deal before you commit.</h2>
-      <p>Every two weeks, we walk through a different part of the deal, at your own pace.</p>
-      <a href="#path" class="btn btn-ghost" data-webinar>See the full webinar schedule</a>
-    </div>
-    <button class="webinar-poster" type="button" data-webinar
-            aria-label="Reserve your spot for The Big Reveal webinar, Tuesday 18 August 2026">
-      <img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/webinar-banner.jpg" width="1080" height="1350" loading="lazy" decoding="async"
-           alt="The Big Reveal: Meet Our Biggest Deal Yet. Speaker Dr. Nkem Ezeamama. Tuesday, August 18, 2026, 6:00 PM CST.">
-      <span class="webinar-poster__cta">Reserve Your Spot</span>
-    </button>
-  </div>
-</section>
-
 <section id="final-cta">
   <div class="wrap inner">
     <span class="eyebrow">Limited Allocation</span>
     <h2>The Deal You've Been <span class="italic">Waiting For.</span></h2>
     <div class="final-actions">
-      <a href="#path" class="btn btn-rust" data-webinar>Reserve Your Spot</a>
+      <a href="#webinar" class="btn btn-rust" data-webinar>Register for Webinar</a>
       <a href="https://calendly.com/pheenyxcapital/30min" class="btn btn-ghost"
-         target="_blank" rel="noopener noreferrer">Schedule a Call</a>
+         target="_blank" rel="noopener noreferrer">Book a Call</a>
     </div>
   </div>
 </section>
@@ -1710,7 +1720,7 @@ const HTML = `<nav id="nav">
         <span class="cta-count__k">Webinar in</span>
         <span class="cta-count__v" id="wb-countdown" data-countdown>&mdash;</span>
       </button>
-      <a href="#path" class="btn btn-rust cta-reserve" data-webinar>Reserve Your Spot</a>
+      <a href="#webinar" class="btn btn-rust cta-reserve" data-webinar>Register for Webinar</a>
     </div>
   </div>
 </div>
@@ -1726,10 +1736,10 @@ const HTML = `<nav id="nav">
 <div class="wpop" id="webinar-pop" role="complementary" aria-label="Upcoming webinar">
   <button class="wpop__close" type="button" id="wpop-close" aria-label="Dismiss webinar reminder">&times;</button>
   <button class="wpop__inner" type="button" data-webinar
-          aria-label="Reserve your spot for The Big Reveal webinar, Tuesday 18 August 2026">
+          aria-label="Register for The Big Reveal webinar, Tuesday 18 August 2026">
     <img src="https://cdn.jsdelivr.net/gh/Vicepp/Montrose-Berkeley-Lake-Landing-Page@main/images/webinar-banner.jpg" width="1080" height="1350" loading="lazy" decoding="async"
          alt="The Big Reveal: Meet Our Biggest Deal Yet. Tuesday, August 18, 2026, 6:00 PM CST.">
-    <span class="wpop__cta">Reserve Your Spot</span>
+    <span class="wpop__cta">Register for Webinar</span>
   </button>
 </div>
 
@@ -1767,7 +1777,7 @@ const HTML = `<nav id="nav">
           <span class="pb-webinar__k">Webinar in</span>
           <span class="pb-webinar__v" data-countdown>&mdash;</span>
         </span>
-        <button class="btn btn-rust pb-webinar__cta" type="button" data-webinar>Reserve Your Spot</button>
+        <button class="btn btn-rust pb-webinar__cta" type="button" data-webinar>Register for Webinar</button>
       </div>
     </div>
 
@@ -1800,13 +1810,15 @@ const HTML = `<nav id="nav">
       <div class="footer-links">
         <div>
           <div class="h">Page</div>
-          <a href="#opportunity">Opportunity</a>
-          <a href="#value-add">Value-Add</a>
+          <a href="#property">The Property</a>
+          <a href="#value-add">Financial Benefits</a>
+          <a href="#webinar">Webinar</a>
+          <a href="#sponsor">About Pheenyx</a>
         </div>
         <div>
-          <div class="h">Contact</div>
-          <a href="mailto:info@phcinvest.com">info@phcinvest.com</a>
-          <a href="tel:+16158238262">(615) 823-8262</a>
+          <div class="h">Get In Touch</div>
+          <a href="https://calendly.com/pheenyxcapital/30min" target="_blank" rel="noopener noreferrer">Book a Call</a>
+          <a href="#webinar" data-webinar>Register for Webinar</a>
           <a href="https://phcinvest.com" target="_blank" rel="noopener noreferrer">www.phcinvest.com</a>
         </div>
       </div>

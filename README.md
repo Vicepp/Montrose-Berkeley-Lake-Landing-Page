@@ -56,7 +56,33 @@ Set it in **Site settings → Environment variables**, then redeploy.
 
 ## Analytics
 
-First-party, no third parties, no cookies, no consent banner needed.
+Two systems run side by side: a first-party collector that feeds `/admin`, and
+the Meta Pixel.
+
+### Meta Pixel
+
+Pixel ID `1005277715102378`, base code in `<head>`, and the same named CTA
+events mirrored into it from the existing event layer, so the two can never
+drift apart:
+
+| On the page | Meta event |
+|---|---|
+| Any "Register for Webinar" | `Lead` |
+| Any "Book a Call" (Calendly) | `Contact` |
+| Press preview opened | `ViewContent` |
+| Dr Nkem video played | `VideoPlay` (custom) |
+| Page load | `PageView` (from the base code) |
+
+`content_name` carries the specific entry point, e.g. `Webinar: sticky bar`, so
+Events Manager shows which CTA actually earns registrations.
+
+**This sets third-party cookies and sends visitor data to Meta.** The page has
+no consent banner. If you advertise to or receive visitors from the UK or EU,
+take advice on whether you need one before running traffic.
+
+### First-party collector
+
+No third parties, no cookies, no consent needed for this part.
 
 **How it works.** A small script at the bottom of `index.html` batches events and
 POSTs them to `/api/track`, a Netlify Function that appends each batch to a blob
@@ -100,6 +126,9 @@ node scripts/responsive-test.cjs       # layout across 5 viewports
 node scripts/press-outlets-test.cjs    # press strip + rail + modals
 node scripts/sticky-bar-test.cjs       # sticky bar, countdown, webinar popup
 node scripts/webinar-popin-test.cjs    # timed pop-in placement and dismissal
+node scripts/meta-pixel-test.cjs       # Meta Pixel id + event mapping
+node scripts/stray-markup-test.cjs     # nothing from source leaked onto the page
+node scripts/hero-stats-test.cjs       # hero stat row fits at every width
 ```
 
 The browser suites need Playwright's Chromium (`CHROME_PATH`) and write

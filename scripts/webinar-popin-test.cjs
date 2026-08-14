@@ -21,11 +21,11 @@ const { chromium } = require('playwright-core');
     // speed the 60s timer up so the test does not sit for a minute
     await p.addInitScript(() => {
       const real = window.setTimeout;
-      window.setTimeout = (fn, ms, ...a) => real(fn, ms === 60000 ? 900 : ms, ...a);
+      window.setTimeout = (fn, ms, ...a) => real(fn, ms === 60000 ? 2500 : ms, ...a);
     });
 
     await p.goto('http://127.0.0.1:8788/index.html', { waitUntil: 'domcontentloaded' });
-    await p.waitForTimeout(600);
+    await p.waitForTimeout(400);
 
     // hidden before the timer fires
     const before = await p.evaluate(() => {
@@ -36,7 +36,7 @@ const { chromium } = require('playwright-core');
 
     await p.waitForFunction(
       () => { const e = document.getElementById('webinar-pop'); return e && e.classList.contains('show'); },
-      null, { timeout: 8000 }
+      null, { timeout: 12000 }
     ).catch(() => {});
     await p.waitForTimeout(700);
 

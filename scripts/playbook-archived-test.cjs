@@ -42,13 +42,22 @@ const { chromium } = require('playwright-core');
         tplInert: tpl ? tpl.content.querySelectorAll('.pb-fab').length : 0,
         strayText: /Ultimate Passive Investor Playbook/.test(document.body.innerText),
         iframes: document.querySelectorAll('iframe').length,
-        // the stat cards
-        stats: [...document.querySelectorAll('.benefit-card--stat')].map(c => ({
-          h: c.querySelector('h3').textContent.trim(),
-          p: c.querySelector('p').textContent.trim(),
-          size: getComputedStyle(c.querySelector('h3')).fontSize,
-          wraps: c.querySelector('h3').getBoundingClientRect().height > parseFloat(getComputedStyle(c.querySelector('h3')).fontSize) * 1.6,
+        // Benefit cards. The review asked for one consistent shape across all
+        // of them — icon, then label, then value — rather than some leading
+        // with a figure and some with a phrase.
+        cards: [...document.querySelectorAll('.benefit-card')].map(c => ({
+          k: (c.querySelector('.benefit-card__k') || {}).textContent,
+          v: (c.querySelector('.benefit-card__v') || {}).textContent,
+          hasIcon: !!c.querySelector('svg'),
+          hasSub: !!c.querySelector('p'),
+          iconPx: c.querySelector('svg') ? Math.round(c.querySelector('svg').getBoundingClientRect().width) : 0,
+          vWraps: c.querySelector('.benefit-card__v')
+            ? c.querySelector('.benefit-card__v').getBoundingClientRect().height >
+              parseFloat(getComputedStyle(c.querySelector('.benefit-card__v')).fontSize) * 1.8
+            : false,
         })),
+        gridCols: getComputedStyle(document.querySelector('.benefit-grid')).gridTemplateColumns.split(' ').length,
+        benefitCtas: document.querySelectorAll('.benefit-actions').length,
         overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
       };
     });
@@ -62,10 +71,16 @@ const { chromium } = require('playwright-core');
     t(`[${d.n}] no JS errors`, errs.length === 0, errs[0] || '');
     t(`[${d.n}] no h-overflow`, !r.overflow);
 
-    t(`[${d.n}] two stat cards`, r.stats.length === 2, JSON.stringify(r.stats.map(s => s.h)));
-    r.stats.forEach(s => {
-      t(`[${d.n}] "${s.h}" on one line`, !s.wraps, `${s.size}`);
-    });
+    t(`[${d.n}] five benefit cards`, r.cards.length === 5, `${r.cards.length}`);
+    t(`[${d.n}] every card has the same parts`,
+      r.cards.every(c => c.k && c.v && c.hasIcon && c.hasSub),
+      JSON.stringify(r.cards.map(c => c.k)));
+    t(`[${d.n}] icon is the focal element`,
+      r.cards.every(c => c.iconPx >= 26), `${r.cards[0] ? r.cards[0].iconPx : 0}px`);
+    t(`[${d.n}] no value wraps`, r.cards.every(c => !c.vWraps),
+      JSON.stringify(r.cards.filter(c => c.vWraps).map(c => c.v)));
+    t(`[${d.n}] CTAs removed from this section`, r.benefitCtas === 0, `${r.benefitCtas}`);
+    if (!d.m) t(`[${d.n}] one clean row of 5`, r.gridCols === 5, `${r.gridCols} columns`);
 
     if (!d.m) await p.locator('#value-add').screenshot({ path: process.env.SHOTDIR + '/benefits-stats.png' });
     await ctx.close();

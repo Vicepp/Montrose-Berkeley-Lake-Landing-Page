@@ -62,7 +62,7 @@ const { chromium } = require('playwright-core');
       await p.keyboard.press('Escape');
       await p.waitForTimeout(300);
     }
-    if (!d.m) { await p.locator('.trust-band').screenshot({path:process.env.SHOTDIR+'/d-strip5.png'});
+    if (!d.m) { await p.locator('.press-strip').screenshot({path:process.env.SHOTDIR+'/d-strip5.png'});
                 await p.locator('#press').screenshot({path:process.env.SHOTDIR+'/d-rail5.png'}); }
     t(`[${d.n}] no JS errors`, errs.length===0, errs[0]||'');
     await ctx.close();

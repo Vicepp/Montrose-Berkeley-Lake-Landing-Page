@@ -977,6 +977,15 @@ alt=""/></noscript>
     .ceo-photo{max-width:none;}
     .hero-scroll{text-align:center;}
   }
+  /* The longer sub-headline runs to three lines below ~360px, which pushed the
+     stat row under the fold on a 320px screen. Reclaim the space from the
+     hero's own rhythm rather than shrinking the type.
+     Margins only, and longhand: .hero-inner also carries .wrap, so a `padding`
+     shorthand here would wipe out .wrap's side gutters. */
+  @media (max-width:360px){
+    .hero-sub{margin-top:12px; margin-bottom:18px;}
+    .hero-actions{margin-bottom:38px;}
+  }
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto;}
     *{transition:none !important;}
@@ -1020,7 +1029,7 @@ alt=""/></noscript>
   <div class="wrap hero-inner">
     <span class="eyebrow hero-tag">The Big Reveal</span>
     <h1>Montrose <span class="italic">Berkeley Lake</span></h1>
-    <p class="hero-sub">An Elevated Investment Opportunity by Pheenyx Capital</p>
+    <p class="hero-sub">Turn one investment into income today and a legacy that lasts for generations.</p>
     <div class="hero-actions">
       <a href="#webinar" class="btn btn-rust" data-webinar>Register for Webinar</a>
       <a href="https://calendly.com/pheenyxcapital/30min" class="btn btn-ghost"

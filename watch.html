@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Recording &mdash; Montrose Berkeley Lake | Pheenyx Capital</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window,document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1005277715102378');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1005277715102378&ev=PageView&noscript=1"
+alt=""/></noscript>
+<!-- End Meta Pixel Code -->
+
+<style>
+  /* Tokens mirror index.html so the three pages stay one brand. */
+  :root{
+    --ink:#122040;
+    --ink-2:#1c2f57;
+    --paper:#f6f1e7;
+    --paper-2:#eee4d0;
+    --rust:#b5562c;
+    --rust-deep:#8c4220;
+    --green:#32513e;
+    --stone:#6e6659;
+    --white:#ffffff;
+    --radius:14px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth; -webkit-text-size-adjust:100%;}
+  body{
+    font-family:'Inter', sans-serif;
+    background:#0a1124;          /* dark: this page is a screening room */
+    color:var(--white);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:clip;
+  }
+  img{display:block; max-width:100%;}
+  a{color:inherit; text-decoration:none;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px; letter-spacing:0.16em;
+    text-transform:uppercase; font-weight:500;
+  }
+  h1,h2,h3{font-family:'Fraunces', serif; font-weight:600; letter-spacing:-0.01em;}
+  .italic{font-style:italic; font-weight:500;}
+  .wrap{max-width:1160px; margin:0 auto; padding:0 32px;}
+
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    padding:13px 26px; border-radius:999px;
+    font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:.06em;
+    text-transform:uppercase; font-weight:600; cursor:pointer;
+    border:1px solid transparent;
+    transition:transform .18s ease, box-shadow .18s ease, background .2s;
+  }
+  .btn-rust{background:var(--rust); color:var(--white);}
+  .btn-rust:hover{background:var(--rust-deep); transform:translateY(-1px); box-shadow:0 10px 24px rgba(181,86,44,.35);}
+  .btn-ghost{border-color:rgba(255,255,255,.4); color:var(--white);}
+  .btn-ghost:hover{border-color:#fff; background:rgba(255,255,255,.08);}
+  .nav-cta{padding:9px 15px; font-size:10.5px; letter-spacing:.04em; white-space:nowrap;}
+
+  /* NAV */
+  #nav{
+    position:sticky; top:0; z-index:100;
+    background:rgba(10,17,36,.94); backdrop-filter:blur(6px);
+    border-bottom:1px solid rgba(255,255,255,.07);
+    padding:14px 0;
+  }
+  #nav .wrap{display:flex; align-items:center; justify-content:space-between; gap:16px;}
+  .nav-brand a{display:flex; align-items:center; gap:10px;}
+  .nav-brand img{height:34px; width:auto;}
+  .nav-brand span{color:var(--white); font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.12em; text-transform:uppercase; opacity:.85;}
+  @media (max-width:520px){ .nav-brand span{display:none;} }
+
+  /* STAGE */
+  #stage{padding:40px 0 8px;}
+  .stage-head{margin-bottom:22px;}
+  .stage-head .eyebrow{color:#e79b74;}
+  .stage-head h1{font-size:clamp(28px,4.4vw,46px); line-height:1.06; margin-top:12px; max-width:820px;}
+  .stage-head h1 .italic{color:#e6c9a8;}
+
+  .player-card{
+    background:#0d1830; border-radius:var(--radius); overflow:hidden;
+    box-shadow:0 34px 80px rgba(0,0,0,.5);
+    border:1px solid rgba(255,255,255,.07);
+  }
+  .player{position:relative; aspect-ratio:16/9; background:#000;}
+  .player iframe, .player video{position:absolute; inset:0; width:100%; height:100%; border:0;}
+
+  .player-bar{
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    flex-wrap:wrap; padding:16px 22px; border-top:1px solid rgba(255,255,255,.09);
+  }
+  .player-bar__t{font-family:'Fraunces',serif; font-size:15.5px; font-weight:600; color:#fff;}
+  .player-bar__s{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.09em; text-transform:uppercase; color:#7d87a3; margin-top:3px;}
+  .player-bar .btn{padding:10px 18px; font-size:10.5px;}
+
+  .stage-meta{
+    display:flex; gap:26px; flex-wrap:wrap; margin-top:24px;
+    font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.04em; color:#7d87a3;
+  }
+  .stage-meta strong{display:block; color:#fff; font-weight:600; font-size:13.5px; margin-top:3px;}
+
+  /* GATE FALLBACK — shown when someone arrives without registering. */
+  #locked{
+    display:none; min-height:64vh;
+    align-items:center; justify-content:center; text-align:center; padding:70px 0;
+  }
+  body[data-access="denied"] #locked{display:flex;}
+  body[data-access="denied"] #stage,
+  body[data-access="denied"] #next{display:none;}
+  .locked-box{max-width:520px;}
+  .locked-icon{
+    width:64px; height:64px; border-radius:999px; margin:0 auto 22px;
+    background:rgba(181,86,44,.22); border:1px solid rgba(181,86,44,.55);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .locked-icon svg{width:28px; height:28px; stroke:#e79b74; fill:none; stroke-width:1.7;}
+  #locked h1{font-size:clamp(27px,4vw,40px); margin-bottom:14px;}
+  #locked p{color:#c3c8d6; font-size:16px; margin-bottom:30px;}
+
+  /* NEXT STEP */
+  #next{
+    border-top:1px solid rgba(255,255,255,.08);
+    margin-top:56px; padding:62px 0 76px; text-align:center;
+  }
+  #next .eyebrow{color:#e79b74;}
+  #next h2{font-size:clamp(26px,3.8vw,42px); margin:14px auto 16px; max-width:640px;}
+  #next p{color:#c3c8d6; font-size:16px; max-width:500px; margin:0 auto 32px;}
+  .next-actions{display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
+
+  /* FOOTER */
+  footer{background:#080e1d; color:#8b93a8; padding:34px 0 40px; text-align:center;}
+  .footer-fine{
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; line-height:1.7;
+    color:#4e5674; max-width:720px; margin:14px auto 0;
+  }
+  footer a{color:#b7bdd0;}
+
+  @media (max-width:760px){
+    .wrap{padding:0 20px;}
+    #stage{padding:26px 0 4px;}
+    .player-bar{padding:14px 16px;}
+    .player-bar .btn{width:100%;}
+    #next{padding:48px 0 58px; margin-top:40px;}
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="wrap">
+    <div class="nav-brand">
+      <a href="index.html">
+        <img src="images/pheenyx-logo.png" alt="Pheenyx Capital">
+        <span>Pheenyx Capital</span>
+      </a>
+    </div>
+    <a href="https://calendly.com/pheenyxcapital/30min" class="btn btn-rust nav-cta"
+       target="_blank" rel="noopener noreferrer" data-cta="Watch: book a call (nav)">Book a Call</a>
+  </div>
+</nav>
+
+<!-- Shown only to someone who reached this URL without registering. -->
+<section id="locked">
+  <div class="wrap">
+    <div class="locked-box">
+      <span class="locked-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="4" y="10.5" width="16" height="10.5" rx="2"/>
+          <path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/>
+        </svg>
+      </span>
+      <h1>This recording is for registered viewers</h1>
+      <p>Take thirty seconds to register and the replay opens straight away.</p>
+      <a href="replay.html" class="btn btn-rust" data-cta="Watch: sent to register">Register to Watch</a>
+    </div>
+  </div>
+</section>
+
+<section id="stage">
+  <div class="wrap">
+    <div class="stage-head">
+      <span class="eyebrow">The Recording</span>
+      <h1>The Big Reveal: <span class="italic">Montrose Berkeley Lake</span></h1>
+    </div>
+
+    <div class="player-card">
+      <!-- The player iframe is inserted here on load, once access is confirmed.
+           It is built in script rather than sitting in the markup so the video
+           is never requested for someone who has not registered. -->
+      <div class="player" id="player"></div>
+
+      <div class="player-bar">
+        <div>
+          <div class="player-bar__t">THE BIG REVEAL: Meet Our Biggest Deal Yet</div>
+          <div class="player-bar__s" id="player-status">Now playing</div>
+        </div>
+        <a href="https://calendly.com/pheenyxcapital/30min" class="btn btn-rust"
+           target="_blank" rel="noopener noreferrer" data-cta="Watch: book a call (player bar)">Book a Call</a>
+      </div>
+    </div>
+
+    <div class="stage-meta mono">
+      <div>Recorded<strong>Tuesday, August 18, 2026</strong></div>
+      <div>Asset<strong>492 Units &middot; Duluth, GA</strong></div>
+      <div>Host<strong>Dr. Nkem Ezeamama</strong></div>
+    </div>
+  </div>
+</section>
+
+<section id="next">
+  <div class="wrap">
+    <span class="eyebrow">Next step</span>
+    <h2>Questions after watching?</h2>
+    <p>Thirty minutes with the team is usually all it takes to know whether this
+       fits your portfolio.</p>
+    <div class="next-actions">
+      <a href="https://calendly.com/pheenyxcapital/30min" class="btn btn-rust"
+         target="_blank" rel="noopener noreferrer" data-cta="Watch: book a call (next)">Book a Call</a>
+      <a href="index.html" class="btn btn-ghost" data-cta="Watch: back to deal page">See the Full Deal Page</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="mono" style="font-size:12px; color:#5c6480;">
+      Pheenyx Capital &middot; <a href="https://phcinvest.com" target="_blank" rel="noopener noreferrer">www.phcinvest.com</a>
+    </div>
+    <p class="footer-fine">
+      This page is for informational purposes only and is not an offer to sell or a
+      solicitation of an offer to buy any security. Past performance is not indicative
+      of future results.
+    </p>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   THE RECORDING.
+
+   kind: 'youtube'  -> id is the YouTube video id (the part after v= or youtu.be/)
+         'vimeo'    -> id is the numeric Vimeo id
+         'iframe'   -> id is a full embed URL (Zoom, Wistia, Loom, ...)
+         'file'     -> id is a path or URL to an .mp4
+
+   PASS must match the token in replay.html and in the GHL form's redirect URL.
+   ============================================================ */
+var REPLAY = {
+  kind: 'youtube',
+  id:   'egzShgQStP8',                   // youtu.be/egzShgQStP8
+  poster: 'images/webinar-banner.jpg'
+};
+var PASS = 'mbl-reveal-2026';
+/* ============================================================ */
+
+(function () {
+  'use strict';
+
+  var body   = document.body;
+  var stage  = document.getElementById('player');
+  var status = document.getElementById('player-status');
+  var STORE  = 'montrose-replay-access';
+
+  /* --- analytics: same collector and event shape as index.html --- */
+  function track(type, name) {
+    try {
+      var payload = JSON.stringify({ events: [{
+        type: type, name: name,
+        device: window.matchMedia('(max-width:760px)').matches ? 'mobile' : 'desktop',
+        ref: (document.referrer && document.referrer.indexOf(location.host) === -1) ? document.referrer : ''
+      }]});
+      fetch('/api/track', {
+        method: 'POST', body: payload, keepalive: true,
+        headers: { 'content-type': 'application/json' }
+      }).catch(function () {});
+    } catch (e) {}
+  }
+
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('[data-cta]');
+    if (!el) return;
+    var name = el.getAttribute('data-cta');
+    track(el.hostname && el.hostname !== location.hostname ? 'outbound' : 'cta', name);
+    if (typeof fbq === 'function' && /calendly|book a call/i.test(name)) {
+      try { fbq('track', 'Contact', { content_name: name }); } catch (err) {}
+    }
+  });
+
+  /* --- who gets in ---
+     Either they arrived on the redirect the GHL form sends them to, or they
+     registered earlier on this device. The token is not real security: it only
+     stops someone guessing this URL outright. Anyone determined can still read
+     the video id out of this file, so keep the video Unlisted on YouTube. */
+  var hasToken = new URLSearchParams(location.search).get('k') === PASS;
+  var remembered = false;
+  try { remembered = localStorage.getItem(STORE) === '1'; } catch (e) {}
+
+  if (hasToken || remembered) {
+    /* Remember them so the token is not needed on a return visit, and drop the
+       token from the address bar so it is not shared around by copy-paste. */
+    try { localStorage.setItem(STORE, '1'); } catch (e) {}
+    if (hasToken && history.replaceState) {
+      history.replaceState({}, '', location.pathname);
+    }
+    track('view', '/watch');
+  } else {
+    body.setAttribute('data-access', 'denied');
+    document.title = 'Register to watch — Montrose Berkeley Lake';
+    track('view', '/watch (locked)');
+    return;                              // nothing below this line runs
+  }
+
+  /* --- the player --- */
+  function embedSrc() {
+    /* Autoplay only for someone arriving straight off the form - they just
+       asked to watch. A return visit gets the player ready but quiet, which
+       is also what a browser blocking autoplay will fall back to. */
+    var auto = hasToken ? 1 : 0;
+    if (REPLAY.kind === 'youtube') {
+      return 'https://www.youtube-nocookie.com/embed/' + REPLAY.id +
+             '?autoplay=' + auto + '&rel=0&modestbranding=1&playsinline=1';
+    }
+    if (REPLAY.kind === 'vimeo') {
+      return 'https://player.vimeo.com/video/' + REPLAY.id + '?autoplay=' + auto;
+    }
+    if (REPLAY.kind === 'iframe') return REPLAY.id;
+    return '';
+  }
+
+  function mount() {
+    if (stage.querySelector('iframe, video')) return;
+    if (REPLAY.kind === 'file') {
+      var v = document.createElement('video');
+      v.src = REPLAY.id;
+      v.controls = true; v.autoplay = hasToken; v.playsInline = true;
+      if (REPLAY.poster) v.poster = REPLAY.poster;
+      stage.appendChild(v);
+    } else {
+      var f = document.createElement('iframe');
+      f.src = embedSrc();
+      f.title = 'Montrose Berkeley Lake webinar recording';
+      f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture; fullscreen';
+      f.allowFullscreen = true;
+      stage.appendChild(f);
+    }
+    status.textContent = hasToken ? 'Now playing' : 'Ready';
+    track('cta', 'Recording play');
+    if (typeof fbq === 'function') {
+      try { fbq('trackCustom', 'VideoPlay', { content_name: 'Webinar recording' }); } catch (e) {}
+    }
+  }
+
+  /* The whole point of this page. Nothing to click first. */
+  mount();
+
+})();
+</script>
+
+</body>
+</html>

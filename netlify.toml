@@ -25,6 +25,20 @@
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
 
+# Same for the replay registration page.
+[[headers]]
+  for = "/replay.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# The recording itself is gated, so it must never sit in a shared CDN cache
+# and must never be indexed.
+[[headers]]
+  for = "/watch.html"
+  [headers.values]
+    Cache-Control = "no-store"
+    X-Robots-Tag = "noindex, nofollow, noarchive"
+
 # Admin dashboard: never cached, never indexed. Access is gated by the
 # ADMIN_PASSWORD environment variable, checked server-side in /api/stats —
 # the page itself holds no data until it authenticates.
@@ -44,4 +58,16 @@
 [[redirects]]
   from = "/admin"
   to = "/admin.html"
+  status = 200
+
+# Friendlier URLs. /replay is the registration page you share publicly;
+# /watch is where the GHL form's redirect sends people after they submit.
+[[redirects]]
+  from = "/replay"
+  to = "/replay.html"
+  status = 200
+
+[[redirects]]
+  from = "/watch"
+  to = "/watch.html"
   status = 200

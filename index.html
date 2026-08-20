@@ -119,7 +119,8 @@ alt=""/></noscript>
     display:inline-flex; align-items:center; gap:8px;
     padding:13px 26px; border-radius:999px;
     font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:.06em; text-transform:uppercase;
-    font-weight:600; cursor:pointer; border:1px solid transparent; transition:transform .18s ease, box-shadow .18s ease, background .2s;
+    font-weight:600; cursor:pointer; border:1px solid transparent; white-space:nowrap;
+    transition:transform .18s ease, box-shadow .18s ease, background .2s;
   }
   .btn-rust{background:var(--rust); color:var(--white);}
   .btn-rust:hover{background:var(--rust-deep); transform:translateY(-1px); box-shadow:0 10px 24px rgba(181,86,44,.35);}
@@ -299,11 +300,17 @@ alt=""/></noscript>
   }
   #sticky-cta.show{bottom:0;}
   #sticky-cta .wrap{display:flex; align-items:center; justify-content:space-between; gap:20px;}
-  #sticky-cta .info{display:flex; gap:26px; align-items:center;}
-  #sticky-cta .info .name{font-family:'Fraunces',serif; font-weight:600; color:#fff; font-size:16px;}
-  #sticky-cta .info .stat{font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:#9aa1b8;}
+  #sticky-cta .info{display:flex; gap:22px; align-items:center; min-width:0;}
+  #sticky-cta .info .name{
+    font-family:'Fraunces',serif; font-weight:600; color:#fff; font-size:15px;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  #sticky-cta .info .stat{
+    font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:#9aa1b8;
+    white-space:nowrap;
+  }
   #sticky-cta .info .stat b{color:#fff; font-weight:600;}
-  #sticky-cta .actions{display:flex; gap:12px; align-items:center;}
+  #sticky-cta .actions{display:flex; gap:12px; align-items:center; flex:0 0 auto;}
 
   /* Live countdown chip — sits where "Schedule a Call" used to. */
   .cta-count{
@@ -311,11 +318,12 @@ alt=""/></noscript>
     background:rgba(255,255,255,.09); border-color:rgba(255,255,255,.3);
   }
   .cta-count:hover{background:rgba(255,255,255,.16); border-color:rgba(255,255,255,.5);}
-  .cta-count__k{font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:#b7bdd0;}
+  .cta-count__k{font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:#b7bdd0; white-space:nowrap;}
   .cta-count__v{
     font-size:16px; font-weight:700; letter-spacing:.06em; color:#f0a87f;
     font-variant-numeric:tabular-nums; font-feature-settings:"tnum";
     min-width:14ch; text-align:center;   /* stop the bar twitching each second */
+    white-space:nowrap;
   }
   body[data-webinar-phase="ended"] .cta-count{display:none;}
   .cta-count.is-live{background:var(--rust); border-color:var(--rust);}
@@ -422,11 +430,13 @@ alt=""/></noscript>
     #sticky-cta .info .stat{font-size:10px; letter-spacing:.03em;}
     #sticky-cta .actions{gap:8px;}
     #sticky-cta .actions .btn{flex:1; justify-content:center;}
-    .cta-count{padding:7px 8px; flex:1.35;}
-    .cta-count__k{font-size:8px; letter-spacing:.07em;}
-    .cta-count__v{font-size:13.5px; letter-spacing:.02em; min-width:0;}
-    /* CTA kept small so the countdown has room beside it */
-    .cta-reserve{padding:9px 12px; font-size:10px; letter-spacing:.04em;}
+    /* Both labels have to hold one line inside their box: the countdown runs
+       to 15 characters and the CTA to 20, so the type comes down and neither
+       is allowed to wrap. */
+    .cta-count{padding:6px 6px; flex:1.2;}
+    .cta-count__k{font-size:7.5px; letter-spacing:.06em; white-space:nowrap;}
+    .cta-count__v{font-size:11.5px; letter-spacing:0; min-width:0; white-space:nowrap;}
+    .cta-reserve{padding:9px 8px; font-size:9px; letter-spacing:.03em; white-space:nowrap;}
     .wmodal{padding:10px;}
     .wmodal__panel{aspect-ratio:auto; height:82vh;}
     /* banner clears the taller two-row CTA bar on phones */
@@ -1024,7 +1034,7 @@ alt=""/></noscript>
 
 <header id="hero">
   <div class="wrap hero-inner">
-    <span class="eyebrow hero-tag">The Big Deal Has a Name</span>
+    <span class="eyebrow hero-tag">The Big Reveal</span>
     <h1>Montrose <span class="italic">Berkeley Lake</span></h1>
     <p class="hero-sub">Turn one investment into income today and a legacy that lasts for generations.</p>
     <div class="hero-actions">

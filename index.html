@@ -1024,7 +1024,7 @@ alt=""/></noscript>
 
 <header id="hero">
   <div class="wrap hero-inner">
-    <span class="eyebrow hero-tag">The Big Reveal</span>
+    <span class="eyebrow hero-tag">The Big Deal Has a Name</span>
     <h1>Montrose <span class="italic">Berkeley Lake</span></h1>
     <p class="hero-sub">Turn one investment into income today and a legacy that lasts for generations.</p>
     <div class="hero-actions">
@@ -1188,7 +1188,7 @@ alt=""/></noscript>
   <div class="wrap">
     <span class="eyebrow">Live Webinar</span>
     <h2>Get to know the deal before you commit.</h2>
-    <p class="lede stone-text">One hour, live, with time for questions. Tuesday, August 18, 2026.</p>
+    <p class="lede stone-text">One hour, live, with time for questions. Wednesday, August 26, 2026.</p>
     <div class="web-grid">
       <div class="web-col">
         <span class="web-col__k">What we cover about Montrose</span>
@@ -1212,9 +1212,9 @@ alt=""/></noscript>
       </div>
       <div class="web-aside">
 <button class="webinar-poster" type="button" data-webinar
-            aria-label="Register for The Big Reveal webinar, Tuesday 18 August 2026">
-      <img src="images/webinar-banner.jpg" width="1080" height="1350" loading="lazy" decoding="async"
-           alt="The Big Reveal: Meet Our Biggest Deal Yet. Speaker Dr. Nkem Ezeamama. Tuesday, August 18, 2026, 6:00 PM CST.">
+            aria-label="Register for the Montrose Berkeley Lake webinar, Wednesday 26 August 2026">
+      <img src="images/webinar-aug26.jpg" width="1080" height="1350" loading="lazy" decoding="async"
+           alt="The Big Deal Has a Name: Meet Montrose Berkeley Lake. Speaker Dr. Nkem Ezeamama. Wednesday, August 26, 2026, 6:00 PM CST.">
       <span class="webinar-poster__cta">Register for Webinar</span>
     </button>
       </div>
@@ -1730,8 +1730,8 @@ alt=""/></noscript>
 <div id="sticky-cta">
   <div class="wrap">
     <div class="info">
-      <span class="name">THE BIG REVEAL: Meet Our Biggest Deal Yet</span>
-      <span class="stat">Tuesday, August 18, 2026</span>
+      <span class="name">THE BIG DEAL HAS A NAME: Meet Montrose Berkeley Lake</span>
+      <span class="stat">Wednesday, August 26, 2026</span>
     </div>
     <div class="actions">
       <button class="btn btn-ghost cta-count" type="button" data-webinar>
@@ -1754,9 +1754,9 @@ alt=""/></noscript>
 <div class="wpop" id="webinar-pop" role="complementary" aria-label="Upcoming webinar">
   <button class="wpop__close" type="button" id="wpop-close" aria-label="Dismiss webinar reminder">&times;</button>
   <button class="wpop__inner" type="button" data-webinar
-          aria-label="Register for The Big Reveal webinar, Tuesday 18 August 2026">
-    <img src="images/webinar-banner.jpg" width="1080" height="1350" loading="lazy" decoding="async"
-         alt="The Big Reveal: Meet Our Biggest Deal Yet. Tuesday, August 18, 2026, 6:00 PM CST.">
+          aria-label="Register for the Montrose Berkeley Lake webinar, Wednesday 26 August 2026">
+    <img src="images/webinar-aug26.jpg" width="1080" height="1350" loading="lazy" decoding="async"
+         alt="The Big Deal Has a Name: Meet Montrose Berkeley Lake. Wednesday, August 26, 2026, 6:00 PM CST.">
     <span class="wpop__cta">Register for Webinar</span>
   </button>
 </div>
@@ -1787,8 +1787,8 @@ alt=""/></noscript>
 
     <div class="pb-webinar">
       <div class="pb-webinar__meta">
-        <span class="pb-webinar__name">THE BIG REVEAL: Meet Our Biggest Deal Yet</span>
-        <span class="pb-webinar__date">Tuesday, August 18, 2026</span>
+        <span class="pb-webinar__name">THE BIG DEAL HAS A NAME: Meet Montrose Berkeley Lake</span>
+        <span class="pb-webinar__date">Wednesday, August 26, 2026</span>
       </div>
       <div class="pb-webinar__right">
         <span class="pb-webinar__count">
@@ -2015,16 +2015,17 @@ alt=""/></noscript>
   })();
 
   // --- Webinar: countdown + ClickMeeting popup ---
-  // Tuesday 18 August 2026, 6:00 PM America/Chicago — read off the ClickMeeting
-  // registration page itself, so this matches what registrants are shown.
-  const WEBINAR_AT = new Date('2026-08-18T18:00:00-05:00');
+  // Wednesday 26 August 2026, 6:00 PM America/Chicago (7:00 ET / 4:00 PT) —
+  // read off the ClickMeeting room itself, so this matches what registrants
+  // are shown.
+  const WEBINAR_AT = new Date('2026-08-26T18:00:00-05:00');
   // The room is worth joining for an hour. After that the session is done and
   // every call to action on the page turns into the recording instead.
   const WEBINAR_ENDS_AT = new Date(WEBINAR_AT.getTime() + 60 * 60 * 1000);
   const REPLAY_URL = 'replay.html';
   // ClickMeeting's <script> embed only document.write()s this iframe, which
   // would blank the page after load, so the room URL is used directly.
-  const WEBINAR_URL = 'https://pheenyxcapital.clickmeeting.com/399262945?popup=off&lang=en&xlang=en';
+  const WEBINAR_URL = 'https://pheenyxcapital.clickmeeting.com/993691455?popup=off&lang=en&xlang=en';
 
   const countdownEls = document.querySelectorAll('[data-countdown]');
   const countBtn = document.querySelector('.cta-count');
@@ -2079,7 +2080,7 @@ alt=""/></noscript>
     if (stat) {
       stat.textContent = p === 'ended' ? 'Replay available now'
                        : p === 'live'  ? 'Happening now'
-                       : 'Tuesday, August 18, 2026';
+                       : 'Wednesday, August 26, 2026';
     }
   }
 

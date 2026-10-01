@@ -2025,17 +2025,75 @@ alt=""/></noscript>
   })();
 
   // --- Webinar: countdown + ClickMeeting popup ---
-  // Thursday 8 October 2026, 6:00 PM America/Chicago (7:00 ET / 4:00 PT) —
-  // read off the ClickMeeting room itself, so this matches what registrants
-  // are shown.
-  const WEBINAR_AT = new Date('2026-10-08T18:00:00-05:00');
+  /* Every session this page runs, oldest first. The markup ships carrying the
+     first one; each later session takes the page over at its own showFrom and
+     rewrites the eyebrow, the headline, the date, the flyer and the room on
+     its own, so a hand-off needs no edit on the day. The 27 October session
+     comes up 24 hours after the 8 October room opens.
+
+     Times are 6:00 PM America/Chicago (7:00 ET / 4:00 PT), read off the
+     ClickMeeting rooms themselves so they match what registrants are shown.
+     ClickMeeting's <script> embed only document.write()s its iframe, which
+     would blank the page after load, so each room URL is used directly. */
+  const SCHEDULE = [
+    {
+      at:   '2026-10-08T18:00:00-05:00',
+      url:  'https://pheenyxcapital.clickmeeting.com/271724324?popup=off&lang=en&xlang=en',
+      date: 'Thursday, October 8, 2026'
+      // everything else for this one is already in the markup
+    },
+    {
+      showFrom: '2026-10-09T18:00:00-05:00',
+      at:    '2026-10-27T18:00:00-05:00',
+      url:   'https://pheenyxcapital.clickmeeting.com/256178137?popup=off&lang=en&xlang=en',
+      date:  'Tuesday, October 27, 2026',
+      dateA: 'Tuesday 27 October 2026',
+      tag:   'Depreciation & Taxes',
+      name:  'DEPRECIATION: HOW IT CAN LOWER YOUR TAX BILL',
+      poster: 'images/webinar-oct27.jpg', posterW: 1080, posterH: 1350,
+      alt:   'Depreciation: How It Can Lower Your Tax Bill. How Does Montrose Berkeley Lake Play a Role? Speaker Dr Nkem Ezeamama, Founder and CEO of Pheenyx Capital. Tuesday, 27 October 2026, 6:00 PM CST, 7:00 PM EST, 4:00 PM PST. Free registration.'
+    }
+  ];
+
+  /* The latest session whose showFrom has passed. The first has none, so it
+     holds the page until the next one is due. */
+  function sessionNow(){
+    const now = new Date();
+    let pick = SCHEDULE[0];
+    SCHEDULE.forEach(s => { if (!s.showFrom || new Date(s.showFrom) <= now) pick = s; });
+    return pick;
+  }
+
+  let current = sessionNow();
+  let WEBINAR_AT = new Date(current.at);
   // The room is worth joining for an hour. After that the session is done and
   // every call to action on the page turns into the recording instead.
-  const WEBINAR_ENDS_AT = new Date(WEBINAR_AT.getTime() + 60 * 60 * 1000);
+  let WEBINAR_ENDS_AT = new Date(WEBINAR_AT.getTime() + 60 * 60 * 1000);
+  let WEBINAR_URL = current.url;
   const REPLAY_URL = 'replay.html';
-  // ClickMeeting's <script> embed only document.write()s this iframe, which
-  // would blank the page after load, so the room URL is used directly.
-  const WEBINAR_URL = 'https://pheenyxcapital.clickmeeting.com/271724324?popup=off&lang=en&xlang=en';
+
+  /* Swaps the page over to a session the markup was not written for. The one
+     already in the HTML carries no name, so this is a no-op for it. */
+  function applySession(s){
+    if (!s.name) return;
+    const write = (sel, v) => document.querySelectorAll(sel).forEach(el => el.textContent = v);
+    write('.hero-tag', s.tag);
+    write('#sticky-cta .info .name', s.name);
+    write('.pb-webinar__name', s.name);
+    write('.pb-webinar__date', s.date);
+    const lede = document.querySelector('#webinar .lede');
+    if (lede) lede.textContent = 'One hour, live, with time for questions. ' + s.date + '.';
+    document.querySelectorAll('.webinar-poster img, .wpop__inner img').forEach(img => {
+      img.src = s.poster; img.width = s.posterW; img.height = s.posterH; img.alt = s.alt;
+    });
+    /* dataset.label is the wording applyPhase() rewrites for the replay, so it
+       has to be reset here too or the old date would come back after the hour. */
+    const label = 'Register for the Montrose Berkeley Lake webinar, ' + s.dateA;
+    document.querySelectorAll('.webinar-poster, .wpop__inner').forEach(el => {
+      el.setAttribute('aria-label', label);
+      el.dataset.label = label;
+    });
+  }
 
   const countdownEls = document.querySelectorAll('[data-countdown]');
   const countBtn = document.querySelector('.cta-count');
@@ -2090,13 +2148,26 @@ alt=""/></noscript>
     if (stat) {
       stat.textContent = p === 'ended' ? 'Replay available now'
                        : p === 'live'  ? 'Happening now'
-                       : 'Thursday, October 8, 2026';
+                       : current.date;
     }
   }
 
   let lastPhase = null;
 
   function tickCountdown(){
+    const sess = sessionNow();           // `s` further down is the countdown seconds
+    if (sess !== current) {              // a session handed over mid-visit
+      current = sess;
+      WEBINAR_AT = new Date(sess.at);
+      WEBINAR_ENDS_AT = new Date(WEBINAR_AT.getTime() + 60 * 60 * 1000);
+      WEBINAR_URL = sess.url;
+      // looked up here rather than closed over: the modal is built further down
+      const frame = document.getElementById('webinar-frame');
+      if (frame) frame.innerHTML = '';    // the next open loads the new room
+      applySession(sess);
+      lastPhase = null;                   // force the labels back through applyPhase
+    }
+
     const p = phase();
     if (p !== lastPhase) { applyPhase(p); lastPhase = p; }
 
@@ -2119,6 +2190,7 @@ alt=""/></noscript>
     // always show seconds so the clock visibly ticks
     countdownEls.forEach(el => el.textContent = `${pad(d)}d ${pad(h)}h ${pad(m)}m ${pad(s)}s`);
   }
+  applySession(current);
   tickCountdown();
   setInterval(tickCountdown, 1000);
 
